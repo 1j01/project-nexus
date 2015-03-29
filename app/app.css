@@ -1,13 +1,10 @@
 
 html, body {
 	font-family: sans-serif;
-	padding: 0;
-	margin: 0;
-	width: 100%;
 	height: 100%;
 }
 
-body, body * {
+html, body, body * {
 	display: flex;
 	flex: 1;
 	flex-direction: column;
@@ -19,13 +16,6 @@ main {
 	flex-direction: row;
 }
 
-ul, li {
-	list-style: none;
-	text-indent: 0;
-	margin: 0;
-	padding: 0;
-}
-
 header, li {
 	padding: 5px;
 	flex: 0;
@@ -34,6 +24,7 @@ header, li {
 	flex-direction: row;
 }
 li {
+	list-style: none;
 	padding: 0;
 }
 li > * {
@@ -42,18 +33,17 @@ li > * {
 button {
 	flex: 0;
 	flex-basis: auto;
-	padding: 0px;
-	padding: 7px;
 }
-button.start,
-button.start span {
+li > button,
+li > button span {
 	height: 100%;
 	line-height: 1;
 }
-button.start {
+li > button {
 	background: 0;
+	color: inherit;
 	border: 0;
-	/*margin-right: 10px;*/
+	padding: 7px;
 	-webkit-transform: rotate(0.25turn);
 }
 ul {
@@ -62,16 +52,13 @@ ul {
 
 li:hover,
 li:focus {
-	/*background: #FDECEB;*/
 	background: rgba(25, 121, 202, 0.1);
 }
 li:active {
-	/*background: rgba(229, 60, 54, 0.35);*/
 	background: rgba(25, 121, 202, 0.3);
 }
 li.active {
-	/*background: #1979CA;*/
-	background: rgba(25, 121, 202, 1);
+	background: #328EFE;
 	color: white;
 }
 
@@ -85,10 +72,6 @@ header {
 	padding: 5px;
 }
 
-/*::selection {
-	background: #ECA6A4;
-}*/
-
 * {
 	-webkit-user-select: none;
 	cursor: default;
@@ -96,18 +79,15 @@ header {
 input,
 textarea,
 [contenteditable],
-p,
-p > span,
-code,
-code > span,
-pre,
-pre > span {
+p, p > span,
+code, code > span,
+pre, pre > span {
 	-webkit-user-select: text;
 	cursor: text;
 }
 pre {
-	background: black;
-	color: white;
+	background: white;
+	color: black;
 	tab-size: 2;
 }
 
