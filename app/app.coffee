@@ -2,6 +2,8 @@
 gui = require "nw.gui"
 win = window.win = gui.Window.get()
 
+{exec, spawn} = require "child_process"
+
 E = ReactScript
 {Component} = React
 
@@ -32,9 +34,20 @@ class ProjectsList extends Component
 class ProjectListItem extends Component
 	render: ->
 		{project} = @props
-		{full_path, fname, pkg} = project
+		{path, fname, pkg} = project
 		name = fname
 		id = fname
+		
+		stop = ->
+			if project.process
+				if pkg.scripts?.stop
+					exec "npm stop", cwd: path
+				else
+					if process.platform is "win32"
+						spawn "taskkill", ["/pid", project.process.pid, "/f", "/t"]
+					else
+						project.process.kill()
+			return
 		
 		if pkg
 			start_command = "npm start"
@@ -46,22 +59,31 @@ class ProjectListItem extends Component
 					start_command
 			
 			start = ->
-				{exec} = require "child_process"
-				exec start_command, cwd: full_path
+				unless project.process
+					render project.process = exec start_command, cwd: path
+					project.process.on "exit", (code, signal)->
+						render project.process = null
+				return
 			
 		else
 			start_info = "no start command"
 		
-		
 		E "li.project",
-			title: full_path
+			title: path
 			class: ("active" if active_project_id is id)
 			onClick: -> render active_project_id = id
-			E "button.start",
-				onClick: start
-				disabled: not start
-				title: start_info
-				"▲" # rotated
+			if project.process
+				E "button.stop",
+					onClick: stop
+					disabled: not project.process
+					title: start_info.replace "npm start", "kill"
+					"■" # [rotated]
+			else
+				E "button.start",
+					onClick: start
+					disabled: not start
+					title: start_info
+					"▲" # {rotated}
 			E "span.project-name", name
 
 
@@ -101,12 +123,12 @@ do read_projects_dir = ->
 	fs.readdir projects_dir, (err, fnames)->
 		projects = []
 		for fname in fnames
-			full_path = join projects_dir, fname
-			stats = fs.statSync full_path
+			path = join projects_dir, fname
+			stats = fs.statSync path
 			if stats.isDirectory()
-				project = {id: fname, fname, full_path}
+				project = {id: fname, fname, path}
 				try
-					project.package_json_path = join full_path, "package.json"
+					project.package_json_path = join path, "package.json"
 					project.package_json = fs.readFileSync project.package_json_path, "utf8"
 					project.pkg = JSON.parse project.package_json
 				projects.push project
