@@ -46,6 +46,9 @@ li > button {
 	padding: 7px;
 	-webkit-transform: rotate(0.25turn);
 }
+[disabled] {
+	opacity: 0.2;
+}
 ul {
 	overflow: auto;
 }
@@ -89,5 +92,6 @@ pre {
 	background: white;
 	color: black;
 	tab-size: 2;
+	overflow: auto;
 }
 
