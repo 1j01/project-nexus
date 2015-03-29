@@ -1,0 +1,36 @@
+{
+  "name": "project-nexus",
+  "description": "A hub for all your programming projects",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/1j01/project-nexus.git"
+  },
+  "bugs": {
+    "url": "http://github.com/1j01/project-nexus/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "project",
+    "projects",
+    "nexus",
+    "hub",
+    "npm",
+    "node-webkit",
+    "nw.js",
+    "nwjs",
+    "nw",
+    "app",
+    "desktop",
+    "dev",
+    "developer",
+    "programming",
+    "coding"
+  ],
+  "main": "app.html",
+  "window": {
+    "title": "Project Nexus",
+    "toolbar": false,
+    "show": true
+  }
+}
