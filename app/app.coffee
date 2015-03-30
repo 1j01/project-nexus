@@ -35,9 +35,8 @@ class ProjectsList extends Component
 class ProjectListItem extends Component
 	render: ->
 		{project} = @props
-		{path, fname, pkg} = project
-		name = fname
-		id = fname
+		{id, path, dirname, pkg} = project
+		name = dirname
 		
 		stop = ->
 			if project.process
@@ -137,7 +136,7 @@ do read_projects_dir = ->
 			path = join projects_dir, fname
 			stats = fs.statSync path
 			if stats.isDirectory()
-				project = {id: fname, fname, path}
+				project = {id: fname, dirname: fname, path}
 				try
 					project.package_json_path = join path, "package.json"
 					project.package_json = fs.readFileSync project.package_json_path, "utf8"
