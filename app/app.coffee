@@ -2,27 +2,40 @@
 gui = require "nw.gui"
 win = window.win = gui.Window.get()
 
+fs = require "fs"
+{join} = require "path"
+
 {exec, spawn} = require "child_process"
 we_have_to_deal_with_Windows = process.platform is "win32"
 
 E = ReactScript
 {Component} = React
 
+projects = []
+projects_read_error = null
 active_project_id = null
+
+settings_open = no
 
 class App extends Component
 	render: ->
-		{projects} = @props
+		{projects, projects_read_error} = @props
 		
 		for project in projects
 			if project.id is active_project_id
 				active_project = project
 		
 		E "div.app",
-			E "header", "Project Nexus"
+			E "header",
+				E "h1", "Project Nexus"
+				E "button",
+					onClick: Settings.show
+					title: "@TODO: gear icon"
+					"Settings"
 			E "main",
-				E ProjectsList, projects: projects
+				E ProjectsList, {projects, projects_read_error}
 				E ProjectDetails, project: active_project
+			E Settings
 
 
 class ProjectsList extends Component
@@ -46,9 +59,15 @@ class ProjectsList extends Component
 				when 38 then go -1 # up
 				when 40 then go +1 # down
 	render: ->
-		E "ul.projects",
-			for project in @props.projects
-				E ProjectListItem, {project}
+		{projects, projects_read_error} = @props
+		if projects_read_error
+			E ".projects-read-error",
+				E "p.error", "Failed to read projects from projects directory."
+				E "p.subtle-error", projects_read_error.message
+		else
+			E "ul.projects",
+				for project in projects
+					E ProjectListItem, {project}
 
 
 class ProjectListItem extends Component
@@ -143,21 +162,57 @@ class ProjectDetails extends Component
 					# @TODO: Hey! Lighten up.
 					"Hey! Select a damn project."
 
-# @TODO: configuration
-projects_dir = "C:\\Users\\Isaiah\\!!Projects\\"
 
-fs = require "fs"
-{join} = require "path"
+class Settings
+	@show: ->
+		render settings_open = yes
+	
+	@hide: ->
+		render settings_open = no
+	
+	@get: (key)->
+		try JSON.parse localStorage.getItem key
+		catch e then console.log e
+	
+	@set: (key, value)->
+		try localStorage.setItem key, JSON.stringify value
+		catch e then console.log e
+	
+	render: ->
+		E ".settings-container", class: {visible: settings_open},
+			E ".overlay", onClick: Settings.hide
+			E ".settings",
+				E "label",
+					"Projects Directory:"
+					E "input",
+						value: Settings.get "projects_dir"
+						onChange: (e)=>
+							console.log "set", "projects_dir", e.target.value
+							render Settings.set "projects_dir", e.target.value
+							do read_projects_dir
 
-projects = []
 
 do render = ->
-	React.render (E App, {projects, active_id: active_project_id}), document.body
+	e = E App, {
+		projects
+		projects_read_error
+		active_id: active_project_id
+	}
+	React.render e, document.body
+
 
 # @TODO: watch this directory
 # but don't overwrite the state in the project objects!
 do read_projects_dir = ->
+	projects_dir = Settings.get "projects_dir"
+	if not projects_dir
+		Settings.show()
 	fs.readdir projects_dir, (err, fnames)->
+		projects_read_error = err
+		if err
+			Settings.show()
+			render()
+			return
 		projects = []
 		for fname in fnames
 			path = join projects_dir, fname

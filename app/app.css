@@ -58,14 +58,41 @@ button.stop > span {
 button.start > span {
 	-webkit-transform: rotate(0.25turn) scale(0.8);
 }
+header button {
+	background: none;
+	color: inherit;
+	border: 0;
+	font-size: 32px;
+}
+header button > span {
+	/* @TODO: gear icon */
+	-webkit-transform-origin: 90% center;
+	-webkit-transform: translateY(0px) scale(0.5);
+}
+
+
 [disabled] {
 	opacity: 0.1;
 }
 ul {
 	overflow: auto;
+}
+.projects,
+.projects-read-error {
 	flex-basis: auto;
 	flex-shrink: 10;
 	flex-grow: 0.1;
+}
+.projects-read-error {
+	padding: 15px;
+	text-align: center;
+}
+.error {
+	color: red;
+}
+.subtle-error {
+	font-family: monospace;
+	color: #aaa;
 }
 
 li:hover,
@@ -108,5 +135,43 @@ pre {
 	color: black;
 	tab-size: 2;
 	overflow: auto;
+}
+
+.settings-container,
+.overlay {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+.overlay {
+	background: rgba(0, 0, 0, 0.3);
+}
+.settings {
+	position: absolute;
+	left: 15%;
+	right: 15%;
+	top: 15%;
+	bottom: 15%;
+	padding: 15px;
+	background: white;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+	border-radius: 2px;
+}
+.settings-container,
+.settings,
+.overlay {
+	transition: all .2s ease;
+}
+.settings-container:not(.visible) {
+	pointer-events: none;
+	opacity: 0;
+}
+.settings-container:not(.visible) .settings {
+	-webkit-transform: scale(0.8);
+}
+.settings > * {
+	display: initial;
 }
 
