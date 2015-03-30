@@ -31,6 +31,6 @@
   "window": {
     "title": "Project Nexus",
     "toolbar": false,
-    "show": true
+    "show": false
   }
 }

@@ -88,6 +88,12 @@ class ProjectListItem extends Component
 					# @TODO: handle/display process output
 				return
 			
+		else if project.index_html
+			# @TODO: HTTP server
+			# @TODO: Live reload
+			start = ->
+				gui.Shell.openExternal "file://#{project.index_html}"
+			start_info = "open index.html"
 		else
 			start_info = "no start command"
 		
@@ -162,6 +168,14 @@ do read_projects_dir = ->
 					project.package_json_path = join path, "package.json"
 					project.package_json = fs.readFileSync project.package_json_path, "utf8"
 					project.pkg = JSON.parse project.package_json
+				try
+					project.readme_path = join path, "README.md"
+					project.readme_md = fs.readFileSync project.readme_path, "utf8"
+				index_html = join path, "index.html"
+				if fs.existsSync index_html
+					project.index_html = index_html
 				projects.push project
 		
 		do render
+
+win.show()
