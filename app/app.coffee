@@ -3,6 +3,7 @@ gui = require "nw.gui"
 win = window.win = gui.Window.get()
 
 {exec, spawn} = require "child_process"
+we_have_to_deal_with_Windows = process.platform is "win32"
 
 E = ReactScript
 {Component} = React
@@ -56,16 +57,18 @@ class ProjectListItem extends Component
 		{id, path, dirname, pkg} = project
 		name = dirname
 		
-		stop = ->
-			if project.process
-				if pkg.scripts?.stop
-					exec "npm stop", cwd: path
-				else
-					if process.platform is "win32"
+		if pkg?.scripts?.stop
+			stop = ->
+				exec "npm stop", cwd: path
+				return
+		else
+			stop = ->
+				if project.process
+					if we_have_to_deal_with_Windows
 						spawn "taskkill", ["/pid", project.process.pid, "/f", "/t"]
 					else
 						project.process.kill()
-			return
+				return
 		
 		# @TODO: multiple commands
 		if pkg
