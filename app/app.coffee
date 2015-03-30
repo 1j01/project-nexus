@@ -25,6 +25,7 @@ class App extends Component
 
 
 class ProjectsList extends Component
+	# @TODO: keyboard support
 	render: ->
 		E "ul.projects",
 			for project in @props.projects
@@ -49,6 +50,7 @@ class ProjectListItem extends Component
 						project.process.kill()
 			return
 		
+		# @TODO: multiple commands
 		if pkg
 			start_command = "npm start"
 			
@@ -63,6 +65,7 @@ class ProjectListItem extends Component
 					render project.process = exec start_command, cwd: path
 					project.process.on "exit", (code, signal)->
 						render project.process = null
+					# @TODO: handle/display process output
 				return
 			
 		else
@@ -83,6 +86,7 @@ class ProjectListItem extends Component
 					onClick: start
 					disabled: not start
 					title: start_info
+					# @TODO: find a better triangle
 					"▲" # {rotated}
 			E "span.project-name", name
 
@@ -93,6 +97,9 @@ class ProjectDetails extends Component
 		if project
 			{package_json} = project
 			E "pre", package_json
+			# @TODO: full terminal
+			# @TODO: package.json editor
+			# @TODO: README.md editor
 		else
 			E "div",
 				style:
@@ -107,8 +114,10 @@ class ProjectDetails extends Component
 						textAlign: "center"
 						fontSize: "1.5em"
 						height: "auto"
+					# @TODO: Hey! Lighten up.
 					"Hey! Select a damn project."
 
+# @TODO: configuration
 projects_dir = "C:\\Users\\Isaiah\\!!Projects\\"
 
 fs = require "fs"
@@ -119,6 +128,8 @@ projects = []
 do render = ->
 	React.render (E App, {projects, active_id: active_project_id}), document.body
 
+# @TODO: watch this directory
+# but don't overwrite the state in the project objects!
 do read_projects_dir = ->
 	fs.readdir projects_dir, (err, fnames)->
 		projects = []
