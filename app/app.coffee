@@ -45,7 +45,7 @@ class ProjectsList extends Component
 				if project.id is active_project_id
 					active_project_i = i
 			active_project_i += delta
-			if "wrapping" is "cool"
+			if Settings.get "list_wrap"
 				active_project = projects[active_project_i %% projects.length]
 				render active_project_id = active_project.id
 			else
@@ -172,33 +172,55 @@ class Settings
 	
 	@get: (key)->
 		try JSON.parse localStorage.getItem key
-		catch e then console.log e
+		catch e then console.warn e
 	
 	@set: (key, value)->
 		try localStorage.setItem key, JSON.stringify value
-		catch e then console.log e
+		catch e then console.warn e
 	
 	render: ->
+		# labeled = (label, el)->
+		# 	E "label",
+		# 		"#{label}:"
+		# 		el
+		
+		text_input = (setting, label, onChange)->
+			# labeled label,
+			E "label.setting",
+				"#{label}:"
+				E "input",
+					value: Settings.get setting
+					onChange: (e)=>
+						Settings.set setting, e.target.value
+						onChange?()
+						render()
+		
+		checkbox = (setting, label, onChange)->
+			# labeled label,
+			E "label.setting",
+				E "input",
+					type: "checkbox"
+					checked: Settings.get setting
+					onChange: (e)=>
+						Settings.set setting, e.target.checked
+						onChange?()
+						render()
+				label
+		
 		E ".settings-container", class: {visible: settings_open},
 			E ".overlay", onClick: Settings.hide
 			E ".settings",
-				E "label",
-					"Projects Directory:"
-					E "input",
-						value: Settings.get "projects_dir"
-						onChange: (e)=>
-							console.log "set", "projects_dir", e.target.value
-							render Settings.set "projects_dir", e.target.value
-							do read_projects_dir
-
+				text_input "projects_dir", "Projects Directory", read_projects_dir
+				checkbox "list_wrap", "Enable wrapping in projects list when using keyboard navigation"
+				# @TODO: close button
 
 do render = ->
-	e = E App, {
+	el = E App, {
 		projects
 		projects_read_error
 		active_id: active_project_id
 	}
-	React.render e, document.body
+	React.render el, document.body
 
 
 # @TODO: watch this directory

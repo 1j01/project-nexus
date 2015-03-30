@@ -4,7 +4,7 @@ html, body {
 	height: 100%;
 }
 
-html, body, body * {
+html, body, body, .app, header, main, header *, main * {
 	display: flex;
 	flex: 1;
 	flex-direction: column;
@@ -171,7 +171,16 @@ pre {
 .settings-container:not(.visible) .settings {
 	-webkit-transform: scale(0.8);
 }
-.settings > * {
-	display: initial;
+.setting {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+}
+.setting * {
+	padding: 5px;
+}
+.setting input:not([type]),
+.setting input[type=text] {
+	flex: 1;
 }
 
