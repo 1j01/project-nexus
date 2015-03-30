@@ -100,7 +100,7 @@ class ProjectListItem extends Component
 					onClick: stop
 					disabled: not project.process
 					title: start_info.replace "npm start", "kill"
-					"■" # [rotated]
+					"■"
 			else
 				E "button.start",
 					onClick: start
