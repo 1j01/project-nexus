@@ -10,15 +10,22 @@ Do you find yourself opening and closing lots of
 * terminals / shitty command windows
 * and code editors?
 
-Maybe you don't need to close all of these things exactly,
+Maybe you don't need to *close* all of these things,
 but there are still many repetitive steps involved in switching projects.
 
-Do you find yourself switching to your terminal or shitty command window and hitting
+Do you find yourself switching to your terminal
+or shitty outdated command window
+and hitting
 <kbd>Ctrl+C</kbd> +
 <kbd>˄</kbd> +
-<kbd>Enter</kbd>?
+<kbd>Enter</kbd>
+to restart?
 
 No more!
+Well, once I make this thing that is.
+So far I've got a list of projects,
+where each project containing a `package.json` file
+has an [`npm start` / `npm stop` / kill process] button.
 
 
 _Built with [nw.js](http://nwjs.io/)_
