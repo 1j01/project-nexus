@@ -25,7 +25,25 @@ class App extends Component
 
 
 class ProjectsList extends Component
-	# @TODO: keyboard support
+	constructor: ->
+		go = (delta)->
+			for project, i in projects
+				if project.id is active_project_id
+					active_project_i = i
+			active_project_i += delta
+			if "wrapping" is "cool"
+				active_project = projects[active_project_i %% projects.length]
+				render active_project_id = active_project.id
+			else
+				active_project = projects[active_project_i]
+				if active_project
+					render active_project_id = active_project.id
+		
+		window.addEventListener "keydown", (e)->
+			# console.log e.keyCode
+			switch e.keyCode
+				when 38 then go -1 # up
+				when 40 then go +1 # down
 	render: ->
 		E "ul.projects",
 			for project in @props.projects
