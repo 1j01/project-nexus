@@ -44,20 +44,29 @@ class ProjectsList extends Component
 			for project, i in projects
 				if project.id is active_project_id
 					active_project_i = i
+			
 			active_project_i += delta
+			
+			activate = (project)->
+				if project
+					active_project = project
+					active_project_id = project.id
+					render()
+					# document.querySelector(".active.project").scrollIntoView()
+					document.querySelector(".active.project").scrollIntoViewIfNeeded()
+			
 			if Settings.get "list_wrap"
-				active_project = projects[active_project_i %% projects.length]
-				render active_project_id = active_project.id
+				activate projects[active_project_i %% projects.length]
 			else
-				active_project = projects[active_project_i]
-				if active_project
-					render active_project_id = active_project.id
+				activate projects[active_project_i]
 		
 		window.addEventListener "keydown", (e)->
 			# console.log e.keyCode
 			switch e.keyCode
 				when 38 then go -1 # up
 				when 40 then go +1 # down
+				else return
+			e.preventDefault()
 	render: ->
 		{projects, projects_read_error} = @props
 		if projects_read_error
