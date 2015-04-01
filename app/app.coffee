@@ -3,7 +3,7 @@ gui = require "nw.gui"
 win = window.win = gui.Window.get()
 
 fs = require "fs"
-{join} = require "path"
+{join, resolve} = require "path"
 
 {exec, spawn} = require "child_process"
 we_have_to_deal_with_Windows = process.platform is "win32"
@@ -237,7 +237,13 @@ do render = ->
 do read_projects_dir = ->
 	projects_dir = Settings.get "projects_dir"
 	if not projects_dir
+		projects_read_error = new Error "No projects directory!"
 		Settings.show()
+		render()
+		return
+	
+	projects_dir = resolve projects_dir
+	
 	fs.readdir projects_dir, (err, fnames)->
 		projects_read_error = err
 		if err
