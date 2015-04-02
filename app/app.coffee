@@ -30,8 +30,7 @@ class App extends Component
 				E "h1", "Project Nexus"
 				E "button",
 					onClick: Settings.show
-					title: "@TODO: gear icon"
-					"Settings"
+					E "i.mega-octicon.octicon-gear"
 			E "main",
 				E ProjectsList, {projects, projects_read_error}
 				E ProjectDetails, project: active_project
@@ -98,6 +97,8 @@ class ProjectListItem extends Component
 						project.process.kill()
 				return
 		
+		start_icon = "octicon-playback-play"
+		
 		# @TODO: multiple commands
 		if pkg
 			start_command = "npm start"
@@ -122,6 +123,7 @@ class ProjectListItem extends Component
 			start = ->
 				gui.Shell.openExternal "file://#{project.index_html}"
 			start_info = "open index.html"
+			start_icon = "octicon-globe"
 		else
 			start_info = "no start command"
 		
@@ -134,14 +136,13 @@ class ProjectListItem extends Component
 					onClick: stop
 					disabled: not project.process
 					title: start_info.replace "npm start", "kill"
-					"■"
+					E "i.mega-octicon.octicon-primitive-square"
 			else
 				E "button.start",
 					onClick: start
 					disabled: not start
 					title: start_info
-					# @TODO: find a better triangle
-					"▲" # {rotated}
+					E "i.mega-octicon.#{start_icon}"
 			E "span.project-name", name
 
 

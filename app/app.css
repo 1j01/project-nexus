@@ -51,23 +51,13 @@ li > button {
 button > span {
 	line-height: 1;
 }
-/* @TODO: use an icon font */
-button.stop > span {
-	-webkit-transform: translateY(-4.5px) scale(1.2);
-}
-button.start > span {
-	-webkit-transform: rotate(0.25turn) scale(0.8);
-}
 header button {
 	background: none;
 	color: inherit;
 	border: 0;
-	font-size: 32px;
 }
-header button > span {
-	/* @TODO: gear icon */
-	-webkit-transform-origin: 90% center;
-	-webkit-transform: translateY(0px) scale(0.5);
+header .octicon-gear:before {
+	vertical-align: middle;
 }
 
 
