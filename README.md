@@ -22,10 +22,27 @@ and hitting
 to restart?
 
 No more!
-Well, once I make this thing that is.
-So far I've got a list of projects,
-where each project containing a `package.json` file
-has an [`npm start` / `npm stop` / kill process] button.
+Well, it's a work in projects.
+I mean, progress.
+Currently it doesn't really help you switch projects.
+
+So far,
+there's a settings modal where you choose a projects directory,
+and then it finds all the sudirectories and assumes these are your projects.
+
+If a project has a `package.json` file,
+the listing is given a button to `npm start` the project,
+and to `npm stop` it if there happens to be a `stop` script,
+otherwise kill the process.
+
+If there's no `package.json`, it'll give you a button to open `index.html`.
+
+If there's neither, ya get naught.
+
+I'm open to extending it with different openers.
+(I'll probably try to modularize this!)
+After all, even I have a python project or two.
+Or one, but you get the idea.
 
 
 _Built with [nw.js](http://nwjs.io/)_
