@@ -17,7 +17,7 @@ projects = []
 projects_read_error = null
 active_project_id = null
 
-settings_open = no
+Settings.open = no
 
 class App extends Component
 	render: ->
@@ -122,56 +122,6 @@ class ProjectDetails extends Component
 					"Hey! Select a damn project."
 
 
-class Settings
-	@show: ->
-		render settings_open = yes
-	
-	@hide: ->
-		render settings_open = no
-	
-	@get: (key)->
-		try JSON.parse localStorage.getItem key
-		catch e then console.warn e
-	
-	@set: (key, value)->
-		try localStorage.setItem key, JSON.stringify value
-		catch e then console.warn e
-	
-	render: ->
-		# labeled = (label, el)->
-		# 	E "label",
-		# 		"#{label}:"
-		# 		el
-		
-		text_input = (setting, label, onChange)->
-			# labeled label,
-			E "label.setting",
-				"#{label}:"
-				E "input",
-					value: Settings.get setting
-					onChange: (e)=>
-						Settings.set setting, e.target.value
-						onChange?()
-						render()
-		
-		checkbox = (setting, label, onChange)->
-			# labeled label,
-			E "label.setting",
-				E "input",
-					type: "checkbox"
-					checked: Settings.get setting
-					onChange: (e)=>
-						Settings.set setting, e.target.checked
-						onChange?()
-						render()
-				label
-		
-		E ".settings-container", class: {visible: settings_open},
-			E ".overlay", onClick: Settings.hide
-			E ".settings",
-				text_input "projects_dir", "Projects Directory", read_projects_dir
-				checkbox "list_wrap", "Enable wrapping in projects list when using keyboard navigation"
-				# @TODO: close button
 
 do @render = ->
 	el = E App, {
@@ -184,7 +134,7 @@ do @render = ->
 
 # @TODO: watch this directory
 # but don't overwrite the state in the mutated project objects!
-do read_projects_dir = ->
+do @read_projects_dir = ->
 	projects_dir = Settings.get "projects_dir"
 	if not projects_dir
 		projects_read_error = new Error "No projects directory!"
