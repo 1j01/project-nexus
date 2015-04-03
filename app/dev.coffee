@@ -23,6 +23,10 @@ if process?
 			watcher.close()
 			console.log 'change', path
 			nwwin.closeDevTools()
+			# this could cause issues in obscure cases
+			# where the cache is relied upon in a separate page/context
+			for own k of global.require.cache
+				delete global.require.cache[k]
 			location?.reload()
 	catch e
 		console.warn "Live reload disabled:", e.stack

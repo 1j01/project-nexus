@@ -36,5 +36,8 @@
     "chokidar": "^0.12.5",
     "coffee-script": "^1.9.1",
     "node-webkit-builder": "^1.0.10"
+  },
+  "dependencies": {
+    "glob": "^5.0.3"
   }
 }

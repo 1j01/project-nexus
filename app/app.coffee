@@ -2,11 +2,13 @@
 gui = require "nw.gui"
 win = window.win = gui.Window.get()
 
-fs = require "fs"
 {join, resolve} = require "path"
+fs = require "fs"
 
-{exec, spawn} = require "child_process"
-we_have_to_deal_with_Windows = process.platform is "win32"
+require "coffee-script/register"
+launchers =
+	for fname in fs.readdirSync "./launchers"
+		require "./launchers/#{fname}"
 
 E = ReactScript
 {Component} = React
@@ -81,69 +83,16 @@ class ProjectsList extends Component
 class ProjectListItem extends Component
 	render: ->
 		{project} = @props
-		{id, path, dirname, pkg} = project
-		name = dirname
-		
-		if pkg?.scripts?.stop
-			stop = ->
-				exec "npm stop", cwd: path
-				return
-		else
-			stop = ->
-				if project.process
-					if we_have_to_deal_with_Windows
-						spawn "taskkill", ["/pid", project.process.pid, "/f", "/t"]
-					else
-						project.process.kill()
-				return
-		
-		start_icon = "octicon-playback-play"
-		
-		# @TODO: multiple commands
-		if pkg
-			start_command = "npm start"
-			
-			start_info =
-				if pkg.scripts?.start
-					"#{start_command} (#{pkg.scripts.start})"
-				else
-					start_command
-			
-			start = ->
-				unless project.process
-					render project.process = exec start_command, cwd: path
-					project.process.on "exit", (code, signal)->
-						render project.process = null
-					# @TODO: handle/display process output
-				return
-			
-		else if project.index_html
-			# @TODO: HTTP server
-			# @TODO: Live reload
-			start = ->
-				gui.Shell.openExternal "file://#{project.index_html}"
-			start_info = "open index.html"
-			start_icon = "octicon-globe"
-		else
-			start_info = "no start command"
+		{id, path, dirname, name, pkg} = project
 		
 		E "li.project",
 			title: path
 			class: ("active" if active_project_id is id)
 			onClick: -> render active_project_id = id
-			if project.process
-				E "button.stop",
-					onClick: stop
-					disabled: not project.process
-					title: start_info.replace "npm start", "kill"
-					E "i.mega-octicon.octicon-primitive-square"
-			else
-				E "button.start",
-					onClick: start
-					disabled: not start
-					title: start_info
-					E "i.mega-octicon.#{start_icon}"
 			E "span.project-name", name
+			# project.launchers
+			for launcher_module in launchers
+				(launcher_module project) ? E "button", disabled: yes, style: pointerEvents: "none"
 
 
 class ProjectDetails extends Component
@@ -224,7 +173,7 @@ class Settings
 				checkbox "list_wrap", "Enable wrapping in projects list when using keyboard navigation"
 				# @TODO: close button
 
-do render = ->
+do @render = ->
 	el = E App, {
 		projects
 		projects_read_error
@@ -234,7 +183,7 @@ do render = ->
 
 
 # @TODO: watch this directory
-# but don't overwrite the state in the project objects!
+# but don't overwrite the state in the mutated project objects!
 do read_projects_dir = ->
 	projects_dir = Settings.get "projects_dir"
 	if not projects_dir
@@ -256,17 +205,25 @@ do read_projects_dir = ->
 			path = join projects_dir, fname
 			stats = fs.statSync path
 			if stats.isDirectory()
-				project = {id: fname, dirname: fname, path}
+				project = {id: fname, dirname: fname, name: fname, path}
+				
 				try
-					project.package_json_path = join path, "package.json"
-					project.package_json = fs.readFileSync project.package_json_path, "utf8"
+					package_json_path = join path, "package.json"
+					project.package_json = fs.readFileSync package_json_path, "utf8"
 					project.pkg = JSON.parse project.package_json
-				try
-					project.readme_path = join path, "README.md"
-					project.readme_md = fs.readFileSync project.readme_path, "utf8"
-				index_html = join path, "index.html"
-				if fs.existsSync index_html
-					project.index_html = index_html
+				
+				# try
+				# 	project.readme_path = join path, "README.md"
+				# 	project.readme_md = fs.readFileSync project.readme_path, "utf8"
+				
+				# index_html = join path, "index.html"
+				# if fs.existsSync index_html
+				# 	project.index_html = index_html
+				
+				# project.launchers =
+				# 	for launcher_module in launchers
+				# 		(launcher_module project) ? E "button", disabled: yes, style: pointerEvents: "none"
+				
 				projects.push project
 		
 		do render
