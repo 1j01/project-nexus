@@ -152,14 +152,23 @@ pre {
 .settings-container,
 .settings,
 .overlay {
-	transition: all .2s ease;
+	transition: all 0.5s ease;
 }
 .settings-container:not(.visible) {
 	pointer-events: none;
 	opacity: 0;
 }
+.settings-container {
+	perspective: 5000px;
+	overflow: hidden;
+}
 .settings-container:not(.visible) .settings {
-	-webkit-transform: scale(0.8);
+	/*-webkit-transform: scale(0.9) rotateY(-50deg) translate(350px, -100px);*/
+	/*-webkit-transform: translate(350px, -200px) scale(0.4) rotateY(-50deg);*/
+	/*-webkit-transform: scale(0.9) rotateZ(-5deg) rotateX(-50deg) rotateY(-50deg);*/
+	/*-webkit-transform: scale(0.9) rotateX(200deg);*/
+	-webkit-transform: scale(1.5) rotateY(0.5turn);
+	/*-webkit-transform: scale(1.5) rotateX(1turn);*/
 }
 .setting {
 	display: flex;
