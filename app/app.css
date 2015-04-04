@@ -37,10 +37,14 @@ button {
 	flex: 0;
 	flex-basis: auto;
 }
-li > button {
+header button,
+h2 button,
+li button {
 	background: none;
 	color: inherit;
 	border: 0;
+}
+li > button {
 	padding: 0;
 	width: 32px;
 	height: 32px;
@@ -50,11 +54,6 @@ li > button {
 }
 button > span {
 	line-height: 1;
-}
-header button {
-	background: none;
-	color: inherit;
-	border: 0;
 }
 header .octicon-gear:before {
 	vertical-align: middle;
@@ -148,6 +147,11 @@ pre {
 	background: white;
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 	border-radius: 2px;
+}
+.settings h2 {
+	margin-top: 0;
+	/*padding-bottom: 2px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);*/
 }
 .settings-container,
 .settings,

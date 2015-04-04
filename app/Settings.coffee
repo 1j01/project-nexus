@@ -104,6 +104,14 @@ class @Settings
 		E ".settings-container", class: {visible: Settings.open},
 			E ".overlay", onClick: Settings.hide
 			E ".settings",
+				E "h2",
+					E "i.mega-octicon.octicon-gear"
+					" Settings"
+					E "button",
+						style: float: "right"
+						onClick: Settings.hide
+						E "i.octicon.octicon-x"
+				
 				# @TODO: auto detect common project superdirectories
 				# such as from Github for Windows
 				# or simple things like %USER%/Code or ~/code
@@ -114,4 +122,3 @@ class @Settings
 				E CheckboxSetting,
 					setting: "list_wrap"
 					label: "Enable wrapping in projects list when using keyboard navigation"
-				# @TODO: close button
