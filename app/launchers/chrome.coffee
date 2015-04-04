@@ -1,13 +1,12 @@
 
 fs = require "fs"
-# glob = require "glob"
-# readdirp = require "readdirp"
 {join} = require "path"
-{exec, spawn} = require "child_process"
+{spawn} = require "child_process"
 we_have_to_deal_with_Windows = process.platform is "win32"
 
 
 locate = (chrome)->
+	# @TODO: also check for chromium?
 	if we_have_to_deal_with_Windows
 		for dir in [
 			# XP (C:\Documents and Settings\UserName\Local Settings\Application Data\Google\Chrome\chrome.exe)
@@ -26,41 +25,27 @@ locate = (chrome)->
 		]
 			executable = join dir, "chrome.exe"
 			if fs.existsSync executable
-				chrome.exe = executable
-				break
+				return executable
 			else
 				console.log "no file at #{executable}"
 	else
-		chrome.exe = "google-chrome"
-		# @TODO: also check for chromium?
 		# @TODO: test on linux
-		# @TODO: mac support anyone?
+		"google-chrome"
+	
+	# @TODO: mac support anyone?
 
 chrome =
-	open: (url)-> throw "things at me" #reference
-	app:
-		open: (path)->
-			locate chrome
-			if chrome.exe
-				spawn chrome.exe, ["--load-and-launch-app=#{path}"]
-			else
-				window.alert "Can't find an executable for Google Chrome."
+	open: (path)->
+		if chrome.exe = locate chrome
+			spawn chrome.exe, ["--load-and-launch-app=#{path}"]
+		else
+			window.alert "Can't find an executable for Google Chrome."
 
 
 E = window.ReactScript
 
 module.exports = (project)->
-	# readdirp
-	# 	root: project.path
-	# 	directoryFilter: ["!.git", "!*modules", "!tmp", "!cache", "!build"]
-	# .on "data", (entry)->
-	# 	if entry.name is "manifest.json"
-	# 		console.log entry
-	
-	# manifest_path = join project.path, "manifest.json"
-	# for fname in []#glob.sync project.path + "/**/manifest.json"
-	# 	console.log fname
-	# 	manifest_path = fname
+	# @TODO: look in arbitrary locations for manifest.json
 	for subdir in ["", "app"]
 		do (subdir)->
 			app_path = join project.path, subdir
@@ -75,13 +60,8 @@ module.exports = (project)->
 				project.manifest = manifest
 				E "button",
 					title: "open chrome app (#{manifest_path})"
-					onClick: ->
-						chrome.app.open app_path
-					# E "img", src: "img/chrome.svg", style: width: 32, height: 32, color: "inherit"
-					# E "img", src: "img/chrome.svg", style: width: 32, height: 32, color: "currentColor"
-					# E "svg", src: "img/chrome.svg", style: width: 32, height: 32, color: "currentColor"
+					onClick: -> chrome.open app_path
 					E "i.icon-chrome", style: "-webkit-transform": "scale(0.75)"
-
 
 # @TODO: also support extensions with --load-extension
 

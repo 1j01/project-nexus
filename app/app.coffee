@@ -10,15 +10,10 @@ require "coffee-script/register"
 	for fname in fs.readdirSync "./launchers"
 		require "./launchers/#{fname}"
 
-E = ReactScript
-
 Settings.open = no
 
-
 do @render = ->
-	el = E ProjectNexus
-	React.render el, document.body
-
+	React.render (React.createElement ProjectNexus), document.body
 
 # @TODO: watch this directory
 # but don't overwrite the state in the mutated project objects!

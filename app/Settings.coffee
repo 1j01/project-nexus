@@ -44,14 +44,6 @@ class TextSetting extends Setting
 				window.render()
 
 
-# class DirectoryInput extends React.Component
-# 	render: ->
-# 		E "input", objectAssign {}, @props, {type: "file"}
-# 	
-# 	componentDidMount: ->
-# 		React.findDOMNode(@).setAttribute "nwdirectory", "nwdirectory"
-
-
 class DirectorySetting extends Setting
 	render: ->
 		@labeled [
@@ -62,12 +54,6 @@ class DirectorySetting extends Setting
 					@set e.target.value
 					@change? e
 					window.render()
-			# E DirectoryInput,
-			# 	# value: @get()
-			# 	onChange: (e)=>
-			# 		@set e.target.value
-			# 		@change? e
-			# 		window.render()
 				E "button",
 					onClick: =>
 						chooser = document.createElement "input"
@@ -120,3 +106,6 @@ class @Settings extends React.Component
 				E CheckboxSetting,
 					setting: "list_wrap"
 					label: "Enable wrapping in projects list when using keyboard navigation"
+				# @TODO: configure your editor and other applications you want to open
+				# allow you to use your EDITOR (by default if you have it set)
+				# allow you to set your %EDITOR% with setx on windows

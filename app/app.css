@@ -4,7 +4,13 @@ html, body {
 	height: 100%;
 }
 
-html, body, body, .app, header, main, header *, main * {
+html,
+body,
+.app,
+header,
+header *,
+main,
+main * {
 	display: flex;
 	flex: 1;
 	flex-direction: column;
@@ -150,8 +156,6 @@ pre {
 }
 .settings h2 {
 	margin-top: 0;
-	/*padding-bottom: 2px;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.1);*/
 }
 .settings-container,
 .settings,

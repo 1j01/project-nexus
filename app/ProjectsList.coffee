@@ -1,11 +1,6 @@
 
 class @ProjectsList extends React.Component
 	constructor: ->
-		# @state =
-		# 	selected_project_id: null
-		# 	# selected_project: null
-		# 	# selected_project_index: -1
-		
 		go = (delta)=>
 			for project, i in ProjectNexus.projects
 				if project.id is ProjectNexus.selected_project_id
@@ -19,7 +14,6 @@ class @ProjectsList extends React.Component
 				@select ProjectNexus.projects[spi]
 		
 		window.addEventListener "keydown", (e)->
-			# console.log e.keyCode
 			switch e.keyCode
 				when 38 then go -1 # up
 				when 40 then go +1 # down
@@ -28,12 +22,8 @@ class @ProjectsList extends React.Component
 	
 	select: (project)->
 		if project
-			#@setState selected_project_id: project.id
-			# render()
 			window.render ProjectNexus.selected_project_id = project.id
-			setTimeout ->
-				# document.querySelector(".active.project").scrollIntoView()
-				document.querySelector(".active.project").scrollIntoViewIfNeeded()
+			document.querySelector(".active.project").scrollIntoViewIfNeeded()
 	
 	render: ->
 		{projects, projects_read_error} = @props
