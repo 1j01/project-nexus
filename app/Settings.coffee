@@ -100,9 +100,13 @@ class @Settings
 		catch e then console.warn e
 	
 	render: ->
+		# @TODO: escape from settings
 		E ".settings-container", class: {visible: Settings.open},
 			E ".overlay", onClick: Settings.hide
 			E ".settings",
+				# @TODO: auto detect common project superdirectories
+				# such as from Github for Windows
+				# or simple things like %USER%/Code or ~/code
 				E DirectorySetting,
 					setting: "projects_dir"
 					label: "Projects Directory"

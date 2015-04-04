@@ -1,0 +1,15 @@
+
+.icon-text-file:before { content: '\e800'; } /* '' */
+.icon-folder-outline:before { content: '\e801'; } /* '' */
+.icon-folder-open-outline:before { content: '\e802'; } /* '' */
+.icon-file:before { content: '\e805'; } /* '' */
+.icon-folder:before { content: '\e808'; } /* '' */
+.icon-folder-open:before { content: '\e809'; } /* '' */
+.icon-play:before { content: '\e80b'; } /* '' */
+.icon-stop:before { content: '\e80d'; } /* '' */
+.icon-cube:before { content: '\e80e'; } /* '' */
+.icon-github:before { content: '\e80f'; } /* '' */
+.icon-octoface:before { content: '\e810'; } /* '' */
+.icon-git:before { content: '\e811'; } /* '' */
+.icon-chrome:before { content: '\e812'; } /* '' */
+.icon-restart:before { content: '\e814'; } /* '' */
