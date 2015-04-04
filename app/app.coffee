@@ -89,8 +89,14 @@ class ProjectListItem extends Component
 			title: path
 			class: ("active" if active_project_id is id)
 			onClick: -> render active_project_id = id
+			
+			E "button",
+				onClick: -> gui.Shell.openItem path
+				# E "i.icon-folder"
+				E "i.mega-octicon.octicon-file-directory"
+			
 			E "span.project-name", name
-			# project.launchers
+			
 			for launcher_module in launchers
 				(launcher_module project) ? E "button", disabled: yes, style: pointerEvents: "none"
 
