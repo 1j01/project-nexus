@@ -10,14 +10,16 @@ we_have_to_deal_with_Windows = process.platform is "win32"
 locate = (chrome)->
 	if we_have_to_deal_with_Windows
 		for dir in [
-			# XP
+			# XP (C:\Documents and Settings\UserName\Local Settings\Application Data\Google\Chrome\chrome.exe)
 			join process.env.APPDATA, "/Google/Chrome"
-			# Vista
+			# Vista (C:\Users\UserName\AppDataLocal\Google\Chrome\chrome.exe)
 			join process.env.LOCALAPPDATA, "/Google/Chrome"
-			# Windows 7
+			# Windows 7 (C:\Users\Username\AppData\Local\Google\chrome.exe)
 			join process.env.LOCALAPPDATA, "/Google"
-			# Windows 7/8 (chrome 36+)
-			join process.env["ProgramFiles(x86)"], "/Google/Application/" # supposedly
+			# Windows 7/8
+			# (C:\Program Files (x86)\Google\Application\chrome.exe) (supposedly)
+			join process.env["ProgramFiles(x86)"], "/Google/Application/"
+			# (C:\Program Files (x86)\Google\Chrome\Application\chrome.exe)
 			join process.env["ProgramFiles(x86)"], "/Google/Chrome/Application/"
 			# @TODO use the registry?
 			# HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\chrome.exe
@@ -32,6 +34,7 @@ locate = (chrome)->
 		chrome.exe = "google-chrome"
 		# @TODO: also check for chromium?
 		# @TODO: test on linux
+		# @TODO: mac support anyone?
 
 chrome =
 	open: (url)-> throw "things at me" #reference
@@ -78,3 +81,7 @@ module.exports = (project)->
 					# E "img", src: "img/chrome.svg", style: width: 32, height: 32, color: "currentColor"
 					# E "svg", src: "img/chrome.svg", style: width: 32, height: 32, color: "currentColor"
 					E "i.icon-chrome", style: "-webkit-transform": "scale(0.75)"
+
+
+# @TODO: also support extensions with --load-extension
+

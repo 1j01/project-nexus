@@ -1,6 +1,4 @@
 
-E = ReactScript
-
 objectAssign = (target, sources...)->
 	if not target?
 		throw new TypeError "Object.assign cannot be called with null or undefined as the target"
@@ -84,7 +82,7 @@ class DirectorySetting extends Setting
 		]
 
 
-class @Settings
+class @Settings extends React.Component
 	@show: ->
 		window.render Settings.open = yes
 	
