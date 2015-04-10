@@ -34,12 +34,11 @@ class @Terminal extends React.Component
 			console.log "got title", title
 			document.title = title
 		
-		term.open React.findDOMNode(@)
-		@resize()
-		setTimeout =>
-			console.log @
-			@resize()
-		, 50
+		container = React.findDOMNode(@)
+		term.open container
+		do resize = => @resize()
+		setTimeout resize, 50
+		container.addEventListener "transitionend", resize, no
 		
 		# term.write '\x1b[31mWelcome to term.js!\x1b[m\r\n'
 		

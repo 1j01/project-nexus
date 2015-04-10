@@ -143,8 +143,8 @@ pre {
 }
 .terminal-container {
 	flex: 1;
-	-webkit-transition: flex .2s ease;
-	transition: flex .2s ease;
+	transition: flex .4s ease;
+	background: black;
 }
 .terminal-container:empty {
 	flex: 0.00000001;
