@@ -32,5 +32,8 @@
     "title": "Project Nexus",
     "toolbar": false,
     "show": false
+  },
+  "devDependencies": {
+    "nw-dev": "^1.0.0"
   }
 }

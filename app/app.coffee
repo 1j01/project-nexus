@@ -49,4 +49,5 @@ do @read_projects_dir = ->
 		
 		do render
 
-win.show()
+win.show() unless win.shown
+win.shown = yes
