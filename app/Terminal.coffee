@@ -27,12 +27,6 @@ class @Terminal extends React.Component
 			screenKeys: on
 			convertEol: yes
 		
-		term.on 'data', (data)=>
-			proc.stdin.write data
-		
-		term.on 'title', (title)=>
-			console.log "got title", title
-			document.title = title
 		
 		container = React.findDOMNode(@)
 		term.open container
@@ -47,8 +41,12 @@ class @Terminal extends React.Component
 		proc.stderr.on 'data', (data)=>
 			term.write data
 		
-		# proc.on 'disconnect', =>
-		# 	term.destroy()
+		term.on 'data', (data)=>
+			proc.stdin.write data
+		
+		proc.on 'close', =>
+			term.off 'data'
+		
 		
 		# proc.term = term
 		@term = term
