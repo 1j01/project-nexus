@@ -4,8 +4,10 @@ class @ProjectDetails extends React.Component
 		{project} = @props
 		if project
 			{package_json} = project
-			E "pre", package_json
-			# @TODO: full terminal
+			
+			E ".project-details",
+				E Terminal, {process: project.npm_start_process, project}
+				E "pre", package_json
 			# @TODO: package.json editor
 			# @TODO: README.md editor
 		else
