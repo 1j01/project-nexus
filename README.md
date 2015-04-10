@@ -7,42 +7,59 @@ A hub for all your programming projects.
 Do you find yourself opening and closing lots of
 * project folders
 * git clients
-* terminals / shitty command windows
-* and code editors?
+* terminals (or shitty outdated command prompts)
+* and/or code editors?
 
-Maybe you don't need to *close* all of these things,
-but there are still many repetitive steps involved in switching projects.
+There are many repetitive steps involved in switching projects.
 
-Do you find yourself switching to your terminal
-or shitty outdated command window
+Does your workflow involve a lot of
+switching to your terminal
+(or shitty outdated command prompt)
 and hitting
 <kbd>Ctrl+C</kbd> +
-<kbd>˄</kbd> +
+<kbd>Up</kbd> +
 <kbd>Enter</kbd>
 to restart?
 
-No more!
-Well, it's a work in projects.
-I mean, progress.
-Currently it doesn't really help you switch projects.
+Have you ever habitually switched back and
+accidentally reran some other command you had entered?
 
-So far,
-there's a settings modal where you choose a projects directory,
-and then it finds all the sudirectories and assumes these are your projects.
+No more!
+
+You declare all your scripts in your package.json,
+in a machine-readable format,
+but all you directly gain from this
+usually amounts to
+not having to remember many commands
+to start all your projects.
+You just type `npm start`
+– it's short and sweet –
+but it doesn't have to end there.
+
+Project Nexus gives you a visual interface
+for launching all your projects.
 
 If a project has a `package.json` file,
-the listing is given a button to `npm start` the project,
-and to `npm stop` it if there happens to be a `stop` script,
-otherwise kill the process.
+it'll give you a button to `npm start` the project,
+and if there's a `stop` script, to `npm stop` it,
+otherwise to kill the `npm start` process.
+It opens a [terminal](https://github.com/chjj/term.js) to show process output.
 
-If there's no `package.json`, it'll give you a button to open `index.html`.
+If there's an `index.html`, it'll give you a button to open it.
 
-If there's neither, ya get naught.
+If there's a `manifest.json`, it'll give you a button to launch a [chrome app](https://developer.chrome.com/apps/about_apps).
+Clicking it again will restart the app.
 
-I'm open to extending it with different openers.
-(I'll probably try to modularize this!)
-After all, even I have a python project or two.
-Or one, but you get the idea.
+I'm very open to extending it with different launchers.
+I've made it partially modular,
+although at this point the modules directly return React elements.
+Before I separate the launchers into their own packages
+(to level the playing field for new launchers if anyone wants to make one)
+I want to abstract that a bit.
+
+Plus, I want to have reusable dropdown functionality anyways
+(for things like `npm`, `cake`, `make`, `rake` and such
+where multiple scripts or tasks are commonly defined).
 
 
 _Built with [nw.js](http://nwjs.io/)_
@@ -56,3 +73,4 @@ _Built with [nw.js](http://nwjs.io/)_
 
 3. Run `npm start` in the project directory
 
+It'll live reload with [nw-dev](https://www.npmjs.com/package/nw-dev/)
