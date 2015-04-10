@@ -18,14 +18,14 @@ class @Terminal extends React.Component
 	
 	init: ->
 		@term?.destroy()
-		# \x1b[2J\x1b[1;1H
 		
 		proc = @props.process
 		
 		term = new Term
 			cols: 8
 			rows: 2
-			screenKeys: true
+			screenKeys: on
+			convertEol: yes
 		
 		term.on 'data', (data)=>
 			proc.stdin.write data
@@ -40,28 +40,18 @@ class @Terminal extends React.Component
 		setTimeout resize, 50
 		container.addEventListener "transitionend", resize, no
 		
-		# term.write '\x1b[31mWelcome to term.js!\x1b[m\r\n'
-		
 		
 		proc.stdout.on 'data', (data)=>
-			term.write data.replace /\n/g, "\n\r" # + "\r"
+			term.write data
 		
 		proc.stderr.on 'data', (data)=>
-			term.write data.replace /\n/g, "\n\r" # + "\r"
-			# term.write "\x1b[31m#{data}\x1b[m".replace /\n/g, "\n\r" # + "\r"
+			term.write data
 		
 		# proc.on 'disconnect', =>
 		# 	term.destroy()
 		
-		# socket.on 'data', (data)=>
-		# 	term.write(data)
-		#
-		# socket.on 'disconnect', =>
-		# 	term.destroy()
-		
 		# proc.term = term
 		@term = term
-		
 	
 	resize: ->
 		if not @term
