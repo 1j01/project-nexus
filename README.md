@@ -3,6 +3,10 @@
 
 A hub for all your programming projects.
 
+```
+npm i project-nexus -g
+project-nexus
+```
 
 Do you find yourself opening and closing lots of
 * project folders
@@ -67,10 +71,10 @@ _Built with [nw.js](http://nwjs.io/)_
 
 ## Dev
 
-1. Have `npm` (from [node.js](http://nodejs.org/) or [io.js](http://iojs.org/))
+- fork [project-nexus](https://github.com/1j01/project-nexus)
 
-2. Run `npm install` in the project directory (or `npm i`)
+- `npm link`
 
-3. Run `npm start` in the project directory
+- `project-nexus`
 
 It'll live reload with [nw-dev](https://www.npmjs.com/package/nw-dev/)

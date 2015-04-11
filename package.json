@@ -1,7 +1,7 @@
 {
   "name": "project-nexus",
   "description": "A hub for all your programming projects",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "http://github.com/1j01/project-nexus.git"
@@ -29,16 +29,14 @@
   ],
   "main": "app/app.html",
   "scripts": {
-    "start": "cake run",
-    "build": "cake build"
+    "start": "nw app"
   },
-  "devDependencies": {
-    "chokidar": "^0.12.5",
-    "coffee-script": "^1.9.1",
-    "node-webkit-builder": "^1.0.10"
-  },
+  "bin": "./bin/nw-app.js",
+  "preferGlobal": true,
   "dependencies": {
     "chrome-location": "^1.2.1",
-    "glob": "^5.0.3"
+    "coffee-script": "^1.9.1",
+    "glob": "^5.0.3",
+    "nw": "^0.12.0-1"
   }
 }
