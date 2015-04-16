@@ -35,6 +35,8 @@ class @Terminal extends React.Component
 		container.addEventListener "transitionend", resize, no
 		
 		
+		# @TODO: use https://github.com/chjj/pty.js
+		
 		proc.stdout.on 'data', (data)=>
 			term.write data
 		
@@ -48,6 +50,7 @@ class @Terminal extends React.Component
 			term.off 'data'
 		
 		
+		# @TODO: persist terminals
 		# proc.term = term
 		@term = term
 	
@@ -57,6 +60,8 @@ class @Terminal extends React.Component
 			return
 		
 		container = React.findDOMNode(@)
+		
+		# @FIXME transitions interfere with sizing
 		
 		tester_terminal = document.createElement "div"
 		tester_terminal.className = "terminal"

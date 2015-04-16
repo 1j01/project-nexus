@@ -102,8 +102,7 @@
 	* Make an nw.js elementary framework
 		* https://github.com/elementary/web-styles
 		* http://bazaar.launchpad.net/~elementary-design/egtk/trunk/view/head:/gtk-3.0/apps.css
-			* Make a module to compile gtk css to css
-				* Using [rework](https://www.npmjs.com/package/rework), if possible
+			* Make [a module to compile gtk css to browser css](http://github.com/1j01/postcss-gtk)
 	* Publish to [elementary apps](http://quassy.github.io/elementary-apps/) (and the App Center when it exists in the future)
 
 
