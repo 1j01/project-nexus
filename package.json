@@ -1,7 +1,7 @@
 {
   "name": "project-nexus",
   "description": "A hub for all your programming projects",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "repository": {
     "type": "git",
     "url": "http://github.com/1j01/project-nexus.git"
@@ -29,14 +29,12 @@
   ],
   "main": "app/app.html",
   "scripts": {
+    "postinstall": "cd app && npm install",
     "start": "nw app"
   },
   "bin": "./bin/nw-app.js",
   "preferGlobal": true,
   "dependencies": {
-    "chrome-location": "^1.2.1",
-    "coffee-script": "^1.9.1",
-    "glob": "^5.0.3",
     "nw": "^0.12.0-1"
   }
 }
