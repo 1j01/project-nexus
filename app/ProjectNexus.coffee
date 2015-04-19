@@ -9,16 +9,17 @@ class @ProjectNexus extends React.Component
 			if project.id is ProjectNexus.selected_project_id
 				active_project = project
 		
-		E "div.app",
-			E "header",
-				E "h1", "Project Nexus"
-				E "button",
-					onClick: Settings.show
+		E GtkWindow, {},
+			E GtkHeaderBar, {},
+				E "h1.title", "Project Nexus"
+				E TitleButton,
+					action: Settings.toggle
 					E "i.mega-octicon.octicon-gear"
-			E "main",
-				E ProjectsList,
-					projects: ProjectNexus.projects
-					projects_read_error: ProjectNexus.projects_read_error
-				E ProjectDetails,
-					project: active_project
-			E Settings
+			E ".window-content",
+				E "main",
+					E ProjectsList,
+						projects: ProjectNexus.projects
+						projects_read_error: ProjectNexus.projects_read_error
+					E ProjectDetails,
+						project: active_project
+				E Settings

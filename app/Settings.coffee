@@ -36,7 +36,7 @@ class CheckboxSetting extends Setting
 
 class TextSetting extends Setting
 	render: ->
-		@labeled E "input",
+		@labeled E "input.entry",
 			value: @get()
 			onChange: (e)=>
 				@set e.target.value
@@ -46,15 +46,15 @@ class TextSetting extends Setting
 
 class DirectorySetting extends Setting
 	render: ->
-		@labeled [
-			E "input",
+		@labeled E ".linked",
+			E "input.entry",
 				type: "text"
 				value: @get()
 				onChange: (e)=>
 					@set e.target.value
 					@change? e
 					window.render()
-				E "button",
+				E "button.button",
 					onClick: =>
 						chooser = document.createElement "input"
 						chooser.setAttribute "type", "file"
@@ -65,7 +65,6 @@ class DirectorySetting extends Setting
 							window.render()
 						chooser.click()
 					"Browse"
-		]
 
 
 class @Settings extends React.Component
@@ -74,6 +73,9 @@ class @Settings extends React.Component
 	
 	@hide: ->
 		window.render Settings.open = no
+	
+	@toggle: ->
+		window.render Settings.open = not Settings.open
 	
 	@get: (key)->
 		try JSON.parse localStorage.getItem key

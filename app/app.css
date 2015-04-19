@@ -7,6 +7,8 @@ html, body {
 html,
 body,
 .app,
+.window-frame,
+.window-content,
 header,
 header *,
 main,
@@ -16,6 +18,16 @@ main * {
 	flex-direction: column;
 	padding: 0;
 	margin: 0;
+}
+
+
+.window-frame * {
+	outline: none;
+}
+.linked {
+	display: flex;
+	flex-direction: row;
+	flex: 1;
 }
 
 main {
@@ -43,6 +55,7 @@ button {
 	flex: 0;
 	flex-basis: auto;
 }
+/* obsolete? */
 header button,
 h2 button,
 li button {
@@ -55,7 +68,6 @@ li > button {
 	width: 32px;
 	height: 32px;
 	font-size: 32px;
-	text-align: center;
 	align-items: center;
 }
 button > span {
@@ -102,9 +114,38 @@ li.active {
 	color: white;
 }
 
-header {
+header:not(.titlebar) {
 	background: #E53C36;
 	color: white;
+}
+.titlebar {
+	display: flex;
+	flex: 0 0 auto;
+	flex-direction: row;
+	-webkit-app-region: drag;
+	line-height: 40px;
+}
+.titlebutton {
+	-webkit-app-region: no-drag;
+	margin: 0 4px;
+}
+.titlebar .titlebutton {
+	align-self: center;
+}
+.title {
+	justify-content: center;
+	display: flex;
+	flex: 1;
+	padding: 0;
+	margin: 0;
+}
+main {
+	background: white;
+	color: black;
+}
+.window-frame {
+	margin: 0 !important;
+	box-shadow: none !important;
 }
 
 .details {
@@ -150,6 +191,9 @@ pre {
 	flex: 0.00000001;
 }
 
+.window-content {
+	position: relative;
+}
 .settings-container,
 .overlay {
 	position: absolute;
@@ -160,6 +204,9 @@ pre {
 }
 .overlay {
 	background: rgba(0, 0, 0, 0.3);
+	/*background: rgba(100, 100, 100, 0.4);*/
+	/*background: radial-gradient(rgba(0, 0, 0, 0.3));*/
+	/*background: -webkit-radial-gradient(center, ellipse cover, rgba(33,33,33,0.9) 0%, rgba(19,19,19,0) 70%);*/
 }
 .settings {
 	position: absolute;
@@ -169,7 +216,7 @@ pre {
 	bottom: 15%;
 	padding: 15px;
 	background: white;
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 0 50px rgba(0, 0, 0, 0.3);
 	border-radius: 2px;
 }
 .settings h2 {
@@ -195,6 +242,7 @@ pre {
 	/*-webkit-transform: scale(0.9) rotateX(200deg);*/
 	-webkit-transform: scale(1.5) rotateY(0.5turn);
 	/*-webkit-transform: scale(1.5) rotateX(1turn);*/
+	/*-webkit-transform: scale(0.9) rotateX(30deg);*/
 }
 .setting {
 	display: flex;
