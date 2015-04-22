@@ -1,0 +1,30 @@
+.titlebar {
+	display: flex;
+	flex: 0 0 auto;
+	flex-direction: row;
+	-webkit-app-region: drag;
+	line-height: 40px;
+}
+.titlebutton {
+	-webkit-app-region: no-drag;
+	margin: 0 4px;
+}
+.titlebar .titlebutton {
+	align-self: center;
+}
+.title {
+	justify-content: center;
+	display: flex;
+	flex: 1;
+	padding: 0;
+	margin: 0;
+}
+.window-frame {
+	margin: 0 !important;
+	box-shadow: none !important;
+}
+.linked {
+	display: flex;
+	flex-direction: row;
+	flex: 1;
+}

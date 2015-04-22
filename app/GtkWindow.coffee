@@ -13,8 +13,14 @@ class @GtkWindow extends React.Component
 			@props.children
 	
 	componentDidMount: ->
-		win.on "focus", => @setState active: yes
-		win.on "blur", => @setState active: no
-		win.on "maximize", => @setState maximized: yes
-		win.on "unmaximize", => @setState maximized: no
+		win.on "focus", @onfocus = => @setState active: yes
+		win.on "blur", @onblur = => @setState active: no
+		win.on "maximize", @onmaximize = => @setState maximized: yes
+		win.on "unmaximize", @onunmaximize = => @setState maximized: no
+	
+	componentWillUnmount: ->
+		win.removeListener "focus", @onfocus
+		win.removeListener "blur", @onblur
+		win.removeListener "maximize", @onmaximize
+		win.removeListener "unmaximize", @onunmaximize
 	

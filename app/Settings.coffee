@@ -108,6 +108,10 @@ class @Settings extends React.Component
 				E CheckboxSetting,
 					setting: "list_wrap"
 					label: "Enable wrapping in projects list when using keyboard navigation"
+				E CheckboxSetting,
+					setting: "elementary"
+					label: "Use elementary OS's beautiful styles"
+					change: -> window.switch_frame()
 				# @TODO: configure your editor and other applications you want to open
 				# allow you to use your EDITOR (by default if you have it set)
 				# allow you to set your %EDITOR% with setx on windows

@@ -2,6 +2,22 @@
 gui = require "nw.gui"
 win = window.win = gui.Window.get()
 
+@switch_frame = ->
+	setTimeout ->
+		elementary = (Settings.get "elementary")
+		(require "nw.gui").Window.open location.href,
+			toolbar: no
+			frame: not elementary
+			transparent: elementary
+		window.close()
+	, 50
+
+if win.isTransparent isnt Settings.get "elementary"
+	return switch_frame()
+
+if not Settings.get "elementary"
+	document.getElementById("elementary.css").remove()
+
 {join, resolve} = require "path"
 fs = require "fs"
 

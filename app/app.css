@@ -24,11 +24,6 @@ main * {
 .window-frame * {
 	outline: none;
 }
-.linked {
-	display: flex;
-	flex-direction: row;
-	flex: 1;
-}
 
 main {
 	flex-direction: row;
@@ -84,6 +79,9 @@ header .octicon-gear:before {
 ul {
 	overflow: auto;
 }
+.project-details {
+	overflow: hidden;
+}
 .projects,
 .projects-read-error {
 	flex-basis: auto;
@@ -114,38 +112,14 @@ li.active {
 	color: white;
 }
 
-header:not(.titlebar) {
+header {
 	background: #E53C36;
 	color: white;
 }
-.titlebar {
-	display: flex;
-	flex: 0 0 auto;
-	flex-direction: row;
-	-webkit-app-region: drag;
-	line-height: 40px;
-}
-.titlebutton {
-	-webkit-app-region: no-drag;
-	margin: 0 4px;
-}
-.titlebar .titlebutton {
-	align-self: center;
-}
-.title {
-	justify-content: center;
-	display: flex;
-	flex: 1;
-	padding: 0;
-	margin: 0;
-}
+
 main {
 	background: white;
 	color: black;
-}
-.window-frame {
-	margin: 0 !important;
-	box-shadow: none !important;
 }
 
 .details {

@@ -11,7 +11,7 @@ class @ProjectDetails extends React.Component
 			# @TODO: package.json editor
 			# @TODO: README.md editor
 		else
-			E "div",
+			E ".project-details.no-project",
 				style:
 					background: "#ccc"
 					opacity: 0.4

@@ -23,6 +23,10 @@ class @GtkHeaderBar extends React.Component
 					icon: "fullscreen"
 	
 	componentDidMount: ->
-		win.on "maximize", => @setState maximized: yes
-		win.on "unmaximize", => @setState maximized: no
+		win.on "maximize", @onmaximize = => @setState maximized: yes
+		win.on "unmaximize", @onunmaximize = => @setState maximized: no
+	
+	componentWillUnmount: ->
+		win.removeListener "maximize", @onmaximize
+		win.removeListener "unmaximize", @onunmaximize
 
