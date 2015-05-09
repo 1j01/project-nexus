@@ -1,62 +1,70 @@
 
-Term = Terminal
+@Term = Terminal
 
 class @Terminal extends React.Component
+	
+	constructor: ->
+		@keep = null
 	
 	render: ->
 		window.addEventListener "resize", => @resize()
 		E ".terminal-container"
 	
-	componentDidMount: ->
+	componentDidMount: -> @handleEverything()
+	componentDidUpdate: -> @handleEverything()
+	
+	handleEverything: ->
+		console.log "change from", @id, "to", @props.id
+		# @term ?= @props.process?.term
+		@term?.element?.remove?() if @props.id isnt @id
+		@id = @props.id
+		# if @props.id isnt @id # and @props.process?.term isnt @term
+		# 	@term?.element?.remove?()
+		# 	# @term?.element = null
+		# # @term?.element?.remove?() if @props.process and @props.process?.term isnt @term
 		@init() if @props.process
 	
-	componentDidUpdate: (prev_props)->
-		if @props.project.path isnt prev_props.project.path
-			@term?.destroy()
-		if @props.process
-			@init()
-	
 	init: ->
-		@term?.destroy()
-		
+		# @term?.element?.remove?()
 		proc = @props.process
 		
-		term = new Term
+		term = proc.term
+		term ?= new Term
 			cols: 8
 			rows: 2
 			screenKeys: on
 			convertEol: yes
 		
+		proc.term = term
+		@term = term
 		
 		container = React.findDOMNode(@)
-		term.open container
-		do resize = => @resize()
-		setTimeout resize, 50
-		container.addEventListener "transitionend", resize, no
+		if term.element
+			console.log "appending old term element"
+			container.appendChild term.element
+			console.log term
+		else
+			console.log "creating new term element"
+			term.open container
+		
+		@resize()
+		# setTimeout resize, 50
+		container.addEventListener "transitionend", @resize, no
 		
 		
 		# @TODO: use https://github.com/chjj/pty.js
+		# to make the child process feel comfortable showing its true colors
 		
-		proc.stdout.on 'data', (data)=>
-			term.write data
-		
-		proc.stderr.on 'data', (data)=>
-			term.write data
-		
-		term.on 'data', (data)=>
+		proc.stdout.on 'data', @onStdOut = (data)=> term.write data
+		proc.stderr.on 'data', @onStdErr = (data)=> term.write data
+		proc.on 'close', @onProcClose = => term.off 'data'
+		term.on 'data', @onTermData = (data)=>
 			proc.stdin.write data
-		
-		proc.on 'close', =>
-			term.off 'data'
-		
-		
-		# @TODO: persist terminals
-		# proc.term = term
-		@term = term
+			@stayOpen = yes
 	
-	resize: ->
+	resize: =>
 		if not @term
-			console.log "resize, no @term"
+			console.warn "resize, no @term"
 			return
 		
 		container = React.findDOMNode(@)
@@ -91,7 +99,24 @@ class @Terminal extends React.Component
 		tester_terminal = null
 		tester = null
 	
-	componentWillUnmount: ->
-		console.log "destroying term"
-		@term?.destroy()
+	componentWillUnmount: -> @clean()
+	componentWillUpdate: -> @clean()
+	
+	clean: ->
+		container = React.findDOMNode(@)
+		container.removeEventListener "transitionend", @resize, no
+		
+		proc = @props.process
+		proc?.stdout.removeListener 'data', @onStdOut
+		proc?.stderr.removeListener 'data', @onStdErr
+		proc?.removeListener 'close', @onProcClose
+		
+		@term?.off 'data', @onTermData
+		@term?.element?.remove?()
 		@term = null
+	
+	shouldComponentUpdate: (nextProps)->
+		# nextProps.id isnt @props.id or
+		# nextProps.process isnt @props.process
+		nextProps.id isnt @props.id or
+		nextProps.process isnt @props.process

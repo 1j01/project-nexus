@@ -6,7 +6,7 @@ class @ProjectDetails extends React.Component
 			{package_json} = project
 			
 			E ".project-details",
-				E Terminal, {process: project.npm_start_process, project}
+				E Terminal, {process: project.npm_start_process, id: project.id}
 				E "pre", package_json
 			# @TODO: package.json editor
 			# @TODO: README.md editor

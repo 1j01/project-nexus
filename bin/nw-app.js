@@ -6,4 +6,4 @@ var nw = require("nw").findpath();
 
 var app_dir = resolve(__dirname, "..", "app");
 
-spawn(nw, [app_dir]);
+spawn(nw, [app_dir], {stdio: "inherit"});
