@@ -1,7 +1,7 @@
 {
   "name": "project-nexus",
   "description": "A hub for all your programming projects",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "repository": {
     "type": "git",
     "url": "http://github.com/1j01/project-nexus.git"
@@ -13,28 +13,49 @@
   "keywords": [
     "project",
     "projects",
+    "manager",
     "nexus",
     "hub",
     "npm",
+    "node",
+    "node.js",
     "node-webkit",
     "nw.js",
     "nwjs",
     "nw",
+    "tool",
     "app",
     "desktop",
     "dev",
     "developer",
+    "development",
     "programming",
     "coding"
   ],
-  "main": "app/app.html",
   "scripts": {
-    "postinstall": "cd app && npm install",
-    "start": "nw app"
+    "start": "nw"
   },
   "bin": "./bin/nw-app.js",
   "preferGlobal": true,
+  "main": "app.html",
+  "window": {
+    "title": "Project Nexus",
+    "toolbar": false,
+    "show": false,
+    "frame": true,
+    "transparent": false,
+    "min_width": 270,
+    "min_height": 40,
+    "icon": "app/img/cube.png"
+  },
+  "devDependencies": {
+    "nw-dev": "^1.1.0"
+  },
   "dependencies": {
-    "nw": "^0.12.0-1"
+    "nw": "^0.12.0-1",
+    "chrome-location": "^1.2.1",
+    "coffee-script": "^1.9.1",
+    "glob": "^5.0.3",
+    "elementary.css": "^1.1.0"
   }
 }

@@ -23,8 +23,8 @@ fs = require "fs"
 
 require "coffee-script/register"
 @launchers =
-	for fname in fs.readdirSync "./launchers"
-		require "./launchers/#{fname}"
+	for fname in fs.readdirSync "./app/launchers"
+		require "./app/launchers/#{fname}"
 
 Settings.open = no
 
