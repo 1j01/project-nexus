@@ -48,26 +48,25 @@
 	* Context menu with option to update repository info in package.json
 
 
-* Visual package.json editor
-	* Standalone, but integrated project: **JSONless**
-		* Help text for known fields
-		* Minimal design tuned for formats where fields are stored on a root object
-		* Keeps your indentation and formatting (even if npm doesn't)
+* Visual package editor
+	* Help text for known fields
+	* Keeps your indentation and formatting (even though npm doesn't)
+	* Reusable component
 
 
 * WYSIWYG readme editor
 	* Standalone, but integrated project: **WYSIWYG.md**
-	* Markdown is cool how it's readable in plain text
-	* But it's not as good as any WYSIWYG editor
-	* Keeps your formatting
+	* Markdown is cool and all, but it's not as good as any WYSIWYG editor
+	* Keeps your indentation and formatting
 
 
 * Context sensitive helpers based on process output
-	* Cannot find module?
+	* "Cannot find module"?
 		* Maybe you need to `npm install`?
-	* Listening on port 3000?
+		* If the module isn't listed as a dependency, maybe you want to `npm install --save` it?
+	* "Listening on port 3000"? (and similar)
 		* Would you like me to open that for you?
-	* EADDRINUSE? Not sure I can help with that...
+	* "EADDRINUSE"? Not sure I can help with that...
 		* I can find an open port, but then what?
 			* Monkey patch your code to use a different port? That would be awesome, but awful.
 			* Suggest it (bit lame)
@@ -77,10 +76,9 @@
 
 
 * Live reload everything
-	* **Everything**
-		* Chrome apps
-		* `index.html`s
-		* `npm start`s
+	* Chrome apps
+	* `index.html`s
+	* `npm start`s
 	* **Except** when it already auto-reloads
 		* (such as project-nexus does with nw-dev)
 		* It could detect things like nw-dev,

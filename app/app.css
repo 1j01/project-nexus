@@ -127,6 +127,20 @@ main {
 	padding: 5px;
 }
 
+.package-editor {
+	display: block;
+}
+.package-editor .field {
+	padding: 10px;
+}
+.package-editor .field-name {
+	padding-bottom: 2px;
+	color: #555;
+}
+.package-editor input {
+	padding: 3px;
+}
+
 * {
 	-webkit-user-select: none;
 	cursor: default;

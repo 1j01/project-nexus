@@ -7,9 +7,11 @@ class @ProjectDetails extends React.Component
 			
 			E ".project-details",
 				E Terminal, {process: project.npm_start_process, project}
-				E "pre", package_json
-			# @TODO: package.json editor
-			# @TODO: README.md editor
+				if package_json?
+					E PackageEditor, json: package_json
+				else
+					E ""
+			# @TODO: WYSIWYG README.md editor
 		else
 			E ".project-details.no-project",
 				style:
