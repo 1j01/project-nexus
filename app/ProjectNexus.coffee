@@ -1,13 +1,14 @@
 
 class @ProjectNexus extends React.Component
-	@projects = []
+	@projects = null
 	@projects_read_error = null
 	@selected_project_id = null
 	
 	render: ->
-		for project in ProjectNexus.projects
-			if project.id is ProjectNexus.selected_project_id
-				active_project = project
+		if ProjectNexus.projects
+			for project in ProjectNexus.projects
+				if project.id is ProjectNexus.selected_project_id
+					active_project = project
 		
 		Window = if Settings.get "elementary" then GtkWindow else ".app"
 		Header = if Settings.get "elementary" then GtkHeaderBar else "header"

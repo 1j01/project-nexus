@@ -12,7 +12,10 @@ win = window.win = gui.Window.get()
 		window.close()
 	, 50
 
-if win.isTransparent isnt Settings.get "elementary"
+# note: `is not` isnt `isnt`
+# `is not` handles the setting being undefined (not yet set)
+# this let's the application launch properly the first time
+if win.isTransparent is not Settings.get "elementary"
 	return switch_frame()
 
 if not Settings.get "elementary"
@@ -34,9 +37,11 @@ do @render = ->
 # @TODO: watch this directory
 # but don't overwrite the state in the mutated project objects!
 do @read_projects_dir = ->
+	ProjectNexus.projects_read_error = null
+	
 	projects_dir = Settings.get "projects_dir"
 	if not projects_dir
-		ProjectNexus.projects_read_error = new Error "No projects directory!"
+		ProjectNexus.projects = null
 		Settings.show()
 		render()
 		return
@@ -44,11 +49,12 @@ do @read_projects_dir = ->
 	projects_dir = resolve projects_dir
 	
 	fs.readdir projects_dir, (err, fnames)->
-		ProjectNexus.projects_read_error = err
 		if err
+			ProjectNexus.projects_read_error = err
 			Settings.show()
 			render()
 			return
+		
 		ProjectNexus.projects = []
 		for fname in fnames
 			path = join projects_dir, fname

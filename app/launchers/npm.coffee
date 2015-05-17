@@ -22,6 +22,10 @@ module.exports = (project)->
 					project.npm_start_process.kill()
 		return
 	
+	# @TODO: keep track of whether the project has been started?
+	# I've never actually used `npm stop`
+	# but this assumes the `npm start` process will
+	# stay open as long as you want to `npm stop`
 	if project.npm_start_process
 		E "button.stop",
 			onClick: stop

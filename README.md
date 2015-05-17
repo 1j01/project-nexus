@@ -8,6 +8,7 @@ npm i project-nexus -g
 project-nexus
 ```
 
+<!--
 Do you find yourself opening and closing lots of
 * project folders
 * git clients
@@ -29,6 +30,7 @@ Have you ever habitually switched back and
 accidentally reran some other command you had entered?
 
 No more!
+-->
 
 You declare all your scripts in your package.json,
 in a machine-readable format,
@@ -44,9 +46,7 @@ Project Nexus gives you a visual interface
 for launching all your projects.
 
 If a project has a `package.json` file,
-it'll give you a button to `npm start` the project,
-and if there's a `stop` script, to `npm stop` it,
-otherwise to kill the `npm start` process.
+it'll give you a button to `npm start`/stop the project,
 It opens a [terminal](https://github.com/chjj/term.js) to show process output.
 
 If there's an `index.html`, it'll give you a button to open it.

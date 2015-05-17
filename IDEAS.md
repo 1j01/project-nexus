@@ -13,20 +13,19 @@
 	* Source control
 		* Github for Windows/Mac
 		* Various Git GUI clients
-		* Command line `git`
-		* Integrate Ungit?
+		* Command prompt / terminal
+		* Integrate a git gui?
 			* Ungit is kinda ugly (and doesn't fit in very well)
 				* I'm sure it could be themed, to some extent
-			* [This](http://tonsky.me/blog/reinventing-git-interface/) is what I really want
-	* Folder browser
-		* Done. It launches your default folder browser.
+			* [This](http://tonsky.me/blog/reinventing-git-interface/) is what I [really want](https://github.com/quassy/elementary-apps/issues/17)
+	* ~~Folder browser~~ (done)
 	* Configure whatever tools you want
 	* Configure whether you want it to give you
-		* an open/focus project button
-		* an open/close project button
+		* an open/close project button, or
+		* an open/focus project button (and what it would focus?)
 	* and whether you want it to allow multiple projects open
 	* Hopefully it can keep track of processes well enough
-		* I'm thinking it would be bad if you navigate away from a project within a tool and the tool is killed
+		* I'm thinking it would be bad if you navigate away from a project within a tool and close the project and the tool is killed even though it's no longer related to the project
 			* I guess it would just have to warn you
 				* And because of this, murderous behavior would be disabled by default
 	* (If one workflow is obviously superior, maybe I can remove the setting)
@@ -34,30 +33,34 @@
 
 * Plugins
 	* Launch multiple tasks (with dropdowns)
-		* npm
-		* cake
-		* make
-		* rake
+		* `npm`
+		* `cake`
+		* `make`
+		* `rake`
 	* Plugins can add project openers for tools
 		* Such as, when there's a solution (.sln) file,
 		  it could open Visual Studio
 			* This should override your Editor (i.e. not launch both)
 
 
-* Link to repository (defined in package.json)
-	* Context menu with option to update repository info in package.json
+* Link to repository (defined in `package.json`)
+	* A way to update `package.json` with repository info
 
 
 * Visual package editor
 	* Help text for known fields
 	* Keeps your indentation and formatting (even though npm doesn't)
-	* Reusable component
+	* Reusable component / separate project?
 
 
 * WYSIWYG readme editor
-	* Standalone, but integrated project: **WYSIWYG.md**
 	* Markdown is cool and all, but it's not as good as any WYSIWYG editor
-	* Keeps your indentation and formatting
+	* Standalone, but integrated project: **WYSIWYG.md**
+		* This could also be used in wikis, etc.
+			* I want to make a wiki thing called kiwiki
+				* The logo would be a [kiwi crossed with a kiwi](https://www.google.com/search?tbm=isch&hl=en&q=kiwi+bird+fruit)
+					* But I digress...
+		* Keeps your indentation and formatting
 
 
 * Context sensitive helpers based on process output
@@ -77,11 +80,18 @@
 
 * Live reload everything
 	* Chrome apps
-	* `index.html`s
-	* `npm start`s
+	* `index.html` (start a webserver and inject a script)
+	* `npm start`
+	* Automatically run `npm prepublish` upon file changes
+		* Also watch linked dependencies
+			* Changing a file in the linked dependency might
+			  trigger an auto-`prepublish`
+			  and this should trigger an auto-`prepublish`
+			  of the dependent project.
+			* Unwatch unlinked dependencies
 	* **Except** when it already auto-reloads
 		* (such as project-nexus does with nw-dev)
-		* It could detect things like nw-dev,
+		* It *could* try to detect things like nw-dev,
 		  but this might need to be something you configure
 			(per project)
 
@@ -95,12 +105,7 @@
 * I'd rather get as much functionality out the GUI before adding a general purpose command line
 
 
-* Native elementary OS app
-	* Headerbar
-	* Make an nw.js elementary framework
-		* https://github.com/elementary/web-styles
-		* http://bazaar.launchpad.net/~elementary-design/egtk/trunk/view/head:/gtk-3.0/apps.css
-			* Make [a module to compile gtk css to browser css](http://github.com/1j01/postcss-gtk)
+* elementary OS app
 	* Publish to [elementary apps](http://quassy.github.io/elementary-apps/) (and the App Center when it exists in the future)
 
 

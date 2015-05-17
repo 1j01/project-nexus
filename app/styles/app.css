@@ -83,12 +83,12 @@ ul {
 	overflow: hidden;
 }
 .projects,
-.projects-read-error {
+.no-projects {
 	flex-basis: auto;
 	flex-shrink: 10;
 	flex-grow: 0.1;
 }
-.projects-read-error {
+.no-projects {
 	padding: 15px;
 	text-align: center;
 }
