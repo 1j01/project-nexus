@@ -33,7 +33,7 @@
 
 * Plugins
 	* Launch multiple tasks (with dropdowns)
-		* `npm`
+		* `npm` (**do this soon**)
 		* `cake`
 		* `make`
 		* `rake`
@@ -75,7 +75,7 @@
 			* Suggest it (bit lame)
 			* Suggest you use a module for finding an open port?
 		* I don't think there's a way to find what program is using the port
-	* Linkify URLs?
+	* Linkify URLs
 
 
 * Live reload everything
@@ -102,6 +102,9 @@
 * I could also have a setting to explicitly detatch processes, or explicitly kill them, or use the OS default as it does now (windows leaves them open, linux kills 'em)
 
 
+* Handle having processes open when reloading (nw-dev)
+
+
 * I'd rather get as much functionality out the GUI before adding a general purpose command line
 
 
@@ -110,7 +113,8 @@
 
 
 * The properly capitalized name of a project is
-  secretly stored most of the time in... README.md!
+  secretly stored in many cases in... README.md!
 	* e.g. `# Project Nexus`
 
 
+* Better project organization
