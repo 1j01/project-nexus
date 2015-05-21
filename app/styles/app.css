@@ -46,6 +46,10 @@ li > * {
 	height: 100%;
 	line-height: 1;
 }
+.launcher {
+	flex: 0;
+	flex-basis: auto;
+}
 button {
 	flex: 0;
 	flex-basis: auto;
@@ -58,12 +62,28 @@ li button {
 	color: inherit;
 	border: 0;
 }
-li > button {
+li > button,
+.launcher,
+.launcher > button {
 	padding: 0;
 	width: 32px;
 	height: 32px;
 	font-size: 32px;
 	align-items: center;
+}
+.launcher {
+	position: relative;
+}
+.menu {
+	position: fixed;
+	z-index: 1;
+	font-size: medium;
+	color: black;
+	background: rgb(229, 248, 255);
+	box-shadow: 1px 1px 1px rgba(24, 115, 115, 0.55);
+}
+.menu.hidden {
+	display: none;
 }
 button > span {
 	line-height: 1;

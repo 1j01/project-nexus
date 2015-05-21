@@ -22,6 +22,14 @@ module.exports = (project)->
 					project.npm_start_process.kill()
 		return
 	
+	if project.pkg and no and no
+		script_runner = (script, command)->
+			text: script
+			title: "npm run #{script} (#{command})"
+			action: ->
+				exec "npm run #{script}"
+			
+		npm_run_script_menu = (script_runner script, command for script, command of project.pkg.scripts)
 	
 	# @TODO: keep track of whether the project has been started?
 	# This assumes the `npm start` process will
@@ -40,6 +48,7 @@ module.exports = (project)->
 		action: stop
 		title: stop_info
 		icon: "octicon-primitive-square"
+		menu: npm_run_script_menu
 		
 	else
 		if project.pkg
@@ -63,3 +72,4 @@ module.exports = (project)->
 			action: start
 			title: start_info
 			icon: "octicon-playback-play"
+			menu: npm_run_script_menu

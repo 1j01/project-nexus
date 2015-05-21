@@ -15,8 +15,9 @@ chrome =
 E = window.ReactScript
 
 module.exports = (project)->
-	# @TODO: look in arbitrary locations for manifest.json
-	launcher_button = null
+	launcher = null
+	
+	# @TODO: look in other locations for manifest.json
 	for subdir in ["", "app"]
 		do (subdir)->
 			app_path = join project.path, subdir
@@ -31,7 +32,7 @@ module.exports = (project)->
 				project.manifest = manifest
 				open_it = "open chrome app (#{manifest_path})"
 				
-				launcher_button =
+				launcher =
 					action: -> chrome.open app_path
 					disabled: not chrome.exe
 					title:
@@ -41,7 +42,7 @@ module.exports = (project)->
 						"""
 					icon: "icon-chrome"
 	
-	launcher_button
+	launcher
 
 # @TODO: also support extensions with --load-extension
 
