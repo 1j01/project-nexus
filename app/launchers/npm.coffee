@@ -22,15 +22,25 @@ module.exports = (project)->
 					project.npm_start_process.kill()
 		return
 	
+	
 	# @TODO: keep track of whether the project has been started?
-	# I've never actually used `npm stop`
-	# but this assumes the `npm start` process will
+	# This assumes the `npm start` process will
 	# stay open as long as you want to `npm stop`
+	# so that's probably not very useful
+	# but I've never actually used `npm stop`
+	# so this is not a priority for me
 	if project.npm_start_process
-		E "button.stop",
-			onClick: stop
-			title: project.npm_start_process.info.replace start_command, "kill"
-			E "i.mega-octicon.octicon-primitive-square"
+		
+		stop_info =
+			if use_npm_stop
+				"npm stop (#{project.pkg.scripts.stop})"
+			else
+				project.npm_start_process.info.replace start_command, "kill"
+		
+		action: stop
+		title: stop_info
+		icon: "octicon-primitive-square"
+		
 	else
 		if project.pkg
 			
@@ -50,7 +60,6 @@ module.exports = (project)->
 						window.render()
 				return
 			
-			E "button",
-				onClick: start
-				title: start_info
-				E "i.mega-octicon.octicon-playback-play"
+			action: start
+			title: start_info
+			icon: "octicon-playback-play"

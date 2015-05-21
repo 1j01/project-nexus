@@ -16,5 +16,13 @@ class @ProjectListItem extends React.Component
 			E "span.project-name", name
 			
 			for launcher_module in launchers
-				el = launcher_module project
-				el ? E "button", disabled: yes, style: pointerEvents: "none"
+				button = launcher_module project
+				
+				if button
+					{action, title, icon} = button
+					E "button",
+						onClick: action
+						title: title
+						E "i", class: [icon, ("mega-octicon" if icon?.match /octicon-/)]
+				else
+					E "button", disabled: yes, style: pointerEvents: "none"

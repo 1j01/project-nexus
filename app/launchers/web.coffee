@@ -11,10 +11,9 @@ E = window.ReactScript
 module.exports = (project)->
 	index_path = join project.path, "index.html"
 	if fs.existsSync index_path
-		E "button",
-			# @FIXME: this unpredictably fails; use an HTTP server
-			onClick: -> gui.Shell.openItem index_path
-			title: "open index.html"
-			E "i.mega-octicon.octicon-globe"
+		# @FIXME: this unpredictably fails; use an HTTP server
+		action: -> gui.Shell.openItem index_path
+		title: "open index.html"
+		icon: "octicon-globe"
 
 # @PLZ: add HTTP server @KTHXBAI

@@ -68,6 +68,9 @@ li > button {
 button > span {
 	line-height: 1;
 }
+[class^="icon-"] {
+	-webkit-transform: scale(0.75);
+}
 header .octicon-gear:before {
 	vertical-align: middle;
 }

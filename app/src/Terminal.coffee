@@ -4,7 +4,6 @@ Term = Terminal
 class @Terminal extends React.Component
 	
 	render: ->
-		window.addEventListener "resize", => @resize()
 		E ".terminal-container"
 	
 	componentDidMount: ->
@@ -32,6 +31,7 @@ class @Terminal extends React.Component
 		term.open container
 		do resize = => @resize()
 		setTimeout resize, 50
+		window.addEventListener "resize", resize
 		container.addEventListener "transitionend", resize, no
 		
 		
