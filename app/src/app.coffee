@@ -1,4 +1,7 @@
 
+{exec, spawn} = require "child_process"
+we_have_to_deal_with_Windows = process.platform is "win32"
+
 gui = require "nw.gui"
 win = window.win = gui.Window.get()
 
@@ -61,6 +64,27 @@ do @read_projects_dir = ->
 			stats = fs.statSync path
 			if stats.isDirectory()
 				project = {id: fname, dirname: fname, name: fname, path}
+				
+				do (project)->
+					project.processes = {}
+					project.exec = (command, info)->
+						proc = project.processes[command] = exec command, cwd: project.path
+						proc.info = info
+						proc.running = yes
+						if we_have_to_deal_with_Windows
+							proc.kill = -> spawn "taskkill", ["/pid", proc.pid, "/f", "/t"]
+						proc.on "error", (err)->
+							console.error err
+							proc.running = no
+						proc.on "exit", (code, signal)->
+							console.log "process #{info} exited with code #{code}"
+							# delete project.processes[command]
+							proc.running = no
+							proc.exitCode = code
+							proc.exitSignal = signal
+							window.render()
+						window.render()
+						proc
 				
 				try
 					package_json_path = join path, "package.json"

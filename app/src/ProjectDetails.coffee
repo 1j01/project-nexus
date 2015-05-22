@@ -6,7 +6,19 @@ class @ProjectDetails extends React.Component
 			{package_json} = project
 			
 			E ".project-details",
-				E Terminal, {process: project.npm_start_process, project}
+				E ".processes",
+					for command, proc of project.processes then do (command, proc)->
+						E ".process",
+							E "header",
+								E ".process-info", proc.info
+								E ".process-exited", "exited with code #{proc.exitCode}" if proc.exitCode?
+								E "button.close-process",
+									onClick: ->
+										proc.kill() if proc.running
+										delete project.processes[command]
+										window.render()
+									E "i.octicon.octicon-x"
+							E Terminal, {process: proc, id: project.id}
 				if package_json?
 					E PackageEditor, json: package_json
 				else

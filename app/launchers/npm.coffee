@@ -1,8 +1,6 @@
 
 fs = require "fs"
 {join} = require "path"
-{exec, spawn} = require "child_process"
-we_have_to_deal_with_Windows = process.platform is "win32"
 
 E = window.ReactScript
 
@@ -13,22 +11,17 @@ module.exports = (project)->
 	
 	stop = ->
 		if use_npm_stop
-			exec "npm stop", cwd: project.path
+			project.exec "npm stop"
 		else
-			if project.npm_start_process
-				if we_have_to_deal_with_Windows
-					spawn "taskkill", ["/pid", project.npm_start_process.pid, "/f", "/t"]
-				else
-					project.npm_start_process.kill()
-		return
+			project.processes[start_command]?.kill()
 	
-	if project.pkg and no and no
+	if project.pkg
 		script_runner = (script, command)->
+			run_script_info = "npm run #{script} (#{command})"
 			text: script
-			title: "npm run #{script} (#{command})"
-			action: ->
-				exec "npm run #{script}"
-			
+			title: run_script_info
+			action: -> project.exec "npm run #{script}", run_script_info
+		
 		npm_run_script_menu = (script_runner script, command for script, command of project.pkg.scripts)
 	
 	# @TODO: keep track of whether the project has been started?
@@ -37,13 +30,13 @@ module.exports = (project)->
 	# so that's probably not very useful
 	# but I've never actually used `npm stop`
 	# so this is not a priority for me
-	if project.npm_start_process
+	if project.processes[start_command]?.running
 		
 		stop_info =
 			if use_npm_stop
 				"npm stop (#{project.pkg.scripts.stop})"
 			else
-				project.npm_start_process.info.replace start_command, "kill"
+				project.processes[start_command].info.replace start_command, "kill"
 		
 		action: stop
 		title: stop_info
@@ -60,14 +53,8 @@ module.exports = (project)->
 					start_command
 			
 			start = ->
-				unless project.npm_start_process
-					project.npm_start_process = exec start_command, cwd: project.path
-					project.npm_start_process.info = start_info
-					window.render()
-					project.npm_start_process.on "exit", (code, signal)->
-						project.npm_start_process = null
-						window.render()
-				return
+				unless project.processes[start_command]?.running
+					project.exec start_command, start_info
 			
 			action: start
 			title: start_info

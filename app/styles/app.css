@@ -74,6 +74,11 @@ li > button,
 .launcher {
 	position: relative;
 }
+.launcher.menu-open {
+	color: black;
+	background: rgb(229, 248, 255);
+	box-shadow: 1px 1px 1px rgba(24, 115, 115, 0.55);
+}
 .menu {
 	position: fixed;
 	z-index: 1;
@@ -82,8 +87,11 @@ li > button,
 	background: rgb(229, 248, 255);
 	box-shadow: 1px 1px 1px rgba(24, 115, 115, 0.55);
 }
-.menu.hidden {
+.menu:not(.open) {
 	display: none;
+}
+.menu li {
+	padding: 2px;
 }
 button > span {
 	line-height: 1;
@@ -193,13 +201,23 @@ pre {
 	font-family: monospace;
 	line-height: 1;
 }
-.terminal-container {
+.terminal-container,
+.process,
+.processes {
 	flex: 1;
 	transition: flex .4s ease;
 	background: black;
 }
-.terminal-container:empty {
+.terminal-container:empty,
+.process:empty,
+.processes:empty {
 	flex: 0.00000001;
+}
+button.close-process {
+	padding: 0 5px;
+}
+.process-exited {
+	flex: 0.01 0 auto;
 }
 
 .window-content {

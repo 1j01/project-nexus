@@ -5,11 +5,11 @@
 
 
 * Open all your tools for you
-	* Like a tool belt conveyor belt or something
 	* Editor
 		* Your editor *does* support opening folders, doesn't it?
 		* Default to `EDITOR`
 		* Ask if you want to set `EDITOR`
+			* (`setx` on Windows?)
 	* Source control
 		* Github for Windows/Mac
 		* Various Git GUI clients
@@ -18,7 +18,7 @@
 			* Ungit is kinda ugly (and doesn't fit in very well)
 				* I'm sure it could be themed, to some extent
 			* [This](http://tonsky.me/blog/reinventing-git-interface/) is what I [really want](https://github.com/quassy/elementary-apps/issues/17)
-	* ~~Folder browser~~ (done)
+	* ~~Folder browser~~ (**done**)
 	* Configure whatever tools you want
 	* Configure whether you want it to give you
 		* an open/close project button, or
@@ -32,15 +32,17 @@
 
 
 * Plugins
+	* Only have columns for plugins that support at least one project
 	* Launch multiple tasks (with dropdowns)
-		* `npm` (**do this soon**)
+		* ~~`npm`~~ (**done**)
 		* `cake`
 		* `make`
 		* `rake`
-	* Plugins can add project openers for tools
+	* Let plugins add project openers for tools
 		* Such as, when there's a solution (.sln) file,
 		  it could open Visual Studio
-			* This should override your Editor (i.e. not launch both)
+			* In this case, it should override your Editor
+	* An easy way to install plugins?
 
 
 * Link to repository (defined in `package.json`)
@@ -105,9 +107,6 @@
 * Handle having processes open when reloading (nw-dev)
 
 
-* I'd rather get as much functionality out the GUI before adding a general purpose command line
-
-
 * elementary OS app
 	* Publish to [elementary apps](http://quassy.github.io/elementary-apps/) (and the App Center when it exists in the future)
 
@@ -115,6 +114,9 @@
 * The properly capitalized name of a project is
   secretly stored in many cases in... README.md!
 	* e.g. `# Project Nexus`
+	* (with formatting that would need to be removed of course)
+	* and other text file formats
+	* and maybe `<html><title>`? maybe that's a bit presumptuous
 
 
-* Better project organization
+* Better project organization (e.g. folders or groups or tags)

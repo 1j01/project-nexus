@@ -10,12 +10,13 @@ class @Terminal extends React.Component
 		@init() if @props.process
 	
 	componentDidUpdate: (prev_props)->
-		if @props.project.path isnt prev_props.project.path
+		if @props.id isnt prev_props.id
 			@term?.destroy()
-		if @props.process
+		if @props.process and @props.process isnt prev_props.process
 			@init()
 	
 	init: ->
+		# console.log "Terminal::init(), destroy @term"
 		@term?.destroy()
 		
 		proc = @props.process
