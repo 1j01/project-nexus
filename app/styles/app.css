@@ -20,7 +20,6 @@ main * {
 	margin: 0;
 }
 
-
 .window-frame * {
 	outline: none;
 }
@@ -29,7 +28,8 @@ main {
 	flex-direction: row;
 }
 
-header, li {
+header,
+li {
 	padding: 5px;
 	flex: 0;
 	flex-basis: auto;
@@ -54,7 +54,6 @@ button {
 	flex: 0;
 	flex-basis: auto;
 }
-/* obsolete? */
 header button,
 h2 button,
 li button {
@@ -248,9 +247,6 @@ button.close-process {
 }
 .overlay {
 	background: rgba(0, 0, 0, 0.3);
-	/*background: rgba(100, 100, 100, 0.4);*/
-	/*background: radial-gradient(rgba(0, 0, 0, 0.3));*/
-	/*background: -webkit-radial-gradient(center, ellipse cover, rgba(33,33,33,0.9) 0%, rgba(19,19,19,0) 70%);*/
 }
 .settings {
 	position: absolute;
@@ -305,4 +301,3 @@ button.close-process {
 .setting input[type=text] {
 	flex: 1;
 }
-

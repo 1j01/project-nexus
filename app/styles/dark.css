@@ -1,11 +1,8 @@
 
-
 header {
 	background: linear-gradient(to bottom, #77090f 1%,#701602 28%,#590901 60%,#420012 100%);
 	color: white;
 	border-bottom: 1px solid red;
-	/*background: #213841;
-	border-bottom: 1px solid seagreen;*/
 }
 
 main {
@@ -33,6 +30,9 @@ pre {
 	height: 6px;
 }
 ::-webkit-scrollbar-track {
+	background: rgba(0, 0, 0, 0.3);
+}
+::-webkit-scrollbar-corner {
 	background: rgba(0, 0, 0, 0.3);
 }
 ::-webkit-scrollbar-thumb {

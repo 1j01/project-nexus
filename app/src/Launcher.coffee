@@ -45,9 +45,8 @@ class @Launcher extends React.Component
 			scroller = element
 			scroller = scroller.parentElement until scroller.classList.contains "projects"
 			do update_menu_position = =>
-				console.log element.clientHeight
-				# menu.style.top = "#{element.offsetTop + scroller.offsetTop - scroller.scrollTop}px"
 				menu.style.top = "#{element.getBoundingClientRect().bottom}px"
+			setTimeout update_menu_position, 20 # @HACK because it wouldn't position correctly initially
 			window.addEventListener "mousedown", close_menu
 			window.addEventListener "mouseup", close_menu
 			window.addEventListener "keydown", (e)=> @setState menu_open: no if e.keyCode is 27 # Escape

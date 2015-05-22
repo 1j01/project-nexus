@@ -23,22 +23,16 @@ if win.isTransparent is not Settings.get "elementary"
 
 links = document.querySelectorAll 'link[rel="stylesheet"]'
 update_stylesheets = ->
-	for link in links when link.className.match /application|elementary/
+	for link in links
 		if (link.classList.contains "dark") and not (Settings.get "dark")
-			console.log "remove dark link", link, "because dark theme is disabled"
 			link.remove()
 		else if (link.classList.contains "elementary") and not (Settings.get "elementary")
-			console.log "remove elementary link", link, "because elementary theme is disabled"
 			link.remove()
 		else
 			document.head.appendChild link
 
 Settings.watch "elementary", update_stylesheets
 Settings.watch "dark", update_stylesheets
-	# for link in document.querySelectorAll "link.dark"
-	# 	link.remove()
-	# 
-	# document.getElementById("elementary.css").remove()
 
 {join, resolve} = require "path"
 fs = require "fs"
@@ -53,7 +47,7 @@ Settings.open = no
 do @render = ->
 	React.render (React.createElement ProjectNexus), document.body
 
-# @TODO: watch this directory
+# @TODO: watch the projects directory for changes
 # but don't overwrite the state in the mutated project objects!
 do @read_projects_dir = ->
 	ProjectNexus.projects_read_error = null
@@ -94,7 +88,6 @@ do @read_projects_dir = ->
 							proc.running = no
 						proc.on "exit", (code, signal)->
 							console.log "process #{info} exited with code #{code}"
-							# delete project.processes[command]
 							proc.running = no
 							proc.exitCode = code
 							proc.exitSignal = signal

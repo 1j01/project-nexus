@@ -3,6 +3,8 @@ Term = Terminal
 
 class @Terminal extends React.Component
 	
+	# @TODO: persistent terminal sessions
+	
 	render: ->
 		E ".terminal-container"
 	
@@ -16,12 +18,11 @@ class @Terminal extends React.Component
 			@init()
 	
 	init: ->
-		# console.log "Terminal::init(), destroy @term"
 		@term?.destroy()
 		
 		proc = @props.process
 		
-		term = new Term
+		@term = new Term
 			cols: 8
 			rows: 2
 			screenKeys: on
@@ -29,7 +30,7 @@ class @Terminal extends React.Component
 		
 		
 		container = React.findDOMNode(@)
-		term.open container
+		@term.open container
 		do resize = => @resize()
 		setTimeout resize, 50
 		window.addEventListener "resize", resize
@@ -39,25 +40,20 @@ class @Terminal extends React.Component
 		# @TODO: use https://github.com/chjj/pty.js
 		
 		proc.stdout.on 'data', (data)=>
-			term.write data
+			@term.write data
 		
 		proc.stderr.on 'data', (data)=>
-			term.write data
+			@term.write data
 		
-		term.on 'data', (data)=>
+		@term.on 'data', (data)=>
 			proc.stdin.write data
 		
 		proc.on 'close', =>
-			term.off 'data'
-		
-		
-		# @TODO: persist terminals
-		# proc.term = term
-		@term = term
+			@term.off 'data'
 	
 	resize: ->
-		if not @term
-			console.log "resize, no @term"
+		unless @term
+			console.log "Terminal::resize, no @term"
 			return
 		
 		container = React.findDOMNode(@)
@@ -79,20 +75,17 @@ class @Terminal extends React.Component
 		tester.innerText = "#"
 		tester_div.appendChild tester
 		
-		console.log "resize",
-			container.clientWidth // tester.clientWidth
-			container.clientHeight // tester.clientHeight
+		w = container.clientWidth // tester.clientWidth
+		h = container.clientHeight // tester.clientHeight
+		console.log "Terminal::resize, #{w}x#{h}"
 		
-		@term.resize(
-			container.clientWidth // tester.clientWidth
-			container.clientHeight // tester.clientHeight
-		)
+		@term.resize w, h
 		
 		container.removeChild tester_terminal
 		tester_terminal = null
 		tester = null
 	
 	componentWillUnmount: ->
-		console.log "destroying term"
+		console.log "Terminal: destroying @term"
 		@term?.destroy()
 		@term = null
