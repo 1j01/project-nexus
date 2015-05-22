@@ -93,6 +93,7 @@ Settings.watch "projects_dir", (projects_dir)->
 							proc.exitCode = code
 							proc.exitSignal = signal
 							window.render()
+						ProjectNexus.selected_project_id = project.id
 						window.render()
 						proc
 				

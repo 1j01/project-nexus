@@ -137,3 +137,4 @@
 	* With elementary + dark theme, the Browse button in Settings has some non-dark styles
 	* With dark (non-elementary) theme, the whole projects directory multi-input is non-dark (not that it *has* to be)
 	* The multi-input isn't linked nicely without the elementary stylesheet (both elements have borders)
+	* Could probably animate more transitions in ProjectDetails, possibly by adding an animation dummy element
