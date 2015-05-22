@@ -15,11 +15,6 @@ win = window.win = gui.Window.get()
 		window.close()
 	, 50
 
-# note: `is not` isnt `isnt`
-# `is not` handles the setting being undefined (not yet set)
-# this let's the application launch properly the first time
-if win.isTransparent is not Settings.get "elementary"
-	return switch_frame()
 
 links = document.querySelectorAll 'link[rel="stylesheet"]'
 update_stylesheets = ->
@@ -31,8 +26,13 @@ update_stylesheets = ->
 		else
 			document.head.appendChild link
 
-Settings.watch "elementary", update_stylesheets
 Settings.watch "dark", update_stylesheets
+
+Settings.watch "elementary", (elementary)->
+	# NOTE: `is not` isn't `isnt`
+	# `is not` handles the setting being undefined (not yet set)
+	# this let's the application launch properly the first time
+	switch_frame() if win.isTransparent == (not elementary)
 
 {join, resolve} = require "path"
 fs = require "fs"
@@ -47,12 +47,13 @@ Settings.open = no
 do @render = ->
 	React.render (React.createElement ProjectNexus), document.body
 
-# @TODO: watch the projects directory for changes
+# @TODO: watch the projects directory for changes (projects added, removed, renamed)
 # but don't overwrite the state in the mutated project objects!
-do @read_projects_dir = ->
+# or you know, don't mutate the state
+
+Settings.watch "projects_dir", (projects_dir)->
 	ProjectNexus.projects_read_error = null
 	
-	projects_dir = Settings.get "projects_dir"
 	if not projects_dir
 		ProjectNexus.projects = null
 		Settings.show()

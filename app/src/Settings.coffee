@@ -9,7 +9,7 @@ objectAssign = (target, sources...)->
 
 
 class Setting extends React.Component
-	constructor: ({@setting, @label, @change})->
+	constructor: ({@setting, @label})->
 		super
 	labeled: (el)->
 		E "label.setting",
@@ -29,7 +29,6 @@ class CheckboxSetting extends Setting
 				checked: @get()
 				onChange: (e)=>
 					@set e.target.checked
-					@change? e
 					window.render()
 			@label
 
@@ -40,7 +39,6 @@ class TextSetting extends Setting
 			value: @get()
 			onChange: (e)=>
 				@set e.target.value
-				@change? e
 				window.render()
 
 
@@ -52,7 +50,6 @@ class DirectorySetting extends Setting
 				value: @get()
 				onChange: (e)=>
 					@set e.target.value
-					@change? e
 					window.render()
 				E "button.button",
 					onClick: =>
@@ -61,7 +58,6 @@ class DirectorySetting extends Setting
 						chooser.setAttribute "nwdirectory", "nwdirectory"
 						chooser.addEventListener "change", (e)=>
 							@set e.target.value
-							@change? e
 							window.render()
 						chooser.click()
 					"Browse"
@@ -110,7 +106,6 @@ class @Settings extends React.Component
 					E DirectorySetting,
 						setting: "projects_dir"
 						label: "Projects Directory"
-						change: -> window.read_projects_dir()
 					E CheckboxSetting,
 						setting: "list_wrap"
 						label: "Enable wrapping in projects list when using keyboard navigation"
@@ -120,4 +115,3 @@ class @Settings extends React.Component
 					E CheckboxSetting,
 						setting: "elementary"
 						label: "Use elementary OS's beautiful styles"
-						change: -> window.switch_frame()
