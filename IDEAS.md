@@ -31,6 +31,14 @@
 	* (If one workflow is obviously superior, maybe I can remove the setting)
 
 
+* Auto detect common project superdirectories
+	* such as created by Github for Windows
+	* or by IDEs or other tools
+	* and simple things like %USER%/Code or ~/code
+		* "coding", "programming", etc.
+		* Uppercase, lowercase, dashed (e.g. "coding-projects") or spaced
+
+
 * Plugins
 	* Only have columns for plugins that support at least one project
 	* Launch multiple tasks (with dropdowns)
@@ -127,6 +135,5 @@
 	* ProjectListItems shouldn't look like they are being pressed when only a menu item is
 	* Process close button should go on the left for elementary OS and some other operating systems
 	* With elementary + dark theme, the Browse button in Settings has some non-dark styles
-	* With dark (non-elementary) theme, the whole projects directory multi-input in light
+	* With dark (non-elementary) theme, the whole projects directory multi-input is non-dark (not that it *has* to be)
 	* The multi-input isn't linked nicely without the elementary stylesheet (both elements have borders)
-	* Settings window isn't scrollable when it's too small display all options

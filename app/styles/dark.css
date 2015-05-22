@@ -1,11 +1,7 @@
 
 
 header {
-	/*background: #E53C36;*/
-	/*background: linear-gradient(to bottom, #a90329 0%,#8f0222 44%,#6d0019 100%);*/
-	/*background: linear-gradient(to bottom, #77090f 1%,#871a02 27%,#820204 60%,#420012 100%);*/
 	background: linear-gradient(to bottom, #77090f 1%,#701602 28%,#590901 60%,#420012 100%);
-	/*box-shadow: 0 0 15px rgba(0, 0, 0, 0.3) inset;*/
 	color: white;
 	border-bottom: 1px solid red;
 	/*background: #213841;

@@ -106,24 +106,18 @@ class @Settings extends React.Component
 						style: float: "right"
 						onClick: Settings.hide
 						E "i.octicon.octicon-x"
-				
-				# @TODO: auto detect common project superdirectories
-				# such as from Github for Windows
-				# or simple things like %USER%/Code or ~/code
-				E DirectorySetting,
-					setting: "projects_dir"
-					label: "Projects Directory"
-					change: -> window.read_projects_dir()
-				E CheckboxSetting,
-					setting: "list_wrap"
-					label: "Enable wrapping in projects list when using keyboard navigation"
-				E CheckboxSetting,
-					setting: "dark"
-					label: "Use dark styles"
-				E CheckboxSetting,
-					setting: "elementary"
-					label: "Use elementary OS's beautiful styles"
-					change: -> window.switch_frame()
-				# @TODO: configure your editor and other applications you want to open
-				# allow you to use your EDITOR (by default if you have it set)
-				# allow you to set your %EDITOR% with setx on windows
+				E ".settings-content",
+					E DirectorySetting,
+						setting: "projects_dir"
+						label: "Projects Directory"
+						change: -> window.read_projects_dir()
+					E CheckboxSetting,
+						setting: "list_wrap"
+						label: "Enable wrapping in projects list when using keyboard navigation"
+					E CheckboxSetting,
+						setting: "dark"
+						label: "Use dark styles"
+					E CheckboxSetting,
+						setting: "elementary"
+						label: "Use elementary OS's beautiful styles"
+						change: -> window.switch_frame()
