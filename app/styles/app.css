@@ -79,6 +79,16 @@ li > button,
 	background: rgb(229, 248, 255);
 	box-shadow: 1px 1px 1px rgba(24, 115, 115, 0.55);
 }
+.launcher.menu-open > button {
+	outline: none;
+}
+.context-menu-indicator {
+	pointer-events: none;
+	font-size: 0.6em;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
 .menu {
 	position: fixed;
 	z-index: 1;
@@ -96,6 +106,9 @@ li > button,
 button > span {
 	line-height: 1;
 }
+button > i {
+	pointer-events: none;
+}
 [class^="icon-"] {
 	-webkit-transform: scale(0.75);
 }
@@ -104,8 +117,9 @@ header .octicon-gear:before {
 }
 
 
+button.no-primary-action,
 [disabled] {
-	opacity: 0.1;
+	opacity: 0.2;
 }
 ul {
 	overflow: auto;

@@ -120,3 +120,10 @@
 
 
 * Better project organization (e.g. folders or groups or tags)
+
+
+* Styles
+	* Better focus styles for icon buttons (not an orange rectangular outline)
+	* ProjectListItems shouldn't look like they are being pressed when only a menu item is
+	* Process close button should go on the left for elementary OS and some other operating systems
+	* Dark theme!

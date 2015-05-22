@@ -45,18 +45,22 @@ module.exports = (project)->
 		
 	else
 		if project.pkg
+			starter = (start_info)->
+				start = ->
+					unless project.processes[start_command]?.running
+						project.exec start_command, start_info
+				
+				action: start
+				title: start_info
+				icon: "octicon-playback-play"
+				menu: npm_run_script_menu
 			
-			start_info =
-				if project.pkg.scripts?.start
-					"#{start_command} (#{project.pkg.scripts.start})"
-				else
-					start_command
+			if project.pkg.scripts?.start
+				starter "#{start_command} (#{project.pkg.scripts.start})"
+			else if fs.existsSync join project.path, "server.js"
+				starter "#{start_command} (node server.js)"
+			else
+				title: "npm run-script ..."
+				icon: "octicon-playback-play"
+				menu: npm_run_script_menu
 			
-			start = ->
-				unless project.processes[start_command]?.running
-					project.exec start_command, start_info
-			
-			action: start
-			title: start_info
-			icon: "octicon-playback-play"
-			menu: npm_run_script_menu

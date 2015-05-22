@@ -6,10 +6,12 @@ class @Launcher extends React.Component
 	render: ->
 		{action, title, icon, menu} = @props
 
-		if icon
+		if icon or menu
+			icon ?= "octicon-primitive-dot"
 			E ".launcher",
 				class: "menu-open" if @state.menu_open
 				E "button",
+					class: "no-primary-action": not action
 					onClick: action
 					onContextMenu: => @setState menu_open: yes if menu
 					# @TODO: open the menu by either
@@ -17,6 +19,7 @@ class @Launcher extends React.Component
 					# * dragging down from the button
 					title: title
 					E "i", class: [icon, ("mega-octicon" if icon?.match /octicon-/)]
+				E ".context-menu-indicator", "…" if menu
 				if menu
 					E "ul.menu",
 						class: "open" if @state.menu_open
