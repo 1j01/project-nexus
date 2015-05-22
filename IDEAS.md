@@ -126,4 +126,7 @@
 	* Better focus styles for icon buttons (not an orange rectangular outline)
 	* ProjectListItems shouldn't look like they are being pressed when only a menu item is
 	* Process close button should go on the left for elementary OS and some other operating systems
-	* Dark theme!
+	* With elementary + dark theme, the Browse button in Settings has some non-dark styles
+	* With dark (non-elementary) theme, the whole projects directory multi-input in light
+	* The multi-input isn't linked nicely without the elementary stylesheet (both elements have borders)
+	* Settings window isn't scrollable when it's too small display all options

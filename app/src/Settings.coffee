@@ -79,11 +79,20 @@ class @Settings extends React.Component
 	
 	@get: (key)->
 		try JSON.parse localStorage.getItem key
-		catch e then console.warn e
+		catch e then console.error e
 	
 	@set: (key, value)->
 		try localStorage.setItem key, JSON.stringify value
-		catch e then console.warn e
+		catch e then console.error e
+		
+		for callback in (Settings.watchers[key] ? [])
+			callback value
+	
+	@watchers: {}
+	@watch: (key, callback)->
+		callback Settings.get key
+		Settings.watchers[key] ?= []
+		Settings.watchers[key].push callback
 	
 	render: ->
 		# @TODO: escape from settings
@@ -108,6 +117,9 @@ class @Settings extends React.Component
 				E CheckboxSetting,
 					setting: "list_wrap"
 					label: "Enable wrapping in projects list when using keyboard navigation"
+				E CheckboxSetting,
+					setting: "dark"
+					label: "Use dark styles"
 				E CheckboxSetting,
 					setting: "elementary"
 					label: "Use elementary OS's beautiful styles"

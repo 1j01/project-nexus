@@ -132,6 +132,7 @@ ul {
 	flex-basis: auto;
 	flex-shrink: 10;
 	flex-grow: 0.1;
+	padding: 5px;
 }
 .no-projects {
 	padding: 15px;

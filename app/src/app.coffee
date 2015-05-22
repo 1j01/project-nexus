@@ -21,8 +21,24 @@ win = window.win = gui.Window.get()
 if win.isTransparent is not Settings.get "elementary"
 	return switch_frame()
 
-if not Settings.get "elementary"
-	document.getElementById("elementary.css").remove()
+links = document.querySelectorAll 'link[rel="stylesheet"]'
+update_stylesheets = ->
+	for link in links when link.className.match /application|elementary/
+		if (link.classList.contains "dark") and not (Settings.get "dark")
+			console.log "remove dark link", link, "because dark theme is disabled"
+			link.remove()
+		else if (link.classList.contains "elementary") and not (Settings.get "elementary")
+			console.log "remove elementary link", link, "because elementary theme is disabled"
+			link.remove()
+		else
+			document.head.appendChild link
+
+Settings.watch "elementary", update_stylesheets
+Settings.watch "dark", update_stylesheets
+	# for link in document.querySelectorAll "link.dark"
+	# 	link.remove()
+	# 
+	# document.getElementById("elementary.css").remove()
 
 {join, resolve} = require "path"
 fs = require "fs"
