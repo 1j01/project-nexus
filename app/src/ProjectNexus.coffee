@@ -10,7 +10,7 @@ class @ProjectNexus extends React.Component
 				if project.id is ProjectNexus.selected_project_id
 					selected_project = project
 		
-		Window = if Settings.get "elementary" then GtkWindow else ".app"
+		Window = if Settings.get "elementary" then GtkWindow else ".app.non-elementary"
 		Header = if Settings.get "elementary" then GtkHeaderBar else "header"
 		
 		E Window, {},

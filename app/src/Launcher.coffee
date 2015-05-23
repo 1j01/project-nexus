@@ -15,7 +15,10 @@ class @Launcher extends React.Component
 		if icon or menu
 			icon ?= "octicon-primitive-dot"
 			E ".launcher",
-				class: "menu-open" if @state.menu_open
+				# class: ["has-menu", "menu-open" if @state.menu_open] if menu # haha ReactScript
+				class:
+					"has-menu": menu?
+					"menu-open": @state.menu_open
 				E "button",
 					class: "no-primary-action": not action
 					onClick: =>
@@ -46,9 +49,8 @@ class @Launcher extends React.Component
 					
 					title: title
 					E "i", class: [icon, ("mega-octicon" if icon?.match /octicon-/)]
-				E ".context-menu-indicator", "…" if menu
 				if menu
-					E "ul.menu",
+					E "ul.launcher-context-menu",
 						class: "open" if @state.menu_open
 						for item, i in menu then do (item, i)=>
 							hovered = @state.hovered_menu_item_i is i
@@ -77,7 +79,7 @@ class @Launcher extends React.Component
 	
 	componentDidMount: ->
 		element = React.findDOMNode @
-		menu = element.querySelector ".menu"
+		menu = element.querySelector ".launcher-context-menu"
 		if menu
 			close_menu = (e)=>
 				if menu.contains e.target

@@ -92,16 +92,27 @@ class @Settings extends React.Component
 	
 	render: ->
 		# @TODO: escape from settings
+		elementary = Settings.get "elementary"
 		E ".settings-container", class: {visible: Settings.open},
 			E ".overlay", onClick: Settings.hide
 			E ".settings",
 				E "h2",
+					style: textAlign: "center" if elementary
 					E "i.mega-octicon.octicon-gear"
 					" Settings"
 					E "button",
-						style: float: "right"
 						onClick: Settings.hide
-						E "i.octicon.octicon-x"
+						style: float: if elementary then "left" else "right"
+						# style:
+						# 	if elementary
+						# 		position: "absolute"
+						# 		left: 10
+						# 	else
+						# 		float: "right"
+						if elementary # (as if these icons were different)
+							E "i.e-icon-close"
+						else
+							E "i.octicon.octicon-x"
 				E ".settings-content",
 					E DirectorySetting,
 						setting: "projects_dir"

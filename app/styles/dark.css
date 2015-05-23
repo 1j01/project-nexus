@@ -5,6 +5,10 @@ header {
 	border-bottom: 1px solid red;
 }
 
+.process ~ .process {
+	border-top: 1px solid red;
+}
+
 main {
 	background: #333;
 	color: #f0f0f0;
