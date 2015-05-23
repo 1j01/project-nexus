@@ -22,7 +22,7 @@ class @Terminal extends React.Component
 		
 		proc = @props.process
 		
-		@term = new Term
+		term = @term = new Term
 			cols: 8
 			rows: 2
 			screenKeys: on
@@ -30,8 +30,8 @@ class @Terminal extends React.Component
 		
 		
 		container = React.findDOMNode(@)
-		@term.open container
-		do resize = => @resize()
+		term.open container
+		resize = => @resize()
 		setTimeout resize, 50
 		window.addEventListener "resize", resize
 		container.addEventListener "transitionend", resize, no
@@ -39,17 +39,17 @@ class @Terminal extends React.Component
 		
 		# @TODO: use https://github.com/chjj/pty.js
 		
-		proc.stdout.on 'data', (data)=>
-			@term.write data
+		proc.stdout.on 'data', (data)->
+			term.write data
 		
-		proc.stderr.on 'data', (data)=>
-			@term.write data
+		proc.stderr.on 'data', (data)->
+			term.write data
 		
-		@term.on 'data', (data)=>
+		term.on 'data', (data)->
 			proc.stdin.write data
 		
-		proc.on 'close', =>
-			@term.off 'data'
+		proc.on 'close', ->
+			term.off 'data'
 	
 	resize: ->
 		unless @term
@@ -88,3 +88,4 @@ class @Terminal extends React.Component
 	componentWillUnmount: ->
 		console.log "Terminal: destroying @term"
 		@term?.destroy()
+		@term = null

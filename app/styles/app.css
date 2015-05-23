@@ -313,7 +313,3 @@ pre {
 	border-top-left-radius: 2px;
 	border-bottom-left-radius: 2px;
 }
-/* fix button using default browser styling instead of darkliciousness */
-.window-frame .button {
-	background-color: transparent;
-}

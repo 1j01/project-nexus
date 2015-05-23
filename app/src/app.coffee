@@ -12,6 +12,7 @@ win = window.win = gui.Window.get()
 			toolbar: no
 			frame: not elementary
 			transparent: elementary
+			icon: "app/img/cube.png"
 		window.close()
 	, 50
 
@@ -20,6 +21,8 @@ links = document.querySelectorAll 'link[rel="stylesheet"]'
 update_stylesheets = ->
 	for link in links
 		if (link.classList.contains "dark") and not (Settings.get "dark")
+			link.remove()
+		else if (link.classList.contains "light") and (Settings.get "dark")
 			link.remove()
 		else if (link.classList.contains "elementary") and not (Settings.get "elementary")
 			link.remove()

@@ -15,7 +15,6 @@ class @Launcher extends React.Component
 		if icon or menu
 			icon ?= "octicon-primitive-dot"
 			E ".launcher",
-				# class: ["has-menu", "menu-open" if @state.menu_open] if menu # haha ReactScript
 				class:
 					"has-menu": menu?
 					"menu-open": @state.menu_open
@@ -102,3 +101,6 @@ class @Launcher extends React.Component
 			window.addEventListener "keydown", (e)=> @setState menu_open: no if e.keyCode is 27 # Escape
 			scroller.addEventListener "scroll", update_menu_position
 			window.addEventListener "resize", update_menu_position
+	
+	componentWillUnmount: ->
+		# @TODO: clean up event listeners

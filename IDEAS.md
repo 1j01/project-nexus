@@ -134,3 +134,6 @@
 	* Better focus styles for icon buttons (not an orange rectangular outline)
 	* With dark (non-elementary) theme, the whole projects directory multi-input is non-dark (not that it *has* to be)
 	* Could probably animate more transitions in ProjectDetails, possibly by adding an animation dummy element
+	* With elementary mode, the project read error receives infobar styles and looks really stretched out.
+	  Instead, it should use an actual infobar.
+	  The bar should have a Browse button.

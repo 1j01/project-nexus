@@ -1,7 +1,7 @@
 {
   "name": "project-nexus",
   "description": "A hub for all your programming projects",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "repository": {
     "type": "git",
     "url": "http://github.com/1j01/project-nexus.git"
@@ -51,13 +51,13 @@
     "icon": "app/img/cube.png"
   },
   "devDependencies": {
-    "nw-dev": "^1.2.1"
+    "nw-dev": "^1.2.2"
   },
   "dependencies": {
     "nw": "^0.12.0-1",
     "chrome-location": "^1.2.1",
     "coffee-script": "^1.9.1",
     "glob": "^5.0.3",
-    "elementary.css": "^1.1.0"
+    "elementary.css": "^1.2.0"
   }
 }
