@@ -94,7 +94,6 @@ class @Settings extends React.Component
 		Settings.watchers[key].push callback
 	
 	render: ->
-		# @TODO: escape from settings
 		elementary = Settings.get "elementary"
 		E ".settings-container", class: {visible: Settings.open},
 			E ".overlay", onClick: Settings.hide
@@ -123,3 +122,9 @@ class @Settings extends React.Component
 					E CheckboxSetting,
 						setting: "elementary"
 						label: "Use elementary OS's beautiful styles"
+	
+	componentDidMount: ->
+		window.addEventListener "keydown", (e)->
+			if e.keyCode is 27 # Escape
+				Settings.hide()
+
