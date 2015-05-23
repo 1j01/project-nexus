@@ -145,14 +145,13 @@ ul {
 	color: #aaa;
 }
 
-li:hover,
-li:focus {
+li.hover {
 	background: rgba(25, 121, 202, 0.1);
 }
-li:active {
+li.active {
 	background: rgba(25, 121, 202, 0.3);
 }
-li.active {
+li.selected {
 	background: #328EFE;
 	color: white;
 }

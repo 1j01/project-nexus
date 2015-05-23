@@ -23,7 +23,7 @@ class @ProjectsList extends React.Component
 	select: (project)->
 		if project
 			window.render ProjectNexus.selected_project_id = project.id
-			document.querySelector(".active.project").scrollIntoViewIfNeeded()
+			document.querySelector(".selected.project").scrollIntoViewIfNeeded()
 	
 	render: ->
 		{projects, projects_read_error} = @props

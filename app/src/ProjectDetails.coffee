@@ -8,7 +8,7 @@ class @ProjectDetails extends React.Component
 			E ".project-details",
 				E ".processes",
 					for command, proc of project.processes then do (command, proc)->
-						E ".process",
+						E ".process", key: command,
 							E "header",
 								E ".process-info", proc.info
 								E ".process-exited", "exited with code #{proc.exitCode}" if proc.exitCode?

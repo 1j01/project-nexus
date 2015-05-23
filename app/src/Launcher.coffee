@@ -7,6 +7,7 @@ class @Launcher extends React.Component
 			pressed_and_held: no
 			mouse_left: no
 			holding_tid: null
+			active_menu_item_i: null
 	
 	render: ->
 		{action, title, icon, menu} = @props
@@ -27,12 +28,12 @@ class @Launcher extends React.Component
 						e.preventDefault()
 						@setState menu_open: yes if menu
 					onMouseDown: (e)=>
+						@setState mouse_left: no
 						e.preventDefault()
 						clearTimeout @state.holding_tid
 						if menu and e.button is 0
 							@setState
 								pressed: yes
-								mouse_left: no
 								holding_tid: setTimeout =>
 									@setState pressed_and_held: yes, menu_open: yes
 								, 500
@@ -49,8 +50,18 @@ class @Launcher extends React.Component
 				if menu
 					E "ul.menu",
 						class: "open" if @state.menu_open
-						for item in menu then do (item)=>
+						for item, i in menu then do (item, i)=>
+							hovered = @state.hovered_menu_item_i is i
 							E "li",
+								class:
+									hover: hovered
+									active: hovered and @state.pressed_and_held
+								onMouseEnter: =>
+									@setState hovered_menu_item_i: i
+								onMouseLeave: =>
+									@setState hovered_menu_item_i: null
+								onMouseDown: =>
+									@setState pressed_and_held: yes
 								onMouseUp: (e)=>
 									if @state.pressed_and_held
 										e.preventDefault() # prevent click handler from duplicating item.action() call
@@ -79,6 +90,7 @@ class @Launcher extends React.Component
 				menu.style.top = "#{element.getBoundingClientRect().bottom}px"
 			setTimeout update_menu_position, 50 # @HACK because it wouldn't position correctly initially
 			window.addEventListener "mousedown", close_menu
+			window.addEventListener "blur", close_menu
 			window.addEventListener "mouseup", (e)=>
 				@setState pressed: no
 				if @state.pressed_and_held

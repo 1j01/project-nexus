@@ -88,4 +88,3 @@ class @Terminal extends React.Component
 	componentWillUnmount: ->
 		console.log "Terminal: destroying @term"
 		@term?.destroy()
-		@term = null

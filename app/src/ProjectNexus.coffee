@@ -8,7 +8,7 @@ class @ProjectNexus extends React.Component
 		if ProjectNexus.projects
 			for project in ProjectNexus.projects
 				if project.id is ProjectNexus.selected_project_id
-					active_project = project
+					selected_project = project
 		
 		Window = if Settings.get "elementary" then GtkWindow else ".app"
 		Header = if Settings.get "elementary" then GtkHeaderBar else "header"
@@ -25,5 +25,5 @@ class @ProjectNexus extends React.Component
 						projects: ProjectNexus.projects
 						projects_read_error: ProjectNexus.projects_read_error
 					E ProjectDetails,
-						project: active_project
+						project: selected_project
 				E Settings
