@@ -41,6 +41,7 @@
 
 * Plugins
 	* Only have columns for plugins that support at least one project
+		* Maybe just use a table (or `display: table;`)
 	* Launch multiple tasks (with dropdowns)
 		* ~~`npm`~~ (**done**)
 		* `cake`
@@ -107,12 +108,6 @@
 
 
 * Open devtools to debug a running node process
-
-
-* I could also have a setting to explicitly detatch processes, or explicitly kill them, or use the OS default as it does now (windows leaves them open, linux kills 'em)
-
-
-* Handle having processes open when reloading (nw-dev)
 
 
 * elementary OS app

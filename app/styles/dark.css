@@ -28,6 +28,17 @@ pre {
 	background: rgb(48, 48, 48);
 	color: #f0f0f0;
 }
+td,
+th {
+	background: rgba(0, 0, 0, 0.1);
+	border: 0;
+}
+th {
+	box-shadow: 0 -15px 15px rgba(0, 0, 0, 0.2) inset;
+}
+td {
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2) inset;
+}
 
 ::-webkit-scrollbar {
 	width: 6px;

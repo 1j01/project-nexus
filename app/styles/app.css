@@ -20,6 +20,33 @@ main * {
 	margin: 0;
 }
 
+table { display: table; }
+tr { display: table-row; }
+td, th { display: table-cell; }
+tbody, thead { display: table-row-group; }
+
+/* runaway processes */
+h2 {
+	font-size: 1.5em;
+	text-align: center;
+	padding: 8px;
+	flex: 0 0 auto;
+}
+table {
+	margin: auto;
+}
+td,
+th {
+	background: rgba(150, 150, 150, 0.1);
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	padding: 8px;
+}
+td > button,
+th > button {
+	margin: auto;
+}
+
+
 .window-frame * {
 	outline: none;
 }
@@ -52,6 +79,7 @@ li > * {
 	flex-basis: auto;
 }
 button {
+	white-space: nowrap;
 	flex: 0;
 	flex-basis: auto;
 }
@@ -196,7 +224,11 @@ textarea,
 p, p > span,
 code, code > span,
 pre, pre > span,
-.terminal, .terminal > div {
+table, tr,
+td > span,
+th > span,
+.terminal,
+.terminal > div {
 	-webkit-user-select: text;
 	cursor: text;
 }

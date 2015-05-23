@@ -14,9 +14,14 @@ class @ProjectDetails extends React.Component
 								E ".process-exited", "exited with code #{proc.exitCode}" if proc.exitCode?
 								E "button.close-process",
 									onClick: ->
-										proc.kill() if proc.running
-										delete project.processes[command]
-										window.render()
+										if proc.running
+											proc.on "exit", ->
+												delete project.processes[command]
+												window.render()
+											proc.kill()
+										else
+											delete project.processes[command]
+											window.render()
 									E "i.octicon.octicon-x"
 							E Terminal, {process: proc, id: project.id}
 				if package_json?

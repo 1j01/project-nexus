@@ -1,6 +1,6 @@
 
 {exec, spawn} = require "child_process"
-we_have_to_deal_with_Windows = process.platform is "win32"
+kill_tree = require "tree-kill"
 
 gui = require "nw.gui"
 win = window.win = gui.Window.get()
@@ -85,17 +85,28 @@ Settings.watch "projects_dir", (projects_dir)->
 						proc = project.processes[command] = exec command, cwd: project.path
 						proc.info = info
 						proc.running = yes
-						if we_have_to_deal_with_Windows
-							proc.kill = -> spawn "taskkill", ["/pid", proc.pid, "/f", "/t"]
+						
+						{pid} = proc
+						Settings.update "running_processes", (running_processes = [])->
+							running_processes.push {pid, command, info, project_id: project.id, project_name: project.name}
+							running_processes
+						
+						proc.kill = -> kill_tree proc.pid
+						
 						proc.on "error", (err)->
 							console.error err
 							proc.running = no
+						
 						proc.on "exit", (code, signal)->
 							console.log "process #{info} exited with code #{code}"
 							proc.running = no
 							proc.exitCode = code
 							proc.exitSignal = signal
+							running_processes = (Settings.get "running_processes") ? []
+							Settings.update "running_processes", (running_processes = [])->
+								rproc for rproc in running_processes when rproc.pid isnt proc.pid
 							window.render()
+						
 						ProjectNexus.selected_project_id = project.id
 						window.render()
 						proc

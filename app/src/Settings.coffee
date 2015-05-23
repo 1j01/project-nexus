@@ -84,6 +84,9 @@ class @Settings extends React.Component
 		for callback in (Settings.watchers[key] ? [])
 			callback value
 	
+	@update: (key, fn)->
+		Settings.set key, fn(Settings.get key)
+	
 	@watchers: {}
 	@watch: (key, callback)->
 		callback Settings.get key
@@ -103,13 +106,7 @@ class @Settings extends React.Component
 					E "button",
 						onClick: Settings.hide
 						style: float: if elementary then "left" else "right"
-						# style:
-						# 	if elementary
-						# 		position: "absolute"
-						# 		left: 10
-						# 	else
-						# 		float: "right"
-						if elementary # (as if these icons were different)
+						if elementary # (as if these icons were considerably different)
 							E "i.e-icon-close"
 						else
 							E "i.octicon.octicon-x"
