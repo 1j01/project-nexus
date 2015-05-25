@@ -26,6 +26,12 @@ td, th { display: table-cell; }
 tbody, thead { display: table-row-group; }
 
 /* runaway processes */
+.runaway-processes {
+	display: block;
+}
+.runaway-processes > button {
+	margin: 5px auto;
+}
 h2 {
 	font-size: 1.5em;
 	text-align: center;
@@ -336,6 +342,11 @@ pre {
 .setting input[type=text] {
 	flex: 1;
 }
+
+.non-elementary button {
+	padding: 2px 5px;
+}
+
 
 /* elementary.css defines .linked styles, but we want it to be linked without elementary styles as well */
 .non-elementary .linked > input:not(:last-child),

@@ -1,6 +1,10 @@
 
+fs = require "fs"
+{join, resolve} = require "path"
 {exec, spawn} = require "child_process"
 kill_tree = require "tree-kill"
+is_running = require "is-running"
+async = require "async"
 
 gui = require "nw.gui"
 win = window.win = gui.Window.get()
@@ -31,24 +35,62 @@ update_stylesheets = ->
 
 Settings.watch "dark", update_stylesheets
 
-Settings.watch "elementary", (elementary)->
-	# NOTE: `is not` isn't `isnt`
-	# `is not` handles the setting being undefined (not yet set)
-	# this let's the application launch properly the first time
-	switch_frame() if win.isTransparent == (not elementary)
+Settings.watch "elementary", (elementary = no)->
+	switch_frame() if win.isTransparent is not elementary
 
-{join, resolve} = require "path"
-fs = require "fs"
 
 require "coffee-script/register"
 @launchers =
 	for fname in fs.readdirSync "./app/launchers"
 		require "./launchers/#{fname}"
 
-Settings.open = no
 
 do @render = ->
 	React.render (React.createElement ProjectNexus), document.body
+
+
+prevent_recursion = off
+Settings.watch "running_processes", (running_processes = [])->
+	console.log "watching running_processes", running_processes, "prevent recursion?", prevent_recursion
+	return prevent_recursion = off if prevent_recursion
+	
+	running_processes_new = []
+	runaway_processes = []
+	async.each running_processes,
+		(rproc, callback)->
+			is_owned_by_a_project = do ->
+				if ProjectNexus.projects
+					for project in ProjectNexus.projects
+						for command, proc of project.processes
+							if proc.pid is rproc.pid
+								console.log "#{rproc.pid} is owned by #{project.name}:", proc
+								return no
+				return yes
+			
+			if is_owned_by_a_project
+				is_running rproc.pid, (err, rproc_is_running)->
+					return callback err if err
+					if rproc_is_running
+						console.log "this process is still running:", rproc
+						running_processes_new.push rproc
+						runaway_processes.push rproc
+					else
+						console.log "this process appears to have exited:", rproc
+					callback null
+			else
+				running_processes_new.push rproc
+				callback null
+		
+		(err)->
+			return console.error err if err
+			console.log "running:", running_processes_new
+			console.log "runaway:", runaway_processes
+			prevent_recursion = on
+			Settings.set "running_processes", running_processes_new
+			prevent_recursion = off
+			ProjectNexus.runaway_processes = runaway_processes
+			window.render()
+
 
 # @TODO: watch the projects directory for changes (projects added, removed, renamed)
 # but don't overwrite the state in the mutated project objects!

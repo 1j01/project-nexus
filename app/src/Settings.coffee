@@ -64,21 +64,18 @@ class DirectorySetting extends Setting
 
 
 class @Settings extends React.Component
-	@show: ->
-		window.render Settings.open = yes
 	
-	@hide: ->
-		window.render Settings.open = no
-	
-	@toggle: ->
-		window.render Settings.open = not Settings.open
+	@open: no
+	@show: -> window.render Settings.open = yes
+	@hide: -> window.render Settings.open = no
+	@toggle: -> window.render Settings.open = not Settings.open
 	
 	@get: (key)->
-		try JSON.parse localStorage.getItem key
+		try JSON.parse window.localStorage.getItem key
 		catch e then console.error e
 	
 	@set: (key, value)->
-		try localStorage.setItem key, JSON.stringify value
+		try window.localStorage.setItem key, JSON.stringify value
 		catch e then console.error e
 		
 		for callback in (Settings.watchers[key] ? [])

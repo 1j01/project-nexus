@@ -87,9 +87,7 @@ class @Launcher extends React.Component
 					@setState menu_open: no
 			scroller = element
 			scroller = scroller.parentElement until scroller.classList.contains "projects"
-			do update_menu_position = =>
-				menu.style.top = "#{element.getBoundingClientRect().bottom}px"
-			setTimeout update_menu_position, 50 # @HACK because it wouldn't position correctly initially
+			
 			window.addEventListener "mousedown", close_menu
 			window.addEventListener "blur", close_menu
 			window.addEventListener "mouseup", (e)=>
@@ -99,8 +97,15 @@ class @Launcher extends React.Component
 				else
 					close_menu(e)
 			window.addEventListener "keydown", (e)=> @setState menu_open: no if e.keyCode is 27 # Escape
+			
+			update_menu_position = =>
+				menu.style.top = "#{element.getBoundingClientRect().bottom}px"
 			scroller.addEventListener "scroll", update_menu_position
 			window.addEventListener "resize", update_menu_position
+			window.addEventListener "keydown", update_menu_position
+			window.addEventListener "click", update_menu_position
+			window.addEventListener "mousedown", update_menu_position
+			window.addEventListener "mouseup", update_menu_position
 	
 	componentWillUnmount: ->
 		# @TODO: clean up event listeners

@@ -1,6 +1,16 @@
 
 is_running =  require "is-running"
-kill_tree =  require "tree-kill"
+tree_kill =  require "tree-kill"
+
+kill = ({pid})->
+	console.log "kill #{pid}"
+	tree_kill pid, 'SIGKILL', (err)->
+		return console.error err if err
+		console.log "killed #{pid}"
+		Settings.update "running_processes", (running_processes)->
+			console.log "updating running_processes"
+			rproc for rproc in running_processes when rproc.pid isnt pid
+		# window.render()
 
 class @ProjectNexus extends React.Component
 	@projects = null
@@ -13,26 +23,8 @@ class @ProjectNexus extends React.Component
 				if project.id is ProjectNexus.selected_project_id
 					selected_project = project
 		
-		running_processes = (Settings.get "running_processes") ? []
-		running_processes_new = []
-		runaway_processes = []
-		for rproc in running_processes
-			is_runaway = yes # probably, let's find out
-			if ProjectNexus.projects
-				for project in ProjectNexus.projects
-					for command, proc of project.processes
-						if proc.pid is rproc.pid
-							is_runaway = no
-			if is_runaway
-				if is_running rproc.pid
-					runaway_processes.push rproc
-					running_processes_new.push rproc
-				else
-					console.log "this process appears to have exited:", rproc
-			else
-				running_processes_new.push rproc
-		
-		Settings.set "running_processes", running_processes_new
+		runaway_processes = ProjectNexus.runaway_processes
+		console.log "render ProjectNexus, runaway_processes:", runaway_processes
 		
 		Window = if Settings.get "elementary" then GtkWindow else ".app.non-elementary"
 		Header = if Settings.get "elementary" then GtkHeaderBar else "header"
@@ -50,7 +42,7 @@ class @ProjectNexus extends React.Component
 						projects_read_error: ProjectNexus.projects_read_error
 					E ProjectDetails,
 						project: selected_project
-					if runaway_processes.length
+					if runaway_processes?.length
 						E ".runaway-processes",
 							E "h2", "Runaway Processes"
 							E "table",
@@ -60,9 +52,7 @@ class @ProjectNexus extends React.Component
 										E "th", "Info"
 										E "th", "PID"
 										E "th", E "button.button.destructive-action",
-											onClick: ->
-												for rproc in runaway_processes
-													kill_tree rproc.pid
+											onClick: -> kill rproc for rproc in runaway_processes
 											E "GtkLabel", "Kill All"
 								E "tbody",
 									for rproc in runaway_processes then do (rproc)->
@@ -71,7 +61,9 @@ class @ProjectNexus extends React.Component
 											E "td", rproc.info
 											E "td", rproc.pid
 											E "td", E "button.button.destructive-action",
-												onClick: ->
-													kill_tree rproc.pid
+												onClick: -> kill rproc
 												E "GtkLabel", "Kill"
+							E "button.button",
+								onClick: -> Settings.set "running_processes", []
+								E "GtkLabel", "Let 'em run"
 				E Settings
