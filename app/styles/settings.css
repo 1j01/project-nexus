@@ -1,0 +1,68 @@
+
+.window-content {
+	position: relative;
+}
+.settings-container,
+.overlay {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+.overlay {
+	background: rgba(0, 0, 0, 0.3);
+}
+.settings {
+	position: absolute;
+	left: 15%;
+	right: 15%;
+	top: 15%;
+	bottom: 15%;
+	padding: 15px;
+	background: white;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 0 50px rgba(0, 0, 0, 0.3);
+	border-radius: 2px;
+	display: flex;
+	flex-direction: column;
+}
+.settings h2 {
+	margin-top: 0;
+}
+.settings-content {
+	overflow: auto;
+}
+.settings-container,
+.settings,
+.overlay {
+	transition: all 0.5s ease;
+}
+.settings-container:not(.visible) {
+	pointer-events: none;
+	opacity: 0;
+}
+.settings-container {
+	perspective: 5000px;
+	overflow: hidden;
+}
+.settings-container:not(.visible) .settings {
+	/*-webkit-transform: scale(0.9) rotateY(-50deg) translate(350px, -100px);*/
+	/*-webkit-transform: translate(350px, -200px) scale(0.4) rotateY(-50deg);*/
+	/*-webkit-transform: scale(0.9) rotateZ(-5deg) rotateX(-50deg) rotateY(-50deg);*/
+	/*-webkit-transform: scale(0.9) rotateX(200deg);*/
+	-webkit-transform: scale(1.5) rotateY(0.5turn);
+	/*-webkit-transform: scale(1.5) rotateX(1turn);*/
+	/*-webkit-transform: scale(0.9) rotateX(30deg);*/
+}
+.setting {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+}
+.setting * {
+	padding: 5px;
+}
+.setting input:not([type]),
+.setting input[type=text] {
+	flex: 1;
+}
