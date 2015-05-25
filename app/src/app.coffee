@@ -123,8 +123,22 @@ Settings.watch "projects_dir", (projects_dir)->
 				
 				do (project)->
 					project.processes = {}
-					project.exec = (command, info)->
-						proc = project.processes[command] = exec command, cwd: project.path
+					# attachProcessToProject = (proc, project, info)->
+					
+					project.exec = (command_line, info)->
+						[command, args...] = command_line.split(" ")
+						command = "#{command}.cmd" if command is "npm" and process.platform is "win32"
+						project.spawn command, args, info, command_line
+					
+					project.spawn = (command, args, info, key)->
+						proc = spawn command, args, cwd: project.path
+						
+						# attachProcessToProject proc, project, info
+						
+						command_line = [command, args...].join " "
+						key ?= command_line
+						
+						project.processes[key] = proc
 						proc.info = info
 						proc.running = yes
 						
@@ -134,6 +148,10 @@ Settings.watch "projects_dir", (projects_dir)->
 							running_processes
 						
 						proc.kill = -> kill_tree proc.pid
+						
+						proc.stdin.setEncoding "utf8"
+						proc.stdout.setEncoding "utf8"
+						proc.stderr.setEncoding "utf8"
 						
 						proc.on "error", (err)->
 							console.error err
