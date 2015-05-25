@@ -274,16 +274,24 @@ pre {
 	flex: 0 0 auto;
 }
 
-
-.non-elementary button {
+.non-elementary .button:not(.titlebutton) {
 	padding: 2px 5px;
+}
+
+.non-elementary input {
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	border-radius: 2px;
 }
 
 /* elementary.css defines .linked styles, but we want it to be linked without elementary styles as well */
 .non-elementary .linked > input:not(:last-child),
 .non-elementary .linked > button:not(:last-child) {
-	border: 1px solid rgb(165, 165, 165);
 	border-right: none;
-	border-top-left-radius: 2px;
-	border-bottom-left-radius: 2px;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+.non-elementary .linked > input:not(:first-child),
+.non-elementary .linked > button:not(:first-child) {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
 }
