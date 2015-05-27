@@ -246,11 +246,20 @@ pre {
 .terminal,
 .terminal > div {
 	display: block;
-	overflow: hidden;
+	background: inherit;
+}
+.terminal span {
+	display: inline;
+}
+.terminal span.reverse-video {
+	-webkit-filter: invert();
+	background: inherit;
+	color: inherit;
 }
 .terminal {
 	font-family: monospace;
 	line-height: 1;
+	overflow: hidden;
 }
 .terminal-container,
 .process,
