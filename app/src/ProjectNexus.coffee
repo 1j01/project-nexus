@@ -10,7 +10,6 @@ kill = ({pid})->
 		Settings.update "running_processes", (running_processes)->
 			console.log "updating running_processes"
 			rproc for rproc in running_processes when rproc.pid isnt pid
-		# window.render()
 
 class @ProjectNexus extends React.Component
 	@projects = null
