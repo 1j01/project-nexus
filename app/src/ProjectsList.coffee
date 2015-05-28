@@ -40,6 +40,7 @@ class @ProjectsList extends React.Component
 					else
 						"No projects directory (yet)"
 		else
-			E "ul.projects",
-				for project in projects
-					E ProjectListItem, {project}
+			E ".projects",
+				E "ul.projects-list",
+					for project in projects
+						E ProjectListItem, {project}

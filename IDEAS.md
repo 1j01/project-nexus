@@ -40,8 +40,6 @@
 
 
 * Plugins
-	* Only have columns for plugins that support at least one project
-		* Maybe just use a table (or `display: table;`)
 	* Launch multiple tasks (with dropdowns)
 		* ~~`npm`~~ (**done**)
 		* `cake`
@@ -51,7 +49,7 @@
 		* Such as, when there's a solution (.sln) file,
 		  it could open Visual Studio
 			* In this case, it should override your Editor
-	* An easy way to install plugins?
+	* An easy way to install plugins? (through `npm` of course)
 
 
 * Link to repository (defined in `package.json`)

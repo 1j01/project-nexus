@@ -100,6 +100,7 @@ class @Launcher extends React.Component
 			
 			update_menu_position = =>
 				menu.style.top = "#{element.getBoundingClientRect().bottom}px"
+				menu.style.left = "#{element.getBoundingClientRect().left}px"
 			scroller.addEventListener "scroll", update_menu_position
 			window.addEventListener "resize", update_menu_position
 			window.addEventListener "keydown", update_menu_position

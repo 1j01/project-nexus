@@ -109,13 +109,15 @@ li button {
 	color: inherit;
 	border: 0;
 }
-li > button,
 .launcher,
 .launcher > button {
-	padding: 0;
 	width: 32px;
 	height: 32px;
 	font-size: 32px;
+}
+.launcher,
+.launcher > button {
+	padding: 0;
 	align-items: center;
 }
 .launcher {
@@ -134,8 +136,8 @@ li > button,
 	pointer-events: none;
 	font-size: 0.6em;
 	position: absolute;
-	right: 0;
-	bottom: 0;
+	right: 2px;
+	bottom: 2px;
 }
 .launcher-context-menu {
 	position: fixed;
@@ -151,29 +153,55 @@ li > button,
 .launcher-context-menu li {
 	padding: 2px;
 }
+button.no-primary-action,
+[disabled] {
+	opacity: 0.2;
+}
 button > span {
 	line-height: 1;
 }
 button > i {
 	pointer-events: none;
 }
-[class^="icon-"] {
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
 	-webkit-transform: scale(0.75);
+	margin: 0;
 }
 header .octicon-gear:before {
 	vertical-align: middle;
 }
 
-
-button.no-primary-action,
-[disabled] {
-	opacity: 0.2;
-}
-ul {
-	overflow: auto;
-}
 .project-details {
 	overflow: hidden;
+}
+.projects {
+	overflow: auto;
+}
+ul.projects-list {
+	display: table;
+	width: 100%;
+}
+li.project {
+	display: table-row;
+}
+li.project > * {
+	display: table-cell;
+	padding: 2px;
+}
+li.project > *:first-child {
+	padding-left: 4px;
+}
+li.project > *:last-child {
+	padding-right: 4px;
+}
+li.project > *:empty {
+	width: 0;
+	height: 0;
+	padding: 0;
+}
+.projects * {
+	vertical-align: middle;
 }
 .projects,
 .no-projects {
@@ -233,7 +261,8 @@ table, tr,
 td > span,
 th > span,
 .terminal,
-.terminal > div {
+.terminal > div,
+.terminal span {
 	-webkit-user-select: text;
 	cursor: text;
 }

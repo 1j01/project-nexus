@@ -26,9 +26,10 @@ class @ProjectListItem extends React.Component
 			onMouseEnter: (e)=> @setState hover: yes
 			onMouseLeave: (e)=> @setState hover: no
 			
-			E "button",
-				onClick: => (require "nw.gui").Shell.openItem path
-				E "i.mega-octicon.octicon-file-directory"
+			E ".launcher",
+				E "button",
+					onClick: => (require "nw.gui").Shell.openItem path
+					E "i.mega-octicon.octicon-file-directory"
 			
 			E "span.project-name", name
 			
