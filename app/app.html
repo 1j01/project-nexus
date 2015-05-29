@@ -15,11 +15,14 @@
 		<link rel="stylesheet" href="../node_modules/elementary.css/icons/icons.css">
 	</head>
 	<body>
+		<script type="text/coffeescript">
+			gui = require "nw.gui"
+			win = window.win = gui.Window.get()
+		</script>
 		<script src="lib/react.js"></script>
 		<script src="lib/term.js"></script>
 		<script src="lib/react-script.js"></script>
 		<script src="lib/coffee-script.js"></script>
-		<script src="lib/winstate.js"></script>
 		<script src="../node_modules/nw-dev/lib/dev.js"></script>
 		<script>E = ReactScript</script>
 		<script type="text/coffeescript" src="src/GtkWindow.coffee"></script>
@@ -38,5 +41,6 @@
 		<script type="text/coffeescript" src="src/projects-directory.coffee"></script>
 		<script type="text/coffeescript" src="src/drag-and-drop.coffee"></script>
 		<script type="text/coffeescript" src="src/running-processes.coffee"></script>
+		<script src="lib/winstate.js"></script>
 	</body>
 </html>

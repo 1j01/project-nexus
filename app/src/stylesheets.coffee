@@ -12,10 +12,12 @@ update_stylesheets = ->
 			document.head.appendChild link
 
 @switch_frame = ->
+	win.hide()
 	setTimeout ->
 		elementary = (Settings.get "elementary")
 		(require "nw.gui").Window.open location.href,
 			toolbar: no
+			show: no
 			frame: not elementary
 			transparent: elementary
 			icon: "app/img/cube.png"

@@ -118,7 +118,18 @@ function saveWindowState() {
 	localStorage['windowState'] = JSON.stringify(winState);
 }
 
-initWindowState();
+if (gui.App.manifest.window && gui.App.manifest.window.show === false) {
+	var waitUntilLoaded = function(){
+		if (/loaded|complete/.test(document.readyState)) {
+			setTimeout(initWindowState, 20);
+		} else {
+			setTimeout(waitUntilLoaded, 20);
+		}
+	};
+	waitUntilLoaded();
+} else {
+	initWindowState();
+}
 
 win.on('maximize', function () {
 	isMaximizationEvent = true;
