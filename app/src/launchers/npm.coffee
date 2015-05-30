@@ -2,8 +2,6 @@
 fs = require "fs"
 {join} = require "path"
 
-E = window.ReactScript
-
 module.exports = (project)->
 	start_command = "npm start"
 	
@@ -57,7 +55,7 @@ module.exports = (project)->
 			
 			if project.pkg.scripts?.start
 				starter "#{start_command} (#{project.pkg.scripts.start})"
-			else if fs.existsSync join project.path, "server.js"
+			else if fs.existsSync (join project.path, "server.js")
 				starter "#{start_command} (node server.js)"
 			else
 				title: "npm run-script ..."

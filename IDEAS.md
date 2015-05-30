@@ -15,9 +15,7 @@
 		* Various Git GUI clients
 		* Command prompt / terminal
 		* Integrate a git gui?
-			* Ungit is kinda ugly (and doesn't fit in very well)
-				* I'm sure it could be themed, to some extent
-			* [This](http://tonsky.me/blog/reinventing-git-interface/) is what I [really want](https://github.com/quassy/elementary-apps/issues/17)
+			* Someone please make [this](http://tonsky.me/blog/reinventing-git-interface/) a reality
 	* ~~Folder browser~~ (**done**)
 	* Configure whatever tools you want
 	* Configure whether you want it to give you
@@ -28,7 +26,7 @@
 		* I'm thinking it would be bad if you navigate away from a project within a tool and close the project and the tool is killed even though it's no longer related to the project
 			* I guess it would just have to warn you
 				* And because of this, murderous behavior would be disabled by default
-	* (If one workflow is obviously superior, maybe I can remove the setting)
+	* (If one workflow is obviously superior, I'll remove the setting)
 
 
 * Auto detect common project superdirectories
@@ -89,7 +87,7 @@
 
 * Live reload everything
 	* Chrome apps
-	* `index.html` (start a webserver and inject a script)
+	* ~~`index.html`~~ (**done**)
 	* `npm start`
 	* Automatically run `npm prepublish` upon file changes
 		* Also watch linked dependencies
@@ -98,11 +96,12 @@
 			  and this should trigger an auto-`prepublish`
 			  of the dependent project.
 			* Unwatch unlinked dependencies
+			* Make a package to watch packages, and use it here and in nw-dev
 	* **Except** when it already auto-reloads
 		* (such as project-nexus does with nw-dev)
 		* It *could* try to detect things like nw-dev,
 		  but this might need to be something you configure
-			(per project)
+		  (per project)
 
 
 * Open devtools to debug a running node process

@@ -11,9 +11,6 @@ chrome =
 		else
 			window.alert "Can't find an executable for Google Chrome."
 
-
-E = window.ReactScript
-
 module.exports = (project)->
 	launcher = null
 	

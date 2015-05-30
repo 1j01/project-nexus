@@ -1,19 +1,15 @@
 
 fs = require "fs"
-{join} = require "path"
+{join, resolve} = require "path"
 
-gui = window.require "nw.gui"
-E = window.ReactScript
-
-# @TODO: HTTP server
-# @TODO: Live reload (with an HTTP server)
+get_port = require "get-port"
 
 module.exports = (project)->
-	index_path = join project.path, "index.html"
-	if fs.existsSync index_path
-		# @FIXME: this unpredictably fails; use an HTTP server
-		action: -> gui.Shell.openItem index_path
+	if fs.existsSync (join project.path, "index.html")
+		action: ->
+			get_port (err, port)->
+				return console.error err if err
+				serve = resolve "./node_modules/live-server/live-server"
+				project.exec "node #{serve} #{project.path} --port=#{port}", "live-server"
 		title: "open index.html"
 		icon: "octicon-globe"
-
-# @PLZ: add HTTP server @KTHXBAI
