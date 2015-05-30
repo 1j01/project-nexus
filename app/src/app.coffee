@@ -3,8 +3,8 @@ fs = require "fs"
 
 require "coffee-script/register"
 @launchers =
-	for fname in fs.readdirSync "./app/launchers"
-		require "./launchers/#{fname}"
+	for fname in fs.readdirSync "./app/src/launchers"
+		require "./src/launchers/#{fname}"
 
 
 do @render = ->
