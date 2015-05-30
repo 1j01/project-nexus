@@ -10,6 +10,9 @@ project-nexus
 
 ![Project Nexus](project-nexus.png)
 
+> <p align="center">It has dark styles too. Yes, it's cross platform.</p>
+
+
 <!--
 Do you find yourself opening and closing lots of
 * project folders
