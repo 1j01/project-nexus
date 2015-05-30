@@ -8,6 +8,8 @@ npm i project-nexus -g
 project-nexus
 ```
 
+![Project Nexus](project-nexus.png)
+
 <!--
 Do you find yourself opening and closing lots of
 * project folders
