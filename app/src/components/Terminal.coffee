@@ -28,6 +28,7 @@ class @Terminal extends React.Component
 			screenKeys: on
 			convertEol: yes
 		
+		term.focus = -> # prevent the terminal from recieving focus
 		
 		container = React.findDOMNode(@)
 		term.open container
@@ -36,20 +37,13 @@ class @Terminal extends React.Component
 		window.addEventListener "resize", resize
 		container.addEventListener "transitionend", resize, no
 		
-		
-		# @TODO: use https://github.com/chjj/pty.js
+		# @TODO: use https://github.com/chjj/pty.js so more programs will output in color
 		
 		proc.stdout.on 'data', (data)->
 			term.write data
 		
 		proc.stderr.on 'data', (data)->
 			term.write data
-		
-		term.on 'data', (data)->
-			proc.stdin.write data
-		
-		proc.on 'close', ->
-			term.off 'data'
 	
 	resize: ->
 		unless @term
@@ -57,8 +51,6 @@ class @Terminal extends React.Component
 			return
 		
 		container = React.findDOMNode(@)
-		
-		# @FIXME transitions interfere with sizing
 		
 		tester_terminal = document.createElement "div"
 		tester_terminal.className = "terminal"

@@ -294,7 +294,8 @@ pre {
 .process,
 .processes {
 	flex: 1;
-	transition: flex .4s ease;
+	/* Transitions are disabled because they interfere with the sizing of terminals */
+	/*transition: flex .4s ease;*/
 	background: black;
 }
 .terminal-container:empty,
