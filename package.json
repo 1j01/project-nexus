@@ -1,7 +1,7 @@
 {
   "name": "project-nexus",
   "description": "A hub for all your programming projects",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "repository": {
     "type": "git",
     "url": "http://github.com/1j01/project-nexus.git"
@@ -51,7 +51,7 @@
     "icon": "app/img/cube.png"
   },
   "devDependencies": {
-    "nw-dev": "^1.2.2"
+    "nw-dev": "^1.2.3"
   },
   "dependencies": {
     "async": "^1.0.0",
