@@ -111,9 +111,6 @@ class @Settings extends React.Component
 						setting: "projects_dir"
 						label: "Projects Directory"
 					E CheckboxSetting,
-						setting: "list_wrap"
-						label: "Enable wrapping in projects list when using keyboard navigation"
-					E CheckboxSetting,
 						setting: "dark"
 						label: "Use dark styles"
 					E CheckboxSetting,

@@ -13,7 +13,6 @@ Settings.watch "projects_dir", (projects_dir)->
 	
 	if not projects_dir
 		ProjectNexus.projects = null
-		Settings.show()
 		render()
 		return
 	
@@ -22,7 +21,6 @@ Settings.watch "projects_dir", (projects_dir)->
 	fs.readdir projects_dir, (err, fnames)->
 		if err
 			ProjectNexus.projects_read_error = err
-			Settings.show()
 			render()
 			return
 		

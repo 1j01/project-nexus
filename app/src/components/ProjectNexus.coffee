@@ -12,18 +12,13 @@ kill = ({pid})->
 			rproc for rproc in running_processes when rproc.pid isnt pid
 
 class @ProjectNexus extends React.Component
-	@projects = null
-	@projects_read_error = null
-	@selected_project_id = null
-	
 	render: ->
-		if ProjectNexus.projects
-			for project in ProjectNexus.projects
-				if project.id is ProjectNexus.selected_project_id
-					selected_project = project
+		{projects, projects_read_error, selected_project_id, runaway_processes} = ProjectNexus
 		
-		runaway_processes = ProjectNexus.runaway_processes
-		console.log "render ProjectNexus, runaway_processes:", runaway_processes
+		if projects
+			for project in projects
+				if project.id is selected_project_id
+					selected_project = project
 		
 		Window = if Settings.get "elementary" then GtkWindow else ".app.non-elementary"
 		Header = if Settings.get "elementary" then GtkHeaderBar else "header"
@@ -34,13 +29,36 @@ class @ProjectNexus extends React.Component
 				E TitleButton,
 					action: Settings.toggle
 					E "i.mega-octicon.octicon-gear"
+			if projects_read_error
+				err = projects_read_error
+				dir_not_found = err.code is "ENOENT"
+				E "GtkInfoBar",
+					class: if dir_not_found then "warning" else "error"
+					E "GtkLabel",
+						if dir_not_found
+							"Couldn't find your projects directory"
+						else
+							"Failed to read projects from projects directory"
+					E "button.button",
+						onClick: ->
+							chooser = document.createElement "input"
+							chooser.setAttribute "type", "file"
+							chooser.setAttribute "nwdirectory", "nwdirectory"
+							chooser.addEventListener "change", (e)=>
+								Settings.set "projects_dir", e.target.value
+								window.render()
+							chooser.click()
+						E "GtkLabel", "Browse"
 			E ".window-content",
 				E "main",
-					E ProjectsList,
-						projects: ProjectNexus.projects
-						projects_read_error: ProjectNexus.projects_read_error
-					E ProjectDetails,
-						project: selected_project
+					if projects
+						[
+							E ProjectsList, projects: projects
+							E ProjectDetails, project: selected_project
+						]
+					else
+						E WelcomeScreen
+							
 					if runaway_processes?.length
 						E ".runaway-processes",
 							E "h2", "Runaway Processes"

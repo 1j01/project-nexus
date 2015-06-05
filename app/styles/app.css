@@ -23,7 +23,8 @@ main * {
 header,
 h1, h2, h3, h4, h5, h6,
 li,
-button {
+button,
+img {
 	flex: 0 0 auto;
 	flex-direction: row;
 }
@@ -48,7 +49,7 @@ tbody, thead { display: table-row-group; }
 .runaway-processes > button {
 	margin: 5px auto;
 }
-h2 {
+.runaway-processes h2 {
 	font-size: 1.5em;
 	text-align: center;
 	padding: 8px;
@@ -333,4 +334,11 @@ pre {
 .non-elementary .linked > button:not(:first-child) {
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
+}
+.non-elementary GtkInfoBar.warning {
+	background: rgb(255, 240, 181);
+}
+.non-elementary GtkInfoBar.error {
+	background: rgb(195, 31, 31);
+	color: white;
 }

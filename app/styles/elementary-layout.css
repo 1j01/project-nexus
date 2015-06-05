@@ -29,3 +29,39 @@
 	flex-direction: row;
 	flex: 1;
 }
+GtkInfoBar {
+	display: flex;
+	align-items: center;
+	flex-basis: 40px;
+	padding: 0 10px;
+}
+GtkLabel {
+	flex: 1;
+}
+GraniteWidgetsWelcome {
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+}
+GraniteWidgetsWelcome * {
+	font-family: "Open Sans", sans-serif !important;
+}
+GraniteWidgetsWelcome button {
+	margin-top: 10px;
+	text-align: left;
+	align-items: center;
+	font-size: 1em;
+}
+GraniteWidgetsWelcome button img {
+	margin-right: 15px;
+}
+GraniteWidgetsWelcome GtkLabel {
+	flex: 0 0 auto;
+}
+GraniteWidgetsWelcome .h3 {
+	font-size: 15px;
+	font-weight: 600;
+}
+.h1 {
+	font-weight: normal;
+}

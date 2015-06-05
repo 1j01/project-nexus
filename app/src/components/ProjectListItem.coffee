@@ -16,6 +16,7 @@ class @ProjectListItem extends React.Component
 			return yes
 		
 		E "li.project",
+			key: id
 			title: path
 			class: [
 				"selected" if ProjectNexus.selected_project_id is id
