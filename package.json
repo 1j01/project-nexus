@@ -1,7 +1,7 @@
 {
   "name": "project-nexus",
   "description": "A hub for all your programming projects",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "repository": {
     "type": "git",
     "url": "http://github.com/1j01/project-nexus.git"
@@ -63,7 +63,8 @@
     "is-running": "^1.0.5",
     "live-server": "^0.7.1",
     "nw": "^0.12.0-1",
-    "tree-kill": "^0.1.1"
+    "tree-kill": "^0.1.1",
+    "user-home": "^1.1.1"
   },
   "optionalDependencies": {
     "windows-shortcuts": "^0.1.1"

@@ -47,10 +47,15 @@ GraniteWidgetsWelcome * {
 	font-family: "Open Sans", sans-serif !important;
 }
 GraniteWidgetsWelcome button {
+	width: 350px;
 	margin-top: 10px;
 	text-align: left;
 	align-items: center;
 	font-size: 1em;
+}
+GraniteWidgetsWelcome button:not(:hover) {
+	border-color: transparent;
+	background: transparent;
 }
 GraniteWidgetsWelcome button img {
 	margin-right: 15px;
