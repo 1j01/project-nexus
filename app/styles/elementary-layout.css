@@ -20,7 +20,7 @@
 	padding: 0;
 	margin: 0;
 }
-.window-frame {
+.window-frame:not(.popup):not(.menu) {
 	margin: 0 !important;
 	box-shadow: none !important;
 }
@@ -69,4 +69,11 @@ GraniteWidgetsWelcome .h3 {
 }
 .h1 {
 	font-weight: normal;
+}
+.view {
+	display: flex;
+	flex-direction: row;
+	border-style: solid;
+	border-color: transparent;
+	border-width: 1px 0 1px 0 !important;
 }

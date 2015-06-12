@@ -58,6 +58,10 @@ td {
 	background: rgba(255, 255, 255, 0.5);
 }
 
+.non-elementary .menu {
+	background: #222;
+	color: #f0f0f0;
+}
 .non-elementary .button:not(.titlebutton) {
 	background: rgba(32, 32, 32, 0.6);
 	border: 1px solid rgba(0, 0, 0, 0.38);

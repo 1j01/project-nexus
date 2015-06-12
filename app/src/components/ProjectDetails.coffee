@@ -12,7 +12,7 @@ class @ProjectDetails extends React.Component
 							E "header",
 								E ".process-info", proc.info
 								E ".process-exited", "exited with code #{proc.exitCode}" if proc.exitCode?
-								E "button.close-process",
+								E "button.button.icobutton.close-process",
 									onClick: ->
 										if proc.running
 											proc.on "exit", ->

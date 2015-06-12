@@ -23,23 +23,25 @@
 		* an open/focus project button (and what it would focus?)
 	* and whether you want it to allow multiple projects open
 	* Hopefully it can keep track of processes well enough
-		* I'm thinking it would be bad if you navigate away from a project within a tool and close the project and the tool is killed even though it's no longer related to the project
+		* I'm thinking it would be bad if you navigate away from a project within a tool
+		  and close the project and the tool is killed even though it's no longer related to the project
 			* I guess it would just have to warn you
 				* And because of this, murderous behavior would be disabled by default
 	* (If one workflow is obviously superior, I'll remove the setting)
 
 
 * Auto detect common project superdirectories
-	* such as created by Github for Windows
-	* or by IDEs or other tools
-	* and simple things like %USER%/Code or ~/code
-		* "coding", "programming", etc.
+	* by IDEs or other tools?
+	* simple things like %USER%/Code or ~/code
+		* "code", "coding", "programming", "projects", etc.
 		* Uppercase, lowercase, dashed (e.g. "coding-projects") or spaced
 
 
 * Plugins
+	* Make the API asynchronous, or even smarter
+	  (most things will be checking for the existence of files,
+	  so something that would check once and then watch the file system would be great)
 	* Launch multiple tasks (with dropdowns)
-		* ~~`npm`~~ (**done**)
 		* `cake`
 		* `make`
 		* `rake`
@@ -56,7 +58,7 @@
 
 * Visual package editor
 	* Help text for known fields
-	* Keeps your indentation and formatting (even though npm doesn't)
+	* Keeps your indentation and formatting (even though npm doesn't't)
 	* Reusable component / separate project?
 
 
@@ -87,16 +89,19 @@
 
 * Live reload everything
 	* Chrome apps
-	* ~~`index.html`~~ (**done**)
 	* `npm start`
 	* Automatically run `npm prepublish` upon file changes
 		* Also watch linked dependencies
 			* Changing a file in the linked dependency might
 			  trigger an auto-`prepublish`
 			  and this should trigger an auto-`prepublish`
-			  of the dependent project.
+			  of the dependent project only once the dependent project's `prepublish` has finished.
+				Is it possible to detect an npm script being run? Probably not.
+				At any rate, it's probably good enough just to have a delay.
 			* Unwatch unlinked dependencies
-			* Make a package to watch packages, and use it here and in nw-dev
+		* Also watch bundled dependencies
+		* Make a package to watch packages, and use it here and in nw-dev
+	* Toggle live reload with a checkbox on the process view header
 	* **Except** when it already auto-reloads
 		* (such as project-nexus does with nw-dev)
 		* It *could* try to detect things like nw-dev,
@@ -108,35 +113,43 @@
 
 
 * elementary OS app
-	* Publish to [elementary apps](http://quassy.github.io/elementary-apps/) (and the App Center when it exists in the future)
+	* Publish to [elementary apps](http://quassy.github.io/elementary-apps/)
+	  (and the App Center when it exists in the future)
 
 
 * The properly capitalized name of a project is
-  secretly stored in many cases in... README.md!
+  secretly often stored in... README.md!
 	* e.g. `# Project Nexus`
 	* (with formatting that would need to be removed of course)
 	* and other text file formats
-	* and maybe `<html><title>`? maybe that's a bit presumptuous
 
 
 * Better project organization (e.g. folders or groups or tags)
 
 
+* Hide columns that are displaying no launchers (again!)
+	* This was broken by using elementary's sidebar styles that can't exactly work with tables
+
+
 * Styles
-	* Non-elementary
-		* Better focus styles for icon buttons (not an orange rectangular outline)
-		* Style destructive action buttons
-		* Revamp?
+	* Use elementary styles always
+		* and add options for using the native titlebar or not, and if not, what titlebutton layout to use
+			* Remove these options when possible
+				* Detect the operating system and act accordingly
+				* Can I look in some file to see the system button layout in linux?
+		* The first launch shows a welcome screen, but not styled properly because it's supposed to use elementary styles
+		* Destructive action buttons aren't styled without elementary styles
+		* elementary styles are pretty
 	* elementary
-		* The project read error receives infobar styles and looks really stretched out.
-		  Instead, it should use an actual infobar.
-		  The bar should be yellow (warning level) and have a Browse button.
-			It should be red for any errors other than `ENOENT`.
 		* Dark styles should be more bluish
-		* Icon buttons (should appear as buttons when hover/focus/active)
-		* Icons (like images, not fonts)
-		* Settings dialogue (maybe; I don't like the big partially-outside-of-the-window close button)
-		* Text probably shouldn't all get grayed out like that when out of focus
-	* General
-		* Could probably animate more transitions in ProjectDetails, possibly by adding an animation dummy element
-		* Redo the first-time expirience and project folder error stuff
+		* Icons as images
+		* Text probably shouldn't all get grayed out like that when the window isn't in focus
+	* Animation
+		* Info bars
+		* ProjectDetails
+	* Apply `:hover` and `:active` styles with classes
+		* Chrome fails to use :hover if you mouse over something with the mouse button down
+		* The launcher buttons should stay pressed when the menu is open
+	* **Accessibility**
+		* Use the entire app with the keyboard
+		* A keyboard shortcut for `npm restart` like <kbd>Ctrl</kbd>+<kbd>R</kbd> would be particularly nice

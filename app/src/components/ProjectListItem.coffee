@@ -15,8 +15,9 @@ class @ProjectListItem extends React.Component
 				el = el.parentElement
 			return yes
 		
-		E "li.project",
+		E "li.project.view",
 			key: id
+			tabIndex: -1
 			title: path
 			class: [
 				"selected" if ProjectNexus.selected_project_id is id
@@ -28,7 +29,7 @@ class @ProjectListItem extends React.Component
 			onMouseLeave: (e)=> @setState hover: no
 			
 			E ".launcher",
-				E "button",
+				E "button.button.icobutton",
 					onClick: => (require "nw.gui").Shell.openItem path
 					E "i.mega-octicon.octicon-file-directory"
 			

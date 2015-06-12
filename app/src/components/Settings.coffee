@@ -99,7 +99,7 @@ class @Settings extends React.Component
 					style: textAlign: "center" if elementary
 					E "i.mega-octicon.octicon-gear"
 					" Settings"
-					E "button",
+					E "button.button.icobutton",
 						onClick: Settings.hide
 						style: float: if elementary then "left" else "right"
 						if elementary # (as if these icons were considerably different)

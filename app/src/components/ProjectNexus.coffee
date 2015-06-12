@@ -58,7 +58,7 @@ class @ProjectNexus extends React.Component
 						]
 					else
 						E WelcomeScreen
-							
+					
 					if runaway_processes?.length
 						E ".runaway-processes",
 							E "h2", "Runaway Processes"

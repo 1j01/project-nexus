@@ -22,7 +22,7 @@ class @ProjectsList extends React.Component
 	
 	render: ->
 		{projects} = @props
-		E ".projects",
+		E ".projects.sidebar",
 			E "ul.projects-list",
 				for project in projects
 					E ProjectListItem, {project}

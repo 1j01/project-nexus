@@ -11,14 +11,14 @@ class @Launcher extends React.Component
 	
 	render: ->
 		{action, title, icon, menu} = @props
-		
+		has_menu = menu?.length
 		if icon or menu
 			icon ?= "octicon-primitive-dot"
 			E ".launcher",
 				class:
-					"has-menu": menu?
+					"has-menu": has_menu
 					"menu-open": @state.menu_open
-				E "button",
+				E "button.button.icobutton",
 					class: "no-primary-action": not action
 					onClick: =>
 						clearTimeout @state.holding_tid
@@ -28,12 +28,12 @@ class @Launcher extends React.Component
 								action()
 					onContextMenu: (e)=>
 						e.preventDefault()
-						@setState menu_open: yes if menu
+						@setState menu_open: yes if has_menu
 					onMouseDown: (e)=>
 						@setState mouse_left: no
 						e.preventDefault()
 						clearTimeout @state.holding_tid
-						if menu and e.button is 0
+						if has_menu and e.button is 0
 							@setState
 								pressed: yes
 								holding_tid: setTimeout =>
@@ -41,22 +41,23 @@ class @Launcher extends React.Component
 								, 500
 					onMouseLeave: =>
 						@setState mouse_left: yes
-						if menu and @state.pressed
+						if has_menu and @state.pressed
 							clearTimeout @state.holding_tid
 							@setState pressed_and_held: yes, menu_open: yes
 							# @TODO: open the menu when you move the mouse below the launcher, not just outside of it
 					
 					title: title
 					E "i", class: [icon, ("mega-octicon" if icon?.match /octicon-/)]
-				if menu
-					E "ul.launcher-context-menu",
+				if has_menu
+					E "ul.launcher-context-menu.menu.window-frame.csd",
 						class: "open" if @state.menu_open
 						for item, i in menu then do (item, i)=>
 							hovered = @state.hovered_menu_item_i is i
-							E "li",
+							E "li.menuitem",
 								class:
 									hover: hovered
 									active: hovered and @state.pressed_and_held
+									selected: hovered and @state.pressed_and_held
 								onMouseEnter: =>
 									@setState hovered_menu_item_i: i
 								onMouseLeave: =>
@@ -110,3 +111,10 @@ class @Launcher extends React.Component
 	
 	componentWillUnmount: ->
 		# @TODO: clean up event listeners
+	
+	componentDidUpdate: ->
+		if @state.active
+			element = React.findDOMNode @
+			menu = element.querySelector ".launcher-context-menu"
+			if @state.pressed_and_held
+				menu.children[@state.hovered_menu_item_i].focus()
