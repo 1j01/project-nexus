@@ -4,7 +4,7 @@
 # Ideas
 
 
-* Open all your tools for you
+* Open all your tools for you when you press the folder button
 	* Editor
 		* Your editor *does* support opening folders, doesn't it?
 		* Default to `EDITOR`
@@ -16,7 +16,6 @@
 		* Command prompt / terminal
 		* Integrate a git gui?
 			* Someone please make [this](http://tonsky.me/blog/reinventing-git-interface/) a reality
-	* ~~Folder browser~~ (**done**)
 	* Configure whatever tools you want
 	* Configure whether you want it to give you
 		* an open/close project button, or
@@ -41,18 +40,20 @@
 	* Make the API asynchronous, or even smarter
 	  (most things will be checking for the existence of files,
 	  so something that would check once and then watch the file system would be great)
-	* Launch multiple tasks (with dropdowns)
+	* Task launchers (with dropdowns)
 		* `cake`
 		* `make`
 		* `rake`
+		* `grunt`
+		* `gulp`
 	* Let plugins add project openers for tools
 		* Such as, when there's a solution (.sln) file,
 		  it could open Visual Studio
 			* In this case, it should override your Editor
-	* An easy way to install plugins? (through `npm` of course)
+	* An interface to install plugins through `npm`
 
 
-* Link to repository (defined in `package.json`)
+* Link to repository (defined in `package.json`, or through `npm repo`)
 	* A way to update `package.json` with repository info
 
 
@@ -109,7 +110,7 @@
 		  (per project)
 
 
-* Open devtools to debug a running node process
+* Open [node-inspector](https://github.com/node-inspector/node-inspector) to debug running node processes!!!
 
 
 * elementary OS app
@@ -128,7 +129,11 @@
 
 
 * Hide columns that are displaying no launchers (again!)
-	* This was broken by using elementary's sidebar styles that can't exactly work with tables
+	* This was broken by using elementary's sidebar styles which can't exactly work with tables
+
+
+* Filterable projects list
+	* Should this be just type to search or should there be a search bar at the top of the application?
 
 
 * Styles
