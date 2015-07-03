@@ -11,7 +11,14 @@ class @ProjectDetails extends React.Component
 						E ".process", key: command,
 							E "header",
 								E ".process-info", proc.info
-								E ".process-exited", "exited with code #{proc.exitCode}" if proc.exitCode?
+								if proc.exitCode?
+									E ".process-exited", "exited with code #{proc.exitCode}"
+								# else
+								# 	if command.match /^(node(js)?|iojs|npm)(\.exe)?\s/ # hueristic
+								# 		E "button.button.icobutton.inspect-with-blink",
+								# 			onClick: ->
+								# 				
+								# 			E "i.octicon.octicon-bug"
 								E "button.button.icobutton.close-process",
 									onClick: ->
 										if proc.running
