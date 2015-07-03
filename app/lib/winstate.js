@@ -27,8 +27,12 @@
  *
  * 2015-05-19 (1j01)
  * - Don't call window.show() if window.shown
- * 
- * @TODO: intercept calls to window.show()/hide())
+ *
+ * 2015-07-03 (1j01)
+ * - Save window state periodically, so if the window is moved and then the window is reloaded,
+ *   the state is kept correctly.
+ *
+ * @TODO: intercept calls to window.show()/hide()
  * @TODO: if you maximize a window then minimize it, the window should be maximized upon restoration of the window state
  */
 
@@ -73,6 +77,15 @@ function initWindowState() {
 		win.show();
 		win.shown = true;
 	}
+	
+	// Save window state periodically, because we can't listen for move events
+	// The window state will be saved when the window is closed, so this is just for if the page is reloaded
+	var iid = setInterval(function(){
+		saveWindowState();
+	}, 200);
+	win.once("close", function(){
+		clearInterval(iid);
+	});
 }
 
 function dumpWindowState() {
@@ -108,7 +121,7 @@ function restoreWindowState() {
 		deltaHeight = winState.deltaHeight
 		winState.height = winState.height - deltaHeight
 	}
-
+	
 	win.resizeTo(winState.width, winState.height);
 	win.moveTo(winState.x, winState.y);
 }
