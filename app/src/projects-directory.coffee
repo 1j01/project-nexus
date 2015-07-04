@@ -2,13 +2,13 @@
 fs = require "fs"
 {join, resolve} = require "path"
 {exec} = require "child_process"
+chokidar = require "chokidar"
 kill_tree = require "tree-kill"
 
-# @TODO: watch the projects directory for changes (projects added, removed, renamed)
-# but don't overwrite the state in the mutated project objects!
-# or you know, don't mutate the state
-
-Settings.watch "projects_dir", (projects_dir)->
+update_projects = (projects_dir)->
+	global.watcher?.close?()
+	global.watcher = null
+	
 	ProjectNexus.projects_read_error = null
 	
 	if not projects_dir
@@ -24,12 +24,26 @@ Settings.watch "projects_dir", (projects_dir)->
 			render()
 			return
 		
+		# @TODO: Watch... deeper? Why isn't this recursive? Why aren't any events firing other than "raw"?
+		global.watcher = chokidar.watch projects_dir, ignored: /node_modules|[\/\\]\./
+		global.watcher.on "raw", -> update_projects projects_dir
+		global.watcher.on "error", (err)-> console.error "chokidar error watching projects directory:", err
+		
+		old_projects = ProjectNexus.projects
 		ProjectNexus.projects = []
 		for fname in fnames
 			path = join projects_dir, fname
 			stats = fs.statSync path
 			if stats.isDirectory()
-				project = {id: fname, dirname: fname, name: fname, path}
+				id = fname
+				# @TODO: embrace immutability
+				project = null
+				for old_project in old_projects ? [] when old_project.id is id
+					project = old_project
+				project ?= {id}
+				project.dirname = fname
+				project.name = fname
+				project.path = path
 				
 				do (project)->
 					project.processes = {}
@@ -71,3 +85,5 @@ Settings.watch "projects_dir", (projects_dir)->
 				ProjectNexus.projects.push project
 		
 		do render
+
+Settings.watch "projects_dir", update_projects

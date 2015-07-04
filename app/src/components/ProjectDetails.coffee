@@ -1,4 +1,6 @@
 
+# ps_tree = require "ps-tree"
+
 class @ProjectDetails extends React.Component
 	render: ->
 		{project} = @props
@@ -17,7 +19,9 @@ class @ProjectDetails extends React.Component
 								# 	if command.match /^(node(js)?|iojs|npm)(\.exe)?\s/ # hueristic
 								# 		E "button.button.icobutton.inspect-with-blink",
 								# 			onClick: ->
-								# 				
+								# 				console.log proc.pid, "get children"
+								# 				ps_tree proc.pid, (err, children)->
+								# 					console.log proc.pid, err, children
 								# 			E "i.octicon.octicon-bug"
 								E "button.button.icobutton.close-process",
 									onClick: ->

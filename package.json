@@ -1,7 +1,7 @@
 {
   "name": "project-nexus",
   "description": "A hub for all your programming projects",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "repository": {
     "type": "git",
     "url": "http://github.com/1j01/project-nexus.git"
@@ -55,6 +55,7 @@
   },
   "dependencies": {
     "async": "^1.0.0",
+    "chokidar": "^1.0.3",
     "chrome-location": "^1.2.1",
     "coffee-script": "^1.9.1",
     "elementary.css": "^1.2.0",
