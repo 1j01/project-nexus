@@ -2,14 +2,17 @@
 async = require "async"
 is_running = require "is-running"
 
-is_owned_by_a_project = (pid)->
+is_under_control = (pid)->
+	if window.background_processes?
+		if pid in window.background_processes
+			return yes
 	if ProjectNexus.projects
 		for project in ProjectNexus.projects
 			for command, proc of project.processes
 				if proc.pid is pid
 					console.log "#{pid} is owned by #{project.name}:", proc
-					return no
-	return yes
+					return yes
+	return no
 
 prevent_recursion = off
 Settings.watch "running_processes", (running_processes = [])->
@@ -20,7 +23,10 @@ Settings.watch "running_processes", (running_processes = [])->
 	runaway_processes = []
 	async.each running_processes,
 		(rproc, callback)->
-			if is_owned_by_a_project rproc.pid
+			if is_under_control rproc.pid
+				running_processes_new.push rproc
+				callback null
+			else
 				is_running rproc.pid, (err, rproc_is_running)->
 					return callback err if err
 					if rproc_is_running
@@ -30,9 +36,6 @@ Settings.watch "running_processes", (running_processes = [])->
 					else
 						console.log "this process appears to have exited:", rproc
 					callback null
-			else
-				running_processes_new.push rproc
-				callback null
 		(err)->
 			return console.error err if err
 			console.log "running:", running_processes_new

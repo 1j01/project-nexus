@@ -110,9 +110,6 @@
 		  (per project)
 
 
-* Open [node-inspector](https://github.com/node-inspector/node-inspector) to debug running node processes!!!
-
-
 * elementary OS app
 	* Publish to [elementary apps](http://quassy.github.io/elementary-apps/)
 	  (and the App Center when it exists in the future)

@@ -64,6 +64,9 @@ Clicking it again will restart the app.
 I'm very open to extending it with different launchers,
 and I plan on extracting the existing launchers into npm packages.
 
+There's also a button on Node.js processes to open up a [debugger](https://github.com/node-inspector/node-inspector).
+Previously this was so complicated that I've never used anything but logging to debug Node.js code before. Now it's a button.
+
 
 _Built with [nw.js](http://nwjs.io/)_
 

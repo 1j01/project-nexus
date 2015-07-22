@@ -74,7 +74,7 @@ class @ProjectNexus extends React.Component
 								E "tbody",
 									for rproc in runaway_processes then do (rproc)->
 										E "tr.runaway-process", key: rproc.pid,
-											E "td", rproc.project_name
+											E "td", rproc.project_name ? if rproc.background then E "i", "(Background)"
 											E "td", rproc.info
 											E "td", rproc.pid
 											E "td", E "button.button.destructive-action",

@@ -49,6 +49,10 @@ tr { display: table-row; }
 td, th { display: table-cell; }
 tbody, thead { display: table-row-group; }
 
+td > i {
+	opacity: 0.5;
+}
+
 .window-frame * {
 	outline: none;
 }
@@ -239,6 +243,11 @@ input,
 textarea,
 [contenteditable],
 p, p > span,
+i > span,
+b > span,
+u > span,
+em > span,
+strong > span,
 code, code > span,
 pre, pre > span,
 table, tr,
