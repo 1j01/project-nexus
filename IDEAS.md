@@ -37,7 +37,7 @@
 
 
 * Plugins
-	* Make the API asynchronous, or even smarter
+	* Make the API asynchronous, and maybe even smarter
 	  (most things will be checking for the existence of files,
 	  so something that would check once and then watch the file system would be great)
 	* Task launchers (with dropdowns)
@@ -131,21 +131,18 @@
 
 * Filterable projects list
 	* Should this be just type to search or should there be a search bar at the top of the application?
+	  (or both?)
 
 
 * Styles
-	* Use elementary styles always
-		* and add options for using the native titlebar or not, and if not, what titlebutton layout to use
-			* Remove these options when possible
-				* Detect the operating system and act accordingly
-				* Can I look in some file to see the system button layout in linux?
-		* The first launch shows a welcome screen, but not styled properly because it's supposed to use elementary styles
-		* Destructive action buttons aren't styled without elementary styles
-		* elementary styles are pretty
+	* Options for using the native titlebar or not, and if not, what titlebutton layout to use
+		* Remove these options when possible
+			* Detect the operating system and act accordingly
+			* Can I look in some file to see the system button layout in linux?
 	* elementary
-		* Dark styles should be more bluish
 		* Icons as images
 		* Text probably shouldn't all get grayed out like that when the window isn't in focus
+		* Settings window looks silly
 	* Animation
 		* Info bars
 		* ProjectDetails

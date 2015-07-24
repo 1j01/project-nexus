@@ -13,30 +13,6 @@ project-nexus
 > <p align="center">It has dark styles too. Yes, it's cross platform.</p>
 
 
-<!--
-Do you find yourself opening and closing lots of
-* project folders
-* git clients
-* terminals (or shitty outdated command prompts)
-* and/or code editors?
-
-There are many repetitive steps involved in switching projects.
-
-Does your workflow involve a lot of
-switching to your terminal
-(or shitty outdated command prompt)
-and hitting
-<kbd>Ctrl+C</kbd> +
-<kbd>Up</kbd> +
-<kbd>Enter</kbd>
-to restart?
-
-Have you ever habitually switched back and
-accidentally reran some other command you had entered?
-
-No more!
--->
-
 You declare all your scripts in your `package.json`,
 in a machine-readable format,
 but all you directly gain from this
@@ -65,7 +41,7 @@ I'm very open to extending it with different launchers,
 and I plan on extracting the existing launchers into npm packages.
 
 There's also a button on Node.js processes to open up a [debugger](https://github.com/node-inspector/node-inspector).
-Previously this was so complicated that I've never used anything but logging to debug Node.js code before. Now it's a button.
+Previously this was so complicated that I've never used it before. Now it's a button.
 
 
 _Built with [nw.js](http://nwjs.io/)_
@@ -80,3 +56,29 @@ _Built with [nw.js](http://nwjs.io/)_
 - `project-nexus`
 
 It'll live reload with [nw-dev](https://www.npmjs.com/package/nw-dev/)
+
+
+<!--
+Do you find yourself opening and closing lots of
+* project folders
+* git clients
+* terminals (or shitty outdated command prompts)
+* and/or code editors?
+
+There are many repetitive steps involved in switching projects.
+
+Does your workflow involve a lot of
+switching to your terminal
+(or shitty outdated command prompt)
+and hitting
+<kbd>Ctrl+C</kbd> +
+<kbd>Up</kbd> +
+<kbd>Enter</kbd>
+to restart?
+
+Have you ever habitually switched back and
+accidentally reran some other command you had entered?
+
+No more!
+-->
+

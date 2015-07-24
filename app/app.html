@@ -7,18 +7,19 @@
 		<link rel="stylesheet" href="lib/octicons/octicons.css">
 		<link rel="stylesheet" href="lib/fontello/css/nex.css">
 		<link rel="stylesheet" href="lib/open-sans/open-sans.css">
+		<link rel="stylesheet" href="styles/layout.css">
 		<link rel="stylesheet" href="styles/app.css">
-		<link rel="stylesheet" href="styles/elementary-layout.css">
+		<link rel="stylesheet" href="styles/elementary-plus.css">
 		<link rel="stylesheet" href="styles/settings.css">
 		<link rel="stylesheet" href="styles/dark.css" class="dark">
-		<link rel="stylesheet" href="../node_modules/elementary.css/lib/elementary.css" class="elementary light">
-		<link rel="stylesheet" href="../node_modules/elementary.css/lib/elementary-dark.css" class="elementary dark">
+		<link rel="stylesheet" href="../node_modules/elementary.css/lib/elementary.css" class="light">
+		<link rel="stylesheet" href="../node_modules/elementary.css/lib/elementary-dark.css" class="dark">
 		<link rel="stylesheet" href="../node_modules/elementary.css/icons/icons.css">
 	</head>
 	<body class="not-loaded">
 		<script type="text/coffeescript">
 			gui = require "nw.gui"
-			win = window.win = gui.Window.get()
+			@win = gui.Window.get()
 		</script>
 		<script src="lib/react.js"></script>
 		<script src="lib/term.js"></script>

@@ -115,7 +115,7 @@ class @Settings extends React.Component
 						label: "Use dark styles"
 					E CheckboxSetting,
 						setting: "elementary"
-						label: "Use elementary OS's beautiful styles"
+						label: "Emulate elementary OS's window frame"
 	
 	componentDidMount: ->
 		window.addEventListener "keydown", (e)->

@@ -148,17 +148,4 @@ class @ProjectDetails extends React.Component
 			# @TODO: WYSIWYG README.md editor
 		else
 			E ".project-details.no-project",
-				style:
-					background: "#ccc"
-					opacity: 0.4
-					alignItems: "center"
-					flexDirection: "row"
-				E "div",
-					style:
-						position: "relative"
-						margin: "auto"
-						textAlign: "center"
-						fontSize: "1.5em"
-						height: "auto"
-					# @TODO: Hey! Lighten up.
-					"Hey! Select a damn project."
+				E "h2", "Select a project to get started."

@@ -1,0 +1,104 @@
+
+html, body {
+	font-family: sans-serif;
+	height: 100%;
+}
+
+html,
+body,
+.app,
+.window-frame,
+.window-content,
+header,
+header *,
+main,
+main * {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	padding: 0;
+	margin: 0;
+}
+
+main {
+	flex-direction: row;
+}
+
+header,
+h1, h2, h3, h4, h5, h6,
+li,
+button,
+img {
+	flex: 0 0 auto;
+	flex-direction: row;
+}
+
+button {
+	white-space: nowrap;
+}
+
+table { display: table; }
+tr { display: table-row; }
+td, th { display: table-cell; }
+tbody, thead { display: table-row-group; }
+
+table,
+td > button,
+th > button {
+	margin: auto;
+}
+
+
+button > span {
+	line-height: 1;
+}
+button > i {
+	pointer-events: none;
+}
+
+
+.projects,
+.no-projects {
+	flex-basis: auto;
+	flex-shrink: 10;
+	flex-grow: 0.1;
+}
+.projects {
+	overflow: auto;
+}
+.projects * {
+	vertical-align: middle;
+}
+
+.project-details {
+	overflow: hidden;
+}
+.no-project {
+	align-items: center;
+	flex-direction: row;
+}
+.no-project > h2 {
+	margin: auto;
+	text-align: center;
+}
+ul.projects-list {
+	width: 100%;
+}
+li.project {
+	padding: 2px;
+}
+/* @TODO: re-hide empty columns of launchers */
+li.project > *:empty {
+	width: 0;
+	height: 0;
+	padding: 0;
+}
+
+.launcher-context-menu {
+	position: fixed;
+	z-index: 1;
+	font-size: medium;
+}
+.launcher-context-menu:not(.open) {
+	display: none;
+}

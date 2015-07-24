@@ -20,6 +20,9 @@
 	padding: 0;
 	margin: 0;
 }
+.title > span {
+	justify-content: center;
+}
 .window-frame:not(.popup):not(.menu) {
 	margin: 0 !important;
 	box-shadow: none !important;
@@ -76,4 +79,10 @@ GraniteWidgetsWelcome .h3 {
 	border-style: solid;
 	border-color: transparent;
 	border-width: 1px 0 1px 0 !important;
+}
+
+.titlebar button.button.titlebutton i.octicon-gear {
+	width: 22px;
+	height: 22px;
+	font-size: 22px;
 }

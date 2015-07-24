@@ -20,11 +20,11 @@ class @ProjectNexus extends React.Component
 				if project.id is selected_project_id
 					selected_project = project
 		
-		Window = if Settings.get "elementary" then GtkWindow else ".app.non-elementary"
+		Window = if Settings.get "elementary" then GtkWindow else ".app.window-frame.active"
 		Header = if Settings.get "elementary" then GtkHeaderBar else "header"
 		
-		E Window, {},
-			E Header, {},
+		E Window,
+			E Header,
 				E "h1.title", "Project Nexus"
 				E TitleButton,
 					action: Settings.toggle

@@ -6,12 +6,10 @@ update_stylesheets = ->
 			link.remove()
 		else if (link.classList.contains "light") and (Settings.get "dark")
 			link.remove()
-		else if (link.classList.contains "elementary") and not (Settings.get "elementary")
-			link.remove()
 		else
 			document.head.appendChild link
 
-@switch_frame = ->
+switch_frame = ->
 	win.hide()
 	setTimeout ->
 		elementary = (Settings.get "elementary")
