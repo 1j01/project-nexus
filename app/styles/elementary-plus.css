@@ -63,6 +63,7 @@ GraniteWidgetsWelcome button:not(:hover) {
 }
 GraniteWidgetsWelcome button img {
 	margin-right: 15px;
+	pointer-events: none;
 }
 GraniteWidgetsWelcome GtkLabel {
 	flex: 0 0 auto;

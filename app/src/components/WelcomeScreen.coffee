@@ -15,10 +15,8 @@ class @WelcomeScreen extends React.Component
 			"Coding-Projects", "Code-Projects", "Programming-Projects"
 		]
 		possible_dir_names = possible_dir_names.concat (dir_name.toLowerCase() for dir_name in possible_dir_names)
-		
-		# possible_project_dirs = (join HOME, noun for noun in nouns)
-		
 		HOME_folder = fs.readdirSync HOME
+		
 		default_github_dir = join HOME, "Documents", "Github"
 		
 		E "GraniteWidgetsWelcome.welcome-screen",
@@ -46,7 +44,7 @@ class @WelcomeScreen extends React.Component
 						style: flexDirection: "column"
 						E "h3.h3", "Github for #{if Mac then "Mac" else "Windows"}"
 						E "GtkLabel", default_github_dir
-			for dir_name in possible_dir_names when dir_name in HOME_folder # fs.existsSync possible_project_dir
+			for dir_name in possible_dir_names when dir_name in HOME_folder
 				do (dir_name)->
 					possible_project_dir = join HOME, dir_name
 					E "button.button",
@@ -56,4 +54,20 @@ class @WelcomeScreen extends React.Component
 							style: flexDirection: "column"
 							E "h3.h3", "This folder here"
 							E "GtkLabel", possible_project_dir
-			# @TODO: keyboard support (up/down arrows)
+	
+	componentDidMount: ->
+		el = React.findDOMNode @
+		[buttons...] = el.querySelectorAll "button"
+		go = (delta)->
+			i = buttons.indexOf document.activeElement
+			if i is -1
+				buttons[0].focus()
+			else
+				buttons[Math.min(buttons.length - 1, Math.max(0, i + delta))].focus()
+		document.body.addEventListener "keydown", @keydown_listener = (e)=>
+			switch e.keyCode
+				when 38 then go -1
+				when 40 then go +1
+	
+	componentWillUnmount: ->
+		document.body.removeEventListener "keydown", @keydown_listener
