@@ -59,6 +59,7 @@ GraniteWidgetsWelcome button {
 GraniteWidgetsWelcome button:not(:hover) {
 	border-color: transparent;
 	background: transparent;
+	box-shadow: none;
 }
 GraniteWidgetsWelcome button img {
 	margin-right: 15px;

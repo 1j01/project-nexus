@@ -7,7 +7,20 @@ Mac = process.platform is "darwin"
 
 class @WelcomeScreen extends React.Component
 	render: ->
+		# @TODO: Detect common project superdirectories from popular IDEs or other tools?
+		
+		possible_dir_names = [
+			"Code", "Coding", "Programs", "Programming", "Projects"
+			"Coding Projects", "Code Projects", "Programming Projects"
+			"Coding-Projects", "Code-Projects", "Programming-Projects"
+		]
+		possible_dir_names = possible_dir_names.concat (dir_name.toLowerCase() for dir_name in possible_dir_names)
+		
+		# possible_project_dirs = (join HOME, noun for noun in nouns)
+		
+		HOME_folder = fs.readdirSync HOME
 		default_github_dir = join HOME, "Documents", "Github"
+		
 		E "GraniteWidgetsWelcome.welcome-screen",
 			E "h1.h1", "Select Your Projects Directory"
 			E "GtkLabel", "Where do you keep your project folders?"
@@ -33,4 +46,14 @@ class @WelcomeScreen extends React.Component
 						style: flexDirection: "column"
 						E "h3.h3", "Github for #{if Mac then "Mac" else "Windows"}"
 						E "GtkLabel", default_github_dir
+			for dir_name in possible_dir_names when dir_name in HOME_folder # fs.existsSync possible_project_dir
+				do (dir_name)->
+					possible_project_dir = join HOME, dir_name
+					E "button.button",
+						onClick: -> Settings.set "projects_dir", possible_project_dir
+						E "img", src: (if Windows then "img/windows-folder.png" else "img/files.png"), width: 48, height: 48
+						E "",
+							style: flexDirection: "column"
+							E "h3.h3", "This folder here"
+							E "GtkLabel", possible_project_dir
 			# @TODO: keyboard support (up/down arrows)

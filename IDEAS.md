@@ -20,20 +20,13 @@
 	* Configure whether you want it to give you
 		* an open/close project button, or
 		* an open/focus project button (and what it would focus?)
-	* and whether you want it to allow multiple projects open
-	* Hopefully it can keep track of processes well enough
-		* I'm thinking it would be bad if you navigate away from a project within a tool
-		  and close the project and the tool is killed even though it's no longer related to the project
-			* I guess it would just have to warn you
-				* And because of this, murderous behavior would be disabled by default
-	* (If one workflow is obviously superior, I'll remove the setting)
-
-
-* Auto detect common project superdirectories
-	* by IDEs or other tools?
-	* simple things like %USER%/Code or ~/code
-		* "code", "coding", "programming", "projects", etc.
-		* Uppercase, lowercase, dashed (e.g. "coding-projects") or spaced
+		* and whether you want it to allow multiple projects open
+		* Hopefully it can keep track of processes well enough
+			* I'm thinking it would be bad if you navigate away from a project within a tool
+			  and close the project and the tool is killed even though it's no longer related to the project
+				* I guess it would just have to warn you
+					* And because of this, murderous behavior would be disabled by default
+		* (If one workflow is obviously superior, I'll remove the setting)
 
 
 * Plugins
@@ -59,7 +52,16 @@
 
 * Visual package editor
 	* Help text for known fields
-	* Keeps your indentation and formatting (even though npm doesn't't)
+	* Edit arbitrary data
+	* Use a tagged input component for `keywords` field
+	* Manage dependencies
+		* Install and remove packages
+		* See `npm outdated` information and easily update packages
+		* Edit package versions to downgrade
+	* Publish new versions of your package
+		* Button shows up once you've modified the version field
+		* Special control for version field with easy incrementing
+	* Keep your indentation and formatting even though npm doesn't
 	* Reusable component / separate project?
 
 
