@@ -49,7 +49,7 @@ class @ProjectNexus extends React.Component
 								window.render()
 							chooser.click()
 						E "GtkLabel", "Browse"
-			E ".window-content",
+			E ".window-content", key: "window-content",
 				E "main",
 					if projects
 						[

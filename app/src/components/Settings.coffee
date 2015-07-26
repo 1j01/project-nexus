@@ -92,7 +92,7 @@ class @Settings extends React.Component
 	
 	render: ->
 		elementary = Settings.get "elementary"
-		E ".settings-container", class: {visible: Settings.open},
+		E ".settings-container", class: {visible: Settings.open}, key: "settings",
 			E ".overlay", onClick: Settings.hide
 			E ".settings",
 				E "h2",
