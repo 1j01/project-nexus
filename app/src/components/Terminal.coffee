@@ -32,10 +32,10 @@ class @Terminal extends React.Component
 		
 		container = React.findDOMNode(@)
 		term.open container
-		resize = => @resize()
-		setTimeout resize, 50
-		window.addEventListener "resize", resize
-		container.addEventListener "transitionend", resize, no
+		@resize_handler = => @resize()
+		setTimeout @resize_handler, 50
+		window.addEventListener "resize", @resize_handler
+		container.addEventListener "transitionend", @resize_handler, no
 		
 		# @TODO: use https://github.com/chjj/pty.js so more programs will output in color
 		
@@ -78,6 +78,7 @@ class @Terminal extends React.Component
 		tester = null
 	
 	componentWillUnmount: ->
+		window.removeEventListener "resize", @resize_handler
 		console.log "Terminal: destroying @term"
 		@term?.destroy()
 		@term = null

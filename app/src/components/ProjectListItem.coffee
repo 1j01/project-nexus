@@ -39,5 +39,8 @@ class @ProjectListItem extends React.Component
 				E Launcher, launcher_module project
 	
 	componentDidMount: ->
-		window.addEventListener "mouseup", =>
+		window.addEventListener "mouseup", @mouseup_listener = =>
 			@setState active: no
+	
+	componentWillUnmount: ->
+		window.removeEventListener "mouseup", @mouseup_listener

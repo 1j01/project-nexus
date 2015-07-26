@@ -66,8 +66,10 @@ class @WelcomeScreen extends React.Component
 				buttons[Math.min(buttons.length - 1, Math.max(0, i + delta))].focus()
 		document.body.addEventListener "keydown", @keydown_listener = (e)=>
 			switch e.keyCode
-				when 38 then go -1
-				when 40 then go +1
+				when 38 then go -1 # up
+				when 40 then go +1 # down
+				else return
+			e.preventDefault()
 	
 	componentWillUnmount: ->
 		document.body.removeEventListener "keydown", @keydown_listener

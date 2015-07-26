@@ -118,7 +118,9 @@ class @Settings extends React.Component
 						label: "Emulate elementary OS's window frame"
 	
 	componentDidMount: ->
-		window.addEventListener "keydown", (e)->
+		window.addEventListener "keydown", @keydown_listener = (e)->
 			if e.keyCode is 27 # Escape
 				Settings.hide()
-
+	
+	componentWillUnmount: ->
+		window.removeEventListener "keydown", @keydown_listener

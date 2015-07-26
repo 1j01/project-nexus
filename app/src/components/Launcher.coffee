@@ -81,36 +81,54 @@ class @Launcher extends React.Component
 		element = React.findDOMNode @
 		menu = element.querySelector ".launcher-context-menu"
 		if menu
-			close_menu = (e)=>
+			scroller = element
+			scroller = scroller.parentElement until scroller.classList.contains "projects"
+			
+			@close_menu = (e)=>
 				if menu.contains e.target
 					e.preventDefault()
 				else
 					@setState menu_open: no
-			scroller = element
-			scroller = scroller.parentElement until scroller.classList.contains "projects"
-			
-			window.addEventListener "mousedown", close_menu
-			window.addEventListener "blur", close_menu
-			window.addEventListener "mouseup", (e)=>
+			window.addEventListener "mousedown", @close_menu
+			window.addEventListener "blur", @close_menu
+			window.addEventListener "mouseup", @mouseup_listener = (e)=>
 				@setState pressed: no
 				if @state.pressed_and_held
 					setTimeout => @setState pressed_and_held: no
 				else
-					close_menu(e)
-			window.addEventListener "keydown", (e)=> @setState menu_open: no if e.keyCode is 27 # Escape
+					@close_menu(e)
+			window.addEventListener "keydown", @keydown_listener = (e)=>
+				@setState menu_open: no if e.keyCode is 27 # Escape
 			
-			update_menu_position = =>
+			@update_menu_position = =>
 				menu.style.top = "#{element.getBoundingClientRect().bottom}px"
 				menu.style.left = "#{element.getBoundingClientRect().left}px"
-			scroller.addEventListener "scroll", update_menu_position
-			window.addEventListener "resize", update_menu_position
-			window.addEventListener "keydown", update_menu_position
-			window.addEventListener "click", update_menu_position
-			window.addEventListener "mousedown", update_menu_position
-			window.addEventListener "mouseup", update_menu_position
+			
+			scroller.addEventListener "scroll", @update_menu_position
+			window.addEventListener "resize", @update_menu_position
+			window.addEventListener "keydown", @update_menu_position
+			window.addEventListener "click", @update_menu_position
+			window.addEventListener "mousedown", @update_menu_position
+			window.addEventListener "mouseup", @update_menu_position
 	
 	componentWillUnmount: ->
-		# @TODO: clean up event listeners
+		element = React.findDOMNode @
+		menu = element.querySelector ".launcher-context-menu"
+		if menu
+			scroller = element
+			scroller = scroller.parentElement until scroller.classList.contains "projects"
+		
+		window.removeEventListener "mousedown", @close_menu
+		window.removeEventListener "blur", @close_menu
+		window.removeEventListener "mouseup", @mouseup_listener
+		window.removeEventListener "keydown", @keydown_listener
+		
+		scroller?.removeEventListener "scroll", @update_menu_position
+		window.removeEventListener "resize", @update_menu_position
+		window.removeEventListener "keydown", @update_menu_position
+		window.removeEventListener "click", @update_menu_position
+		window.removeEventListener "mousedown", @update_menu_position
+		window.removeEventListener "mouseup", @update_menu_position
 	
 	componentDidUpdate: ->
 		if @state.active
