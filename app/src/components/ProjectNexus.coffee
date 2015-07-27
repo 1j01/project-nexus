@@ -29,16 +29,18 @@ class @ProjectNexus extends React.Component
 				E TitleButton,
 					action: Settings.toggle
 					E "i.mega-octicon.octicon-gear"
-			if projects_read_error
-				err = projects_read_error
-				dir_not_found = err.code is "ENOENT"
+			if projects_read_error or projects?.length is 0
+				dir_not_found = projects_read_error?.code is "ENOENT"
 				E "GtkInfoBar",
-					class: if dir_not_found then "warning" else "error"
+					class: if dir_not_found or (not projects_read_error) then "warning" else "error"
 					E "GtkLabel",
-						if dir_not_found
-							"Couldn't find your projects directory"
+						if projects_read_error
+							if dir_not_found
+								"Couldn't find your projects directory"
+							else
+								"Failed to read projects from your projects directory"
 						else
-							"Failed to read projects from projects directory"
+							"There are no project folders in your projects directory (#{Settings.get "projects_dir"})"
 					E "button.button",
 						onClick: ->
 							chooser = document.createElement "input"
@@ -51,7 +53,7 @@ class @ProjectNexus extends React.Component
 						E "GtkLabel", "Browse"
 			E ".window-content", key: "window-content",
 				E "main",
-					if projects
+					if projects?.length > 0
 						[
 							E ProjectsList, projects: projects
 							E ProjectDetails, project: selected_project
@@ -59,6 +61,7 @@ class @ProjectNexus extends React.Component
 					else
 						E WelcomeScreen
 					
+					# @TODO: move this into a new component
 					if runaway_processes?.length
 						E ".runaway-processes",
 							E "h2", "Runaway Processes"
