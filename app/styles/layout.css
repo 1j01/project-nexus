@@ -36,18 +36,25 @@ img {
 button {
 	white-space: nowrap;
 }
+button > span {
+	display: inline-block;
+	white-space: pre;
+}
 
 table { display: table; }
 tr { display: table-row; }
 td, th { display: table-cell; }
 tbody, thead { display: table-row-group; }
 
-table,
-td > button,
-th > button {
+.runaway-processes table,
+.runaway-processes td > button,
+.runaway-processes th > button {
 	margin: auto;
 }
 
+/*.package-editor button {
+	display: inline-block;
+}*/
 
 button > span {
 	line-height: 1;

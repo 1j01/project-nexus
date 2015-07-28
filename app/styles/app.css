@@ -57,7 +57,7 @@ button.button.icobutton:not(:hover) {
 
 td,
 th {
-	background: rgba(150, 150, 150, 0.1);
+	background: rgba(150, 150, 150, 0.05);
 	border: 1px solid rgba(0, 0, 0, 0.1);
 	padding: 8px;
 }
@@ -132,20 +132,6 @@ button.no-primary-action > i,
 	font-weight: 400;
 }
 
-.package-editor {
-	display: block;
-}
-.package-editor .field {
-	padding: 10px;
-}
-.package-editor .field-name {
-	padding-bottom: 2px;
-	color: #555;
-}
-.package-editor input {
-	padding: 3px;
-}
-
 * {
 	-webkit-user-select: none;
 	cursor: default;
@@ -197,7 +183,7 @@ pre {
 }
 .terminal-container,
 .process,
-.processes {
+.processes:not(:empty) {
 	flex: 1;
 	/* Transitions are disabled because they interfere with the sizing of terminals */
 	/*transition: flex .4s ease;*/

@@ -53,7 +53,6 @@
 * Visual package editor
 	* Help text for known fields
 	* Edit arbitrary data
-	* Use a tagged input component for `keywords` field
 	* Manage dependencies
 		* Install and remove packages
 		* See `npm outdated` information and easily update packages
@@ -61,7 +60,7 @@
 	* Publish new versions of your package
 		* Button shows up once you've modified the version field
 		* Special control for version field with easy incrementing
-	* Keep your indentation and formatting even though npm doesn't
+	* Keep your indentation and formatting even though npm doesn't?
 	* Reusable component / separate project?
 
 
@@ -77,15 +76,16 @@
 
 * Context sensitive helpers based on process output
 	* "Cannot find module"?
-		* Maybe you need to `npm install`?
 		* If the module isn't listed as a dependency, maybe you want to `npm install --save` it?
+		* Otherwise, maybe you need to `npm install`?
+			* Actually, it could detect that you need to `npm install` proactively
 	* "Listening on port 3000"? (and similar)
 		* Would you like me to open that for you?
 	* "EADDRINUSE"? Not sure I can help with that...
 		* I can find an open port, but then what?
-			* Monkey patch your code to use a different port? That would be awesome, but awful.
-			* Suggest it (bit lame)
-			* Suggest you use a module for finding an open port?
+			* Monkey patch your code to use a different port? That would be awesome, but **awful**.
+			* Suggest a port? (bit lame)
+			* Suggest you use a module for finding an open port
 		* I don't think there's a way to find what program is using the port
 	* Linkify URLs
 
@@ -99,8 +99,8 @@
 			  trigger an auto-`prepublish`
 			  and this should trigger an auto-`prepublish`
 			  of the dependent project only once the dependent project's `prepublish` has finished.
-				Is it possible to detect an npm script being run? Probably not.
-				At any rate, it's probably good enough just to have a delay.
+			  Is it possible to detect an npm script being run? Probably not.
+			  At any rate, it's probably good enough just to have a delay.
 			* Unwatch unlinked dependencies
 		* Also watch bundled dependencies
 		* Make a package to watch packages, and use it here and in nw-dev
@@ -108,7 +108,8 @@
 	* **Except** when it already auto-reloads
 		* (such as project-nexus does with nw-dev)
 		* It *could* try to detect things like nw-dev,
-		  but this might need to be something you configure
+		  but that's not a good solution
+		  and this might need to be something you configure
 		  (per project)
 
 

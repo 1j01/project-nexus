@@ -1,0 +1,99 @@
+
+.package-editor {
+	display: block;
+	overflow: auto;
+}
+.package-editor h1 > span {
+	flex: 0 0 auto;
+	vertical-align: baseline;
+	display: inline-block;
+	font-size: 1.3em;
+	height: 10px;
+	opacity: 0.3;
+	text-shadow: 0 1px 1px black;
+}
+.package-editor h1 input {
+	font-size: inherit;
+	margin: 5px;
+}
+.package-editor h1 input:first-child {
+	/* @TODO: align this to the left, but size the width to the text of the input */
+	text-align: right;
+}
+.package-editor .field {
+	padding: 10px;
+}
+.package-editor .field-name {
+	padding-bottom: 2px;
+	color: #555;
+}
+.package-editor input {
+	padding: 3px;
+}
+.package-editor .scripts td:nth-child(2) {
+	width: 100%;
+}
+.package-editor .scripts td:nth-child(2) input {
+	width: calc(100% - 8px);
+}
+.tagged-input-wrapper {
+	display: block;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #dadada;
+	padding: 2px;
+}
+
+.tagged-input-wrapper .tagged-input {
+	border: none;
+	outline: none;
+	background: none;
+	display: inline-block;
+}
+
+/*.tagged-input-wrapper .tag .tag-text {
+	padding-left: 5px;
+}*/
+
+.tagged-input-wrapper .tag {
+	display: inline-block;
+	/*background-color: #E9E9E9;*/
+	padding: 2px 0px 2px 2px;
+	border-radius: 2px;
+	/*margin-left: 2px;
+	margin-right: 2px;*/
+	margin: 1px 2px;
+}
+
+.tagged-input-wrapper .tag-text {
+	font-family: Arial;
+	font-size: 10pt;
+	font-weight: normal;
+	color: #333;
+}
+
+
+.tagged-input-wrapper .tag.duplicate {
+	background: #FFDB7B;
+}
+
+.tagged-input-wrapper .tag .remove {
+	color: #a0a0a0;
+	padding: 0px 4px;
+	font-size: 75%;
+	line-height: 100%;
+	cursor: pointer;
+}
+
+.tagged-input-wrapper .tag .remove:hover {
+	color: #ddd;
+}
+
+.tagged-input-wrapper .tag .remove > .octicon-x {
+	font-size: 8pt;
+}
+
+.tagged-input-wrapper .tag .remove,
+.tagged-input-wrapper .tag .tag-text {
+	display: inline-block;
+}
