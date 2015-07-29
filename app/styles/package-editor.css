@@ -16,9 +16,17 @@
 	font-size: inherit;
 	margin: 5px;
 }
-.package-editor h1 input:first-child {
+.package-identification h1 > input {
 	/* @TODO: align this to the left, but size the width to the text of the input */
 	text-align: right;
+}
+.package-version .octicon {
+	/*font-size: 8pt;
+	width: 8pt;
+	height: 8pt;*/
+	font-size: 8px;
+	width: 8px;
+	height: 8px;
 }
 .package-editor .field {
 	padding: 10px;

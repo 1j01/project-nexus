@@ -13,14 +13,7 @@ class @PackageEditor extends React.Component
 			# @TODO: order "dependencies" fields together near the end
 			
 			E ".package-editor",
-				E "h1",
-					E "input.entry.package-name",
-						value: pkg.name # @TODO: edit
-					E "span", "@"
-					E "input.entry.package-version",
-						value: pkg.version # @TODO: edit
-						# @TODO: custom control with buttons to easily increment the version (major, minor, patch)
-						# @TODO: "Publish" button that shows up once you've modified the version field
+				E PackageIdentification, name: pkg.name, version: pkg.version
 				for f in fields when not (f in ["name", "version"])
 					field_name = (ucfirst f)
 						.replace /([a-z])([A-Z])/g, (m, letter1, letter2)-> "#{letter1} #{letter2}"
