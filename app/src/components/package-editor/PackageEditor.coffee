@@ -1,75 +1,4 @@
 
-class @PackageDependencies extends React.Component
-	render: ->
-		{dependencies} = @props
-		E ".dependencies",
-			E "table",
-				E "tbody",
-					for name, version of dependencies
-						E "tr",
-							E "td",
-								name
-							E "td",
-								E "input.entry",
-									value: version # @TODO edit
-							E "td",
-								E "button.button",
-									disabled: yes
-									onClick: (e)=>
-										alert "@TODO npm uninstall #{name} --save"
-									E "i.octicon.octicon-x"
-									# " Remove"
-					E "tr",
-						E "td",
-							E "input.entry",
-								value: "" # @TODO edit
-						E "td",
-							E "input.entry",
-								value: "" # @TODO edit
-								placeholder: "latest"
-						E "td",
-							E "button.button",
-								disabled: yes
-								onClick: (e)=>
-									alert "@TODO npm install something --save"
-								E "i.octicon.octicon-plus"
-								# " Install"
-
-class @PackageScripts extends React.Component
-	render: ->
-		{scripts} = @props
-		E ".scripts",
-			E "table",
-				E "tbody",
-					for name, command_line of scripts
-						E "tr",
-							E "td",
-								E "input.entry",
-									value: name # @TODO edit
-									# @TODO autocomplete with npm search
-							E "td",
-								E "input.entry",
-									value: command_line # @TODO edit
-							E "td",
-								E "button.button",
-									disabled: yes
-									onClick: (e)=>
-										alert "@TODO update package.json"
-									E "i.octicon.octicon-x"
-					E "tr",
-						E "td",
-							E "input.entry",
-								value: "" # @TODO edit
-						E "td",
-							E "input.entry",
-								value: "" # @TODO edit
-						E "td",
-							E "button.button",
-								disabled: yes
-								onClick: (e)=>
-									alert "@TODO update package.json"
-								E "i.octicon.octicon-plus"
-
 class @PackageEditor extends React.Component
 	ucfirst = (str)-> str.charAt(0).toUpperCase() + str.slice(1)
 	isobj = (obj)-> typeof obj is "object" and not (obj instanceof Array)
@@ -102,7 +31,7 @@ class @PackageEditor extends React.Component
 					if field_name.match /Dependencies/
 						E ".field",
 							E ".field-name", field_name
-							E PackageDependencies, dependencies: value
+							E PackageDependencies, dependencies: value, field: f
 					else if field_name is "Scripts"
 						E ".field",
 							E ".field-name", field_name
@@ -135,10 +64,6 @@ class @PackageEditor extends React.Component
 			
 			# @TODO: add fields that aren't in package.json already
 			# and remove fields
-			
-		catch err
-			E ".package-editor",
-				E "pre", "#{err}"
 	
 	shouldComponentUpdate: (nextProps)->
 		nextProps.json isnt @props.json

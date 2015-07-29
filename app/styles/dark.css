@@ -1,6 +1,6 @@
 
 main {
-	background: #383e41; /* equals GraniteWidgetsWelcome background-color */
+	background: #383e41; /* = GraniteWidgetsWelcome background-color */
 	color: #f0f0f0;
 }
 
@@ -37,18 +37,9 @@ pre {
 
 td,
 th {
-	/*background: rgba(0, 0, 0, 0.1);
-	border: 0;*/
 	background: rgba(30, 31, 32, 0.13);
 	border: 1px solid rgba(0, 0, 0, 0.2);
 }
-/*th {
-	box-shadow: 0 -15px 15px rgba(0, 0, 0, 0.2) inset;
-}
-td {
-	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2) inset;
-}*/
-
 
 .package-editor {
 	background: #2D3235;
@@ -60,9 +51,6 @@ td {
 .tagged-input-wrapper {
 	border-color: rgba(0, 0, 0, 0.2);
 }
-/*.tagged-input-wrapper .tag {
-	background-color: #353B3E;
-}*/
 .tagged-input-wrapper .tag-text,
 .tagged-input-wrapper .tagged-input {
 	color: #ccc;

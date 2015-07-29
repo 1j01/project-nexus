@@ -30,10 +30,10 @@
 .package-editor input {
 	padding: 3px;
 }
-.package-editor .scripts td:nth-child(2) {
+.package-editor .package-scripts td:nth-child(2) {
 	width: 100%;
 }
-.package-editor .scripts td:nth-child(2) input {
+.package-editor .package-scripts td:nth-child(2) input {
 	width: calc(100% - 8px);
 }
 .tagged-input-wrapper {
@@ -51,17 +51,10 @@
 	display: inline-block;
 }
 
-/*.tagged-input-wrapper .tag .tag-text {
-	padding-left: 5px;
-}*/
-
 .tagged-input-wrapper .tag {
 	display: inline-block;
-	/*background-color: #E9E9E9;*/
 	padding: 2px 0px 2px 2px;
 	border-radius: 2px;
-	/*margin-left: 2px;
-	margin-right: 2px;*/
 	margin: 1px 2px;
 }
 
