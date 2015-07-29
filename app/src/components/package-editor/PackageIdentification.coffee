@@ -1,36 +1,35 @@
 
 class @PackageVersion extends React.Component
+	constructor: ->
+		@state = version: null
 	render: ->
-		{version} = @props
+		version = @state.version ? @props.version
 		E ".package-version",
 			style:
 				position: "relative"
 			E "input.entry",
-				value: version # @TODO: edit
+				value: version
+				onChange: (e)=>
+					@setState version: e.target.value
 			if "#{version}".match /^\d+\.\d+\.\d+\b/
-				for _segment, i in ["major", "minor", "patch"]
-					do (_segment, i)=>
+				[_, major, minor, patch, after] = version.match /^(\d+)\.(\d+)\.(\d+)\b(.*)/
+				segment_strings = [major, minor, patch]
+				segments = segment_strings.map (n)-> parseInt n
+				x = 8
+				for segment, i in segments
+					do (segment, i)=>
+						segment_string = segment_strings[i]
+						this_x = x + (17 * (segment_string.length - 1)) / 2
+						x += 10 + 17 * segment_string.length
 						E "button.button.increment-version",
 							style:
 								position: "absolute"
 								bottom: -2
-								left: i * 27 + 8
+								left: this_x
 								width: 20
-								# left: i * 27 + 16
-								# width: 10
-								# height: 10
-								# bottom: 5
-								# @TODO: account for variable-width version segments (multiple digits)
 							onClick: (e)=>
 								el = React.findDOMNode @
 								input = el.querySelector "input"
-								console.log version = input.value
-								[_, major, minor, patch, after] = version.match /^(\d+)\.(\d+)\.(\d+)\b(.*)/
-								console.log [major, minor, patch] + " (from version)"
-								segments = [major, minor, patch].map (n)-> parseInt n
-								console.log segments + " (mapped to parseInt)"
-								# segments[j] = 0 for j in [i+1..segments.length-1]
-								# segments[i] += 1
 								segments = for segment, j in segments
 									if j is i
 										segment + 1
@@ -38,11 +37,8 @@ class @PackageVersion extends React.Component
 										0
 									else
 										segment
-								console.log segments + " (modified)"
 								[major, minor, patch] = segments
-								console.log "#{major}.#{minor}.#{patch}#{after}"
-								# @TODO: @setState
-								input.value = "#{major}.#{minor}.#{patch}#{after}"
+								@setState version: "#{major}.#{minor}.#{patch}#{after}"
 								# @TODO: write to package.json
 							E "i.octicon.octicon-plus"
 			
