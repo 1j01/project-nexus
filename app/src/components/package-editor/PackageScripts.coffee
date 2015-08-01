@@ -31,3 +31,5 @@ class @PackageScripts extends React.Component
 								onClick: (e)=>
 									alert "@TODO update package.json"
 								E "i.octicon.octicon-plus"
+			
+			# @TODO: reorder scripts

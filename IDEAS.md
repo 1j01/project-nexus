@@ -57,10 +57,6 @@
 		* Install and remove packages
 		* See `npm outdated` information and easily update packages
 		* Edit package versions to downgrade
-	* Publish new versions of your package
-		* Button shows up once you've modified the version field
-		* Special control for version field with easy incrementing
-	* Keep your indentation and formatting even though npm doesn't?
 	* Reusable component / separate project?
 
 

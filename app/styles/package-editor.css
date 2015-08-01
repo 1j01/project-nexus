@@ -20,10 +20,14 @@
 	/* @TODO: align this to the left, but size the width to the text of the input */
 	text-align: right;
 }
+.package-version {
+	flex-direction: row;
+	align-items: center;
+}
+.package-version .publish {
+	margin-right: 5px;
+}
 .package-version .octicon {
-	/*font-size: 8pt;
-	width: 8pt;
-	height: 8pt;*/
 	font-size: 8px;
 	width: 8px;
 	height: 8px;

@@ -197,7 +197,7 @@ pre {
 .process header > * {
 	padding: 0 5px;
 }
-.window-frame button.close-process { /* for elementary styles */
+.window-frame button.close-process { /* for elementary OS */
 	order: -1;
 }
 .process-exited {

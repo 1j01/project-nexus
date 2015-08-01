@@ -78,8 +78,8 @@ update_projects = (projects_dir)->
 						proc
 				
 				try
-					package_json_path = join path, "package.json"
-					project.package_json = fs.readFileSync package_json_path, "utf8"
+					project.package_json_path = join path, "package.json"
+					project.package_json = fs.readFileSync project.package_json_path, "utf8"
 					project.pkg = JSON.parse project.package_json
 				
 				ProjectNexus.projects.push project
