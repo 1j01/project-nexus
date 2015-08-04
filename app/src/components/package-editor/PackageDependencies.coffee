@@ -1,4 +1,42 @@
 
+class @PackageDependencyRow extends React.Component
+	constructor: ->
+		@state = uninstalling: no
+	render: ->
+		{uninstalling} = @state
+		{name, version, field, exec_npm} = @props
+		
+		E "tr",
+			key: name
+			E "td",
+				name
+			E "td",
+				E "input.entry",
+					value: version # @TODO edit
+			E "td",
+				E "button.button.uninstall-package",
+					class: {uninstalling}
+					onClick: (e)=>
+						save_flag = switch field
+							when "dependencies" then "--save"
+							when "devDependencies" then "--save-dev"
+							when "optionalDependencies" then "--save-optional"
+							else ""
+						@setState uninstalling: yes
+						exec_npm "uninstall #{name} #{save_flag}".trim(), (err, stderr, stdout)=>
+							@setState uninstalling: no
+							console.log err, stderr, stdout
+							if err
+								alert "Failed to exec `#{command}`:\n#{err}"
+								console.error "Failed to exec `#{command}`:\n", err
+							else if stderr
+								alert "Failed to uninstall #{name}:\n#{stderr}"
+								console.error "Failed to uninstall #{name}:\n", stderr
+							else
+								update_projects()
+					E "i.octicon.octicon-x"
+
+
 class @PackageDependencies extends React.Component
 	constructor: ->
 		@state =
@@ -10,7 +48,7 @@ class @PackageDependencies extends React.Component
 		{dependencies, field, exec_npm} = @props
 		
 		install_package = (e)=>
-			# @TODO: validate input
+			# @TODO: validate version input?
 			unless package_name_to_install
 				alert "No package to install"
 				return
@@ -44,36 +82,7 @@ class @PackageDependencies extends React.Component
 			E "table",
 				E "tbody",
 					for name, version of dependencies
-						# @TODO: PackageDependency component
-						do (name, version)->
-							E "tr",
-								E "td",
-									name
-								E "td",
-									E "input.entry",
-										value: version # @TODO edit
-								E "td",
-									E "button.button.uninstall-package",
-										# @TODO: class: {installing}
-										onClick: (e)=>
-											save_flag = switch field
-												when "dependencies" then "--save"
-												when "devDependencies" then "--save-dev"
-												when "optionalDependencies" then "--save-optional"
-												else ""
-											# @TODO: @setState uninstalling: yes
-											exec_npm "uninstall #{name} #{save_flag}".trim(), (err, stderr, stdout)=>
-												# @TODO: @setState uninstalling: no
-												console.log err, stderr, stdout
-												if err
-													alert "Failed to exec `#{command}`:\n#{err}"
-													console.error "Failed to exec `#{command}`:\n", err
-												else if stderr
-													alert "Failed to uninstall #{name}:\n#{stderr}"
-													console.error "Failed to uninstall #{name}:\n", stderr
-												else
-													update_projects()
-										E "i.octicon.octicon-x"
+						E PackageDependencyRow, {name, version, field, exec_npm}
 					E "tr",
 						E "td",
 							E "input.entry",
