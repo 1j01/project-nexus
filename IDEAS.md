@@ -54,9 +54,8 @@
 	* Help text for known fields
 	* Edit arbitrary data
 	* Manage dependencies
-		* Install and remove packages
 		* See `npm outdated` information and easily update packages
-		* Edit package versions to downgrade
+		* Edit package version text to reinstall a different version
 	* Reusable component / separate project?
 
 

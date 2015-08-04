@@ -48,6 +48,20 @@
 .package-editor .package-scripts td:nth-child(2) input {
 	width: calc(100% - 8px);
 }
+
+.install-package.installing .octicon {
+	-webkit-animation-name: spinny;
+	-webkit-animation-duration: 1s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+}
+
+@-webkit-keyframes spinny {
+	from { transform: rotate(0turn); }
+	to { transform: rotate(1turn); }
+}
+
+
 .tagged-input-wrapper {
 	display: block;
 	border-width: 1px;

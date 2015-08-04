@@ -1,9 +1,36 @@
 
+{exec} = require "child_process"
+{dirname} = require "path"
+
 class @PackageEditor extends React.Component
 	ucfirst = (str)-> str.charAt(0).toUpperCase() + str.slice(1)
 	isobj = (obj)-> typeof obj is "object" and not (obj instanceof Array)
 	render: ->
 		{package_json, package_json_path, update_package_json} = @props
+		
+		package_path = dirname @props.package_json_path
+		
+		exec_npm = (npm_subcommand, callback)->
+			
+			command = "npm #{npm_subcommand}"
+			
+			# callback ?= (err, stderr, stdout)->
+			# 	if err
+			# 		console.error "Failed to exec `#{command}`:\n", err
+			# 	else if stderr
+			# 		console.error "Error from child process `#{command}`:\n", stderr
+			# 	else
+			# 		alert "Executed `#{command}` successfully"
+			
+			npm = exec command, cwd: package_path
+			stdout = ""
+			stderr = ""
+			npm.stdout.on "data", (data)-> stdout += data
+			npm.stderr.on "data", (data)-> stderr += data
+			npm.on "error", callback
+			npm.on "close", ->
+				callback null, stderr, stdout
+				# @TODO: if command.match /--save/ ...?
 		
 		try
 			pkg = JSON.parse package_json
@@ -25,7 +52,7 @@ class @PackageEditor extends React.Component
 		# @TODO: order "dependencies" fields together near the end
 		
 		E ".package-editor",
-			E PackageIdentification, {name: pkg.name, version: pkg.version, private: pkg.private, package_json_path, update_package}
+			E PackageIdentification, {name: pkg.name, version: pkg.version, private: pkg.private, update_package, exec_npm}
 			for field in fields when not (field in ["name", "version"])
 				field_name = (ucfirst field)
 					.replace /([a-z])([A-Z])/g, (m, letter1, letter2)-> "#{letter1} #{letter2}"
@@ -38,7 +65,7 @@ class @PackageEditor extends React.Component
 					if field_name.match /Dependencies/
 						[
 							E ".field-name", field_name
-							E PackageDependencies, {dependencies: value, field}
+							E PackageDependencies, {dependencies: value, field, exec_npm}
 						]
 					else if field_name is "Scripts"
 						[

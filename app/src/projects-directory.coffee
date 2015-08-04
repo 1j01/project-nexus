@@ -5,7 +5,9 @@ fs = require "fs"
 chokidar = require "chokidar"
 kill_tree = require "tree-kill"
 
-update_projects = (projects_dir)->
+@update_projects = (projects_dir)->
+	projects_dir ?= Settings.get "projects_dir"
+	
 	global.watcher?.close?()
 	global.watcher = null
 	
@@ -26,7 +28,7 @@ update_projects = (projects_dir)->
 		
 		# @TODO: Watch... deeper? Why isn't this recursive? Why aren't any events firing other than "raw"?
 		global.watcher = chokidar.watch projects_dir, ignored: /node_modules|[\/\\]\./
-		global.watcher.on "raw", -> update_projects projects_dir
+		global.watcher.on "raw", update_projects
 		global.watcher.on "error", (err)-> console.error "chokidar error watching projects directory:", err
 		
 		old_projects = ProjectNexus.projects

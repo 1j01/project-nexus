@@ -1,7 +1,5 @@
 
 latest_versions = {}
-{exec} = require "child_process"
-{dirname} = require "path"
 semver = require "semver"
 
 class @PackageVersion extends React.Component
@@ -9,7 +7,7 @@ class @PackageVersion extends React.Component
 		@state = version: null
 	
 	render: ->
-		package_path = dirname @props.package_json_path
+		exec_npm = @props.exec_npm
 		package_name = @props.name
 		is_private = @props.private
 		version = @state.version ? @props.version
@@ -17,18 +15,17 @@ class @PackageVersion extends React.Component
 		unless package_name of latest_versions
 			unless is_private
 				latest_versions[package_name] = "loading..."
-				npm_show_version = exec "npm show #{package_name} version"
-				npm_show_version_stdout = ""
-				npm_show_version_stderr = ""
-				npm_show_version.stdout.on "data", (data)-> npm_show_version_stdout += data
-				npm_show_version.stderr.on "data", (data)-> npm_show_version_stderr += data
-				npm_show_version.on "close", ->
-					if npm_show_version_stderr.match /code E404/
+				
+				exec_npm "show #{package_name} version", (err, stderr, stdout)->
+					if err
+						console.error "Failed to exec `npm show #{package_name} version`:\n", err
+					else if stderr.match /code E404/
 						latest_versions[package_name] = null
-					else if npm_show_version_stderr.match /\S/
-						console.error "Failed to get latest package version for #{package_name}:\n#{npm_show_version_stderr}"
+					else if stderr
+						console.error "Failed to get latest package version for #{package_name}:\n#{stderr}"
 					else
-						latest_versions[package_name] = npm_show_version_stdout.trim()
+						latest_versions[package_name] = stdout.trim()
+					
 					# @setState {}
 					window.render()
 		
@@ -84,15 +81,13 @@ class @PackageVersion extends React.Component
 						onClick: (e)=>
 							if confirm "Publish #{package_name}@#{version}?"
 								latest_versions[package_name] = "publishing"
-								npm_publish = exec "npm publish", cwd: package_path
-								npm_publish_stdout = ""
-								npm_publish_stderr = ""
-								npm_publish.stdout.on "data", (data)-> npm_publish_stdout += data
-								npm_publish.stderr.on "data", (data)-> npm_publish_stderr += data
-								npm_publish.on "close", ->
-									if npm_publish_stderr
+								exec_npm "publish", (err, stderr, stdout)->
+									if err
+										alert "Failed to publish! Error executing `npm publish`:\n#{err.stack}"
+										console.error "Failed to publish #{package_name}@#{version}:\n", err
+									else if stderr
 										alert "Failed to publish! Check npm-debug.log for details"
-										console.error "Failed to publish #{package_name}@#{version}:\n#{npm_publish_stderr}"
+										console.error "Failed to publish #{package_name}@#{version}:\n#{stderr}"
 									else
 										alert "Published #{package_name}@#{version}!"
 						"Publish"

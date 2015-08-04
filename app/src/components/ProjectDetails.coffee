@@ -13,7 +13,7 @@ class @ProjectDetails extends React.Component
 						alert "Failed to write to package.json: #{err.stack ? err}"
 					else
 						# trigger an update because the fs watching in projects-directory.coffee doesn't work
-						Settings.update "projects_dir", (projects_dir)-> projects_dir
+						update_projects()
 			E ".project-details",
 				if package_json?
 					E PackageEditor, {package_json, package_json_path, update_package_json}
