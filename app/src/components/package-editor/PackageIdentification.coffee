@@ -82,7 +82,7 @@ class @PackageVersion extends React.Component
 						onClick: (e)=>
 							if confirm "Publish #{package_name}@#{version}?"
 								latest_versions[package_name] = "publishing"
-								exec_npm "publish", (err, stderr, stdout)->
+								exec_npm "publish", (err, stderr, stdout)=>
 									if err
 										alert "Failed to publish! Error executing `npm publish`:\n#{err.stack}"
 										console.error "Failed to publish #{package_name}@#{version}:\n", err
