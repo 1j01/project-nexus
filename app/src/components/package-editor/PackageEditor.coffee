@@ -14,14 +14,6 @@ class @PackageEditor extends React.Component
 			
 			command = "npm #{npm_subcommand}"
 			
-			# callback ?= (err, stderr, stdout)->
-			# 	if err
-			# 		console.error "Failed to exec `#{command}`:\n", err
-			# 	else if stderr
-			# 		console.error "Error from child process `#{command}`:\n", stderr
-			# 	else
-			# 		alert "Executed `#{command}` successfully"
-			
 			npm = exec command, cwd: package_path
 			stdout = ""
 			stderr = ""
@@ -30,7 +22,6 @@ class @PackageEditor extends React.Component
 			npm.on "error", callback
 			npm.on "close", ->
 				callback null, stderr, stdout
-				# @TODO: if command.match /--save/ ...?
 		
 		try
 			pkg = JSON.parse package_json
@@ -52,6 +43,7 @@ class @PackageEditor extends React.Component
 		# @TODO: order "dependencies" fields together near the end
 		
 		E ".package-editor",
+			key: "package-editor@#{package_json_path}"
 			E PackageIdentification, {name: pkg.name, version: pkg.version, private: pkg.private, update_package, exec_npm}
 			for field in fields when not (field in ["name", "version"])
 				field_name = (ucfirst field)

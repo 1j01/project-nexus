@@ -20,6 +20,21 @@
 	/* @TODO: align this to the left, but size the width to the text of the input */
 	text-align: right;
 }
+.package-version .published {
+	font-size: medium;
+	-webkit-animation: flash-and-hide 1s ease;
+	-webkit-animation-fill-mode: both;
+	-webkit-animation-delay: 1s;
+	flex-basis: auto;
+	flex-grow: 0;
+	overflow: hidden;
+	color: rgb(89, 163, 38);
+	font-style: italic;
+}
+@-webkit-keyframes flash-and-hide {
+	0% { opacity: 1; flex-basis: 85px; }
+	100% { opacity: 0; flex-basis: 0; }
+}
 .package-version {
 	flex-direction: row;
 	align-items: center;

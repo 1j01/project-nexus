@@ -4,10 +4,11 @@ semver = require "semver"
 
 class @PackageVersion extends React.Component
 	constructor: ->
-		@state = version: null
+		@state = version: null, published: no
 	
 	render: ->
-		exec_npm = @props.exec_npm
+		{published} = @state
+		{exec_npm} = @props
 		package_name = @props.name
 		is_private = @props.private
 		version = @state.version ? @props.version
@@ -89,8 +90,16 @@ class @PackageVersion extends React.Component
 										alert "Failed to publish! Check npm-debug.log for details"
 										console.error "Failed to publish #{package_name}@#{version}:\n#{stderr}"
 									else
-										alert "Published #{package_name}@#{version}!"
+										latest_versions[package_name] = version
+										@setState published: version
+										# a hidden setting just for me
+										if Settings?.get? "copy_to_clipboard_on_npm_publish"
+											window._previous_clipboard = _gui.Clipboard.get().get()
+											_gui.Clipboard.get().set "+ #{package_name}@#{version}!"
 						"Publish"
+				else if published
+					E ".published",
+						"Published!"
 	
 	componentDidUpdate: (oldProps, oldState)->
 		{update_package} = @props
@@ -100,6 +109,7 @@ class @PackageVersion extends React.Component
 			setTimeout =>
 				@setState version: null
 			, 400
+			@setState published: no
 
 class @PackageIdentification extends React.Component
 	render: ->
