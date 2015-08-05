@@ -19,7 +19,7 @@ class @PackageVersion extends React.Component
 				exec_npm "show #{package_name} version", (err, stderr, stdout)->
 					if err
 						console.error "Failed to exec `npm show #{package_name} version`:\n", err
-					else if stderr.match /code E404/
+					else if stderr.match /code E404|404 Not Found/
 						latest_versions[package_name] = null
 					else if stderr
 						console.error "Failed to get latest package version for #{package_name}:\n#{stderr}"
