@@ -65,6 +65,7 @@
 }
 
 .install-package.installing .octicon,
+.reinstall-package.reinstalling .octicon,
 .uninstall-package.uninstalling .octicon {
 	-webkit-animation: spinny 1s linear infinite;
 }

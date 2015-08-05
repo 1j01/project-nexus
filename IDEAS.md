@@ -55,7 +55,6 @@
 	* Edit arbitrary data
 	* Manage dependencies
 		* See `npm outdated` information and easily update packages
-		* Edit package version text to reinstall a different version
 	* Reusable component / separate project?
 
 
