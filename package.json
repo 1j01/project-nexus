@@ -1,7 +1,7 @@
 {
   "name": "project-nexus",
   "description": "A hub for all your programming projects",
-  "version": "1.7.6",
+  "version": "1.7.7",
   "repository": {
     "type": "git",
     "url": "http://github.com/1j01/project-nexus.git"
@@ -54,21 +54,21 @@
     "nw-dev": "^1.2.3"
   },
   "dependencies": {
-    "async": "^1.0.0",
-    "chokidar": "^1.0.3",
+    "async": "^1.4.0",
+    "chokidar": "^1.0.5",
     "chrome-location": "^1.2.1",
-    "coffee-script": "^1.9.1",
+    "coffee-script": "^1.9.3",
     "elementary.css": "^1.2.0",
     "get-port": "^1.0.0",
-    "glob": "^5.0.3",
+    "glob": "^5.0.14",
     "is-running": "^1.0.5",
-    "live-server": "^0.7.1",
-    "node-inspector": "^0.11.1",
-    "nw": "^0.12.0-1",
+    "live-server": "^0.8.1",
+    "node-inspector": "^0.12.2",
+    "nw": "^0.12.3",
     "process-tree": "^1.0.0",
     "semver": "^5.0.1",
     "tree-kill": "^0.1.1",
-    "user-home": "^1.1.1"
+    "user-home": "^2.0.0"
   },
   "optionalDependencies": {
     "windows-shortcuts": "^0.1.1"
