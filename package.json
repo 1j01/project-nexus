@@ -1,7 +1,7 @@
 {
   "name": "project-nexus",
   "description": "A hub for all your programming projects",
-  "version": "1.7.7",
+  "version": "1.7.8",
   "repository": {
     "type": "git",
     "url": "http://github.com/1j01/project-nexus.git"
@@ -60,7 +60,6 @@
     "coffee-script": "^1.9.3",
     "elementary.css": "^1.2.0",
     "get-port": "^1.0.0",
-    "glob": "^5.0.14",
     "is-running": "^1.0.5",
     "live-server": "^0.8.1",
     "node-inspector": "^0.12.2",
