@@ -5,8 +5,8 @@ fs = require "fs"
 chokidar = require "chokidar"
 kill_tree = require "tree-kill"
 
-@update_projects = (projects_dir)->
-	projects_dir ?= Settings.get "projects_dir"
+@update_projects = ->
+	projects_dir = Settings.get "projects_dir"
 	
 	global.watcher?.close?()
 	global.watcher = null
@@ -22,6 +22,7 @@ kill_tree = require "tree-kill"
 	
 	fs.readdir projects_dir, (err, fnames)->
 		if err
+			# console.error "fs.readdir(#{JSON.stringify projects_dir})", err
 			ProjectNexus.projects_read_error = err
 			render()
 			return
