@@ -115,19 +115,11 @@ class @PackageIdentification extends React.Component
 	constructor: ->
 		@state = name: null
 	render: ->
-		{version, update_package} = @props
-		name = @state.name ? @props.name
+		{name, version, update_package} = @props
 		edit_name = (e)=>
-			# console.log e.target, e.target?.textContent
-			# @setState name: e.target.textContent #, html: e.target.innerHTML
-			# # setTimeout =>
-			# # 	@setState name: e.target.textContent, html: e.target.innerHTML
-			# # , 5
 			e.target.textContent = e.target.textContent
 			# @TODO: handle editing
 		E "h1.package-identification",
-			# E "input.package-name",
-			# 	value: name
 			E "div.input.package-name",
 				key: Math.random()
 				contentEditable: "true"
@@ -139,17 +131,4 @@ class @PackageIdentification extends React.Component
 				onBlur: edit_name
 				name
 			E "span", "@"
-			E PackageVersion, @props # {name, version, private, update_package}
-	
-	# componentDidMount: -> @sizePackageNameInput()
-	# componentDidUpdate: -> @sizePackageNameInput()
-	# sizePackageNameInput: ->
-	# 	el = React.findDOMNode @
-	# 	input = el.querySelector "input.package-name"
-	# 	input.style.width = "#{input.}px"
-	
-	# componentDidUpdate: ->
-	# 	el = React.findDOMNode @
-	# 	contenteditable_package_name = el.querySelector ".input.package-name"
-	# 	contenteditable_package_name.textContent = @state.name
-	# 	return
+			E PackageVersion, @props
