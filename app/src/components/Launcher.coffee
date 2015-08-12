@@ -101,8 +101,19 @@ class @Launcher extends React.Component
 				@setState menu_open: no if e.keyCode is 27 # Escape
 			
 			@update_menu_position = =>
-				menu.style.top = "#{element.getBoundingClientRect().bottom}px"
-				menu.style.left = "#{element.getBoundingClientRect().left}px"
+				menu.style.display = "block" # so menu_rect.height isn't 0
+				launcher_rect = element.getBoundingClientRect()
+				menu_rect = menu.getBoundingClientRect()
+				scroller_rect = scroller.getBoundingClientRect()
+				menu.style.display = ""
+				# if it would go off the screen on the bottom
+				if launcher_rect.bottom + menu_rect.height > scroller_rect.bottom
+					# attach to the top of the launcher
+					menu.style.top = "#{launcher_rect.top - menu_rect.height}px"
+				else
+					# attach to the bottom of the launcher
+					menu.style.top = "#{launcher_rect.bottom}px"
+				menu.style.left = "#{launcher_rect.left}px"
 			
 			scroller.addEventListener "scroll", @update_menu_position
 			window.addEventListener "resize", @update_menu_position
