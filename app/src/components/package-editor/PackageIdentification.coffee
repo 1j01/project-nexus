@@ -37,7 +37,7 @@ class @PackageVersion extends React.Component
 		E ".package-version",
 			style:
 				position: "relative"
-			E "input.entry",
+			E "input",
 				key: "version-input"
 				value: version
 				onChange: (e)=>
@@ -112,10 +112,44 @@ class @PackageVersion extends React.Component
 			@setState published: no
 
 class @PackageIdentification extends React.Component
+	constructor: ->
+		@state = name: null
 	render: ->
-		{name, version, update_package} = @props
+		{version, update_package} = @props
+		name = @state.name ? @props.name
+		edit_name = (e)=>
+			# console.log e.target, e.target?.textContent
+			# @setState name: e.target.textContent #, html: e.target.innerHTML
+			# # setTimeout =>
+			# # 	@setState name: e.target.textContent, html: e.target.innerHTML
+			# # , 5
+			e.target.textContent = e.target.textContent
+			# @TODO: handle editing
 		E "h1.package-identification",
-			E "input.entry.package-name",
-				value: name # @TODO: edit
+			# E "input.package-name",
+			# 	value: name
+			E "div.input.package-name",
+				key: Math.random()
+				contentEditable: "true"
+				style: display: "inline-block"
+				onKeyDown: edit_name
+				onPaste: edit_name
+				onCut: edit_name
+				onInput: edit_name
+				onBlur: edit_name
+				name
 			E "span", "@"
 			E PackageVersion, @props # {name, version, private, update_package}
+	
+	# componentDidMount: -> @sizePackageNameInput()
+	# componentDidUpdate: -> @sizePackageNameInput()
+	# sizePackageNameInput: ->
+	# 	el = React.findDOMNode @
+	# 	input = el.querySelector "input.package-name"
+	# 	input.style.width = "#{input.}px"
+	
+	# componentDidUpdate: ->
+	# 	el = React.findDOMNode @
+	# 	contenteditable_package_name = el.querySelector ".input.package-name"
+	# 	contenteditable_package_name.textContent = @state.name
+	# 	return
