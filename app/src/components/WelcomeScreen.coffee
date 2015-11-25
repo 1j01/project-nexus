@@ -42,7 +42,7 @@ class @WelcomeScreen extends React.Component
 					E "img", src: "img/github.png", width: 48, height: 48
 					E "",
 						style: flexDirection: "column"
-						E "h3.h3", "Github for #{if Mac then "Mac" else "Windows"}"
+						E "h3.h3", "GitHub Desktop"
 						E "GtkLabel", default_github_dir
 			for dir_name in possible_dir_names when dir_name in HOME_folder
 				do (dir_name)->

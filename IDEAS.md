@@ -11,7 +11,7 @@
 		* Ask if you want to set `EDITOR`
 			* (`setx` on Windows?)
 	* Source control
-		* Github for Windows/Mac
+		* GitHub Desktop
 		* Various Git GUI clients
 		* Command prompt / terminal
 		* Integrate a git gui?
