@@ -49,7 +49,8 @@ class @Launcher extends React.Component
 					title: title
 					E "i", class: [icon, ("mega-octicon" if icon?.match /octicon-/)]
 				if has_menu
-					E "ul.launcher-context-menu.menu.window-frame.csd",
+					E "ul.launcher-context-menu.context-menu.menu.window-frame.csd",
+						style: display: "block"
 						class: "open" if @state.menu_open
 						for item, i in menu then do (item, i)=>
 							hovered = @state.hovered_menu_item_i is i

@@ -206,8 +206,7 @@ pre {
 }
 
 .launcher-context-menu {
-	border-radius: 0 !important;
-	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+	font-family: inherit !important;
 }
 li.menuitem.menuitem.menuitem {
 	background-color: transparent; /* override .menuitem:active style */

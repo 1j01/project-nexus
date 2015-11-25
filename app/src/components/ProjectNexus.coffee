@@ -14,9 +14,17 @@ class @ProjectNexus extends React.Component
 		E Window,
 			E Header,
 				E "h1.title", "Project Nexus"
-				E TitleButton,
-					action: Settings.toggle
-					E "i.mega-octicon.octicon-gear"
+				E "button.button.titlebutton",
+					style:
+						margin: 0
+						padding: 0
+						alignSelf: "center"
+					onClick: Settings.toggle
+					E "img",
+						src: "img/gear.svg"
+						style:
+							verticalAlign: "middle"
+							pointerEvents: "none"
 			if projects_read_error or projects?.length is 0
 				dir_not_found = projects_read_error?.code is "ENOENT"
 				E "GtkInfoBar",
