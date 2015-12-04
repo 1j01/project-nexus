@@ -16,7 +16,6 @@ class @ProjectListItem extends React.Component
 			return yes
 		
 		E "li.project.view",
-			key: id
 			tabIndex: -1
 			title: path
 			class: [
@@ -29,14 +28,19 @@ class @ProjectListItem extends React.Component
 			onMouseLeave: (e)=> @setState hover: no
 			
 			E ".launcher",
+				key: "folder"
 				E "button.button.icobutton",
 					onClick: => (require "nw.gui").Shell.openItem path
 					E "i.mega-octicon.octicon-file-directory"
 			
-			E "span.project-name", name
+			E "span.project-name", key: "name", name
 			
-			for launcher_module in launchers
-				E Launcher, launcher_module project
+			for launcher_module, i in launchers
+				props = launcher_module project
+				props ?= {}
+				props.key = i
+				E Launcher, props
+					
 	
 	componentDidMount: ->
 		window.addEventListener "mouseup", @mouseup_listener = =>

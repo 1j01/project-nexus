@@ -1,5 +1,5 @@
 
-.package-editor h1 > span {
+.package-editor h1 .at {
 	opacity: 0.15;
 	text-shadow: none;
 }

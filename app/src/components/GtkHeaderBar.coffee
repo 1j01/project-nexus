@@ -9,12 +9,14 @@ class @GtkHeaderBar extends React.Component
 	render: ->
 		E ".titlebar",
 			E TitleButton,
+				key: "close"
 				action: -> window.close()
 				icon: "close"
 			
 			@props.children ? E ".title", document.title
 			
 			E TitleButton,
+				key: "maximize"
 				if @state.maximized
 					action: -> win.restore()
 					icon: "restore"

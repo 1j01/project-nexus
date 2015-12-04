@@ -55,6 +55,7 @@ class @Launcher extends React.Component
 						for item, i in menu then do (item, i)=>
 							hovered = @state.hovered_menu_item_i is i
 							E "li.menuitem",
+								key: i
 								class:
 									hover: hovered
 									active: hovered and @state.pressed_and_held

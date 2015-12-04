@@ -37,7 +37,7 @@ button.button.icobutton:not(:hover) {
 	box-shadow: none;
 }
 
-/* @FIXME? */
+/* @FIXME */
 * {
 	outline: none;
 }
@@ -52,6 +52,7 @@ button.button.icobutton:not(:hover) {
 .runaway-processes h2 {
 	font-size: 1.5em;
 	text-align: center;
+	justify-content: center;
 	padding: 8px;
 }
 

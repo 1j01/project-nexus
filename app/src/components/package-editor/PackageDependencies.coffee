@@ -66,7 +66,6 @@ class @PackageDependencyRow extends React.Component
 					update_projects()
 		
 		E "tr",
-			key: name
 			E "td",
 				name
 			E "td",
@@ -148,7 +147,7 @@ class @PackageDependencies extends React.Component
 			E "table",
 				E "tbody",
 					for name, version of dependencies
-						E PackageDependencyRow, {name, version, field, exec_npm}
+						E PackageDependencyRow, {key: name, name, version, field, exec_npm}
 					E "tr",
 						key: "install new package"
 						E "td",

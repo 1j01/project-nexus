@@ -5,7 +5,7 @@ class @ProjectsList extends React.Component
 		E ".projects.sidebar",
 			E "ul.projects-list",
 				for project in projects
-					E ProjectListItem, {project}
+					E ProjectListItem, {key: project.id, project}
 	
 	select: (project)->
 		if project

@@ -3,7 +3,7 @@
 	display: block;
 	overflow: auto;
 }
-.package-editor h1 > span {
+.package-editor h1 .at {
 	flex: 0 0 auto;
 	vertical-align: baseline;
 	display: inline-block;
@@ -23,6 +23,7 @@
 }
 .package-editor h1 .input {
 	flex: auto 0 0;
+	box-sizing: border-box;
 }
 .package-version .published {
 	font-size: medium;

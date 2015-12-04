@@ -49,6 +49,9 @@ GraniteWidgetsWelcome {
 GraniteWidgetsWelcome * {
 	font-family: "Open Sans", sans-serif !important;
 }
+GraniteWidgetsWelcome .buttons {
+	flex: 0 0 auto;
+}
 GraniteWidgetsWelcome button {
 	width: 350px;
 	margin-top: 10px;

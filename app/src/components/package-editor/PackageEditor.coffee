@@ -43,8 +43,7 @@ class @PackageEditor extends React.Component
 		# @TODO: order "dependencies" fields together near the end
 		
 		E ".package-editor",
-			key: "package-editor@#{package_json_path}"
-			E PackageIdentification, {name: pkg.name, version: pkg.version, private: pkg.private, update_package, exec_npm}
+			E PackageIdentification, {key: "name", name: pkg.name, version: pkg.version, private: pkg.private, update_package, exec_npm}
 			for field in fields when not (field in ["name", "version"])
 				field_name = (ucfirst field)
 					.replace /([a-z])([A-Z])/g, (m, letter1, letter2)-> "#{letter1} #{letter2}"
@@ -55,15 +54,13 @@ class @PackageEditor extends React.Component
 				E ".field",
 					key: "field-#{field_name}"
 					if field_name.match /Dependencies/
-						[
+						E "",
 							E ".field-name", field_name
 							E PackageDependencies, {dependencies: value, field, exec_npm}
-						]
 					else if field_name is "Scripts"
-						[
+						E "",
 							E ".field-name", field_name
 							E PackageScripts, {scripts: value, update_package}
-						]
 					else if field_name is "Keywords"
 						E "label",
 							E ".field-name", field_name
@@ -85,8 +82,9 @@ class @PackageEditor extends React.Component
 								E "textarea.entry",
 									rows: value_json.split("\n").length
 									value: value_json # @TODO: edit
+									readOnly: yes
 							else
-								E "input.entry", {value} # @TODO: edit
+								E "input.entry", {value, readOnly: yes} # @TODO: edit
 			
 			# @TODO: add, remove and reorder fields
 			# or don't allow reordering fields, and just find a good order

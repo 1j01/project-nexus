@@ -7,25 +7,27 @@ class @PackageScripts extends React.Component
 				E "tbody",
 					for name, command_line of scripts
 						E "tr",
+							key: name
 							E "td",
 								E "input.entry",
-									value: name # @TODO edit
+									value: name, readOnly: yes # @TODO edit
 									# @TODO autocomplete with npm search
 							E "td",
 								E "input.entry",
-									value: command_line # @TODO edit
+									value: command_line, readOnly: yes # @TODO edit
 							E "td",
 								E "button.button",
 									onClick: (e)=>
 										alert "@TODO update package.json"
 									E "i.octicon.octicon-x"
 					E "tr",
+						key: "(new)"
 						E "td",
 							E "input.entry",
-								value: "" # @TODO edit
+								value: "", readOnly: yes # @TODO edit
 						E "td",
 							E "input.entry",
-								value: "" # @TODO edit
+								value: "", readOnly: yes # @TODO edit
 						E "td",
 							E "button.button",
 								onClick: (e)=>

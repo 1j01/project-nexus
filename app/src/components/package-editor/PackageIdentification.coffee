@@ -111,24 +111,27 @@ class @PackageVersion extends React.Component
 			, 400
 			@setState published: no
 
-class @PackageIdentification extends React.Component
-	constructor: ->
-		@state = name: null
+class @PackageName extends React.Component
 	render: ->
-		{name, version, update_package} = @props
-		edit_name = (e)=>
-			e.target.textContent = e.target.textContent
-			# @TODO: handle editing
+		{name, update_package} = @props
+		E "input.input.package-name",
+			value: name, readOnly: yes # @TODO: edit
+	
+	resize: ->
+		input = React.findDOMNode(@)
+		tester = document.createElement "span"
+		tester.className = input.className
+		tester.innerText = input.value
+		input.parentElement.insertBefore tester, input
+		input.style.width = "#{tester.clientWidth}px"
+		input.parentElement.removeChild tester
+	
+	componentDidUpdate: -> @resize()
+	componentDidMount: -> @resize()
+
+class @PackageIdentification extends React.Component
+	render: ->
 		E "h1.package-identification",
-			E "div.input.package-name",
-				key: Math.random()
-				contentEditable: "true"
-				style: display: "inline-block"
-				onKeyDown: edit_name
-				onPaste: edit_name
-				onCut: edit_name
-				onInput: edit_name
-				onBlur: edit_name
-				name
-			E "span", "@"
+			E PackageName, @props
+			E "span.at", "@"
 			E PackageVersion, @props

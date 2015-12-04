@@ -52,13 +52,13 @@ class @ProjectNexus extends React.Component
 				E "main",
 					if projects?.length > 0
 						[
-							E ProjectsList, projects: projects
-							E ProjectDetails, project: selected_project
+							E ProjectsList, key: "projects", projects: projects
+							E ProjectDetails, key: "project", project: selected_project
 						]
 					else
-						E WelcomeScreen
+						E WelcomeScreen, key: "welcome"
 					
 					if runaway_processes?.length
-						E RunawayProcesses, {runaway_processes}
+						E RunawayProcesses, {key: "runaways", runaway_processes}
 				
 				E Settings

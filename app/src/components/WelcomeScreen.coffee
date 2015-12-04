@@ -22,38 +22,42 @@ class @WelcomeScreen extends React.Component
 		E "GraniteWidgetsWelcome.welcome-screen",
 			E "h1.h1", "Select Your Projects Directory"
 			E "GtkLabel", "Where do you keep your project folders?"
-			E "button.button",
-				onClick: ->
-					chooser = document.createElement "input"
-					chooser.setAttribute "type", "file"
-					chooser.setAttribute "nwdirectory", "nwdirectory"
-					chooser.addEventListener "change", (e)=>
-						Settings.set "projects_dir", e.target.value
-						window.render()
-					chooser.click()
-				E "img", src: (if Windows then "img/explorer.png" else "img/files.png"), width: 48, height: 48
-				E "",
-					style: flexDirection: "column"
-					E "h3.h3", if Windows then "Browse" else "Find"
-					E "GtkLabel", "Choose your projects folder."
-			if fs.existsSync default_github_dir
+			E ".buttons",
 				E "button.button",
-					onClick: -> Settings.set "projects_dir", default_github_dir
-					E "img", src: "img/github.png", width: 48, height: 48
+					key: "choose"
+					onClick: ->
+						chooser = document.createElement "input"
+						chooser.setAttribute "type", "file"
+						chooser.setAttribute "nwdirectory", "nwdirectory"
+						chooser.addEventListener "change", (e)=>
+							Settings.set "projects_dir", e.target.value
+							window.render()
+						chooser.click()
+					E "img", src: (if Windows then "img/explorer.png" else "img/files.png"), width: 48, height: 48
 					E "",
 						style: flexDirection: "column"
-						E "h3.h3", "GitHub Desktop"
-						E "GtkLabel", default_github_dir
-			for dir_name in possible_dir_names when dir_name in HOME_folder
-				do (dir_name)->
-					possible_project_dir = join HOME, dir_name
+						E "h3.h3", if Windows then "Browse" else "Find"
+						E "GtkLabel", "Choose your projects folder."
+				if fs.existsSync default_github_dir
 					E "button.button",
-						onClick: -> Settings.set "projects_dir", possible_project_dir
-						E "img", src: (if Windows then "img/windows-folder.png" else "img/files.png"), width: 48, height: 48
+						key: "github"
+						onClick: -> Settings.set "projects_dir", default_github_dir
+						E "img", src: "img/github.png", width: 48, height: 48
 						E "",
 							style: flexDirection: "column"
-							E "h3.h3", "This folder here"
-							E "GtkLabel", possible_project_dir
+							E "h3.h3", "GitHub Desktop"
+							E "GtkLabel", default_github_dir
+				for dir_name in possible_dir_names when dir_name in HOME_folder
+					do (dir_name)->
+						possible_project_dir = join HOME, dir_name
+						E "button.button",
+							key: dir_name
+							onClick: -> Settings.set "projects_dir", possible_project_dir
+							E "img", src: (if Windows then "img/windows-folder.png" else "img/files.png"), width: 48, height: 48
+							E "",
+								style: flexDirection: "column"
+								E "h3.h3", "This folder here"
+								E "GtkLabel", possible_project_dir
 	
 	componentDidMount: ->
 		el = React.findDOMNode @
