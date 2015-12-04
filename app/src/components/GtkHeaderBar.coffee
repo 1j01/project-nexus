@@ -16,11 +16,12 @@ class @GtkHeaderBar extends React.Component
 			@props.children ? E ".title", document.title
 			
 			E TitleButton,
-				key: "maximize"
 				if @state.maximized
+					key: "maximization"
 					action: -> win.restore()
 					icon: "restore"
 				else
+					key: "maximization"
 					action: -> win.maximize()
 					icon: "fullscreen"
 	
