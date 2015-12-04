@@ -1,5 +1,12 @@
 
 class @ProjectNexus extends React.Component
+	
+	@select: (project_id)->
+		window.render ProjectNexus.selected_project_id = project_id
+		localStorage.selected_project_id = project_id
+		setTimeout ->
+			document.querySelector(".selected.project")?.scrollIntoViewIfNeeded()
+	
 	render: ->
 		{projects, projects_read_error, selected_project_id, runaway_processes} = ProjectNexus
 		

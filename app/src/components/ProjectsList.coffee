@@ -7,18 +7,14 @@ class @ProjectsList extends React.Component
 				for project in projects
 					E ProjectListItem, {key: project.id, project}
 	
-	select: (project)->
-		if project
-			window.render ProjectNexus.selected_project_id = project.id
-			document.querySelector(".selected.project").scrollIntoViewIfNeeded()
-	
 	componentDidMount: ->
 		go = (delta)=>
 			for project, i in ProjectNexus.projects
 				if project.id is ProjectNexus.selected_project_id
 					spi = i
 			
-			@select ProjectNexus.projects[spi + delta]
+			project = ProjectNexus.projects[spi + delta]
+			ProjectNexus.select project.id if project?
 		
 		document.body.addEventListener "keydown", @keydown_listener = (e)->
 			switch e.keyCode

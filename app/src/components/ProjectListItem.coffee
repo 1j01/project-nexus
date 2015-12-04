@@ -6,6 +6,7 @@ class @ProjectListItem extends React.Component
 		{project} = @props
 		{hover, active} = @state
 		{id, path, dirname, name, pkg} = project
+		selected = ProjectNexus.selected_project_id is id
 		
 		is_relevant = (event)->
 			el = event.target
@@ -18,11 +19,8 @@ class @ProjectListItem extends React.Component
 		E "li.project.view",
 			tabIndex: -1
 			title: path
-			class: [
-				"selected" if ProjectNexus.selected_project_id is id
-				{hover, active}
-			]
-			onClick: => window.render ProjectNexus.selected_project_id = id
+			class: {hover, active, selected}
+			onClick: => ProjectNexus.select id
 			onMouseDown: (e)=> @setState active: yes if is_relevant e
 			onMouseEnter: (e)=> @setState hover: yes
 			onMouseLeave: (e)=> @setState hover: no

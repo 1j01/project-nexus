@@ -76,8 +76,8 @@ kill_tree = require "tree-kill"
 								rproc for rproc in running_processes when rproc.pid isnt proc.pid
 							window.render()
 						
-						ProjectNexus.selected_project_id = project.id
-						window.render()
+						ProjectNexus.select project.id
+						
 						proc
 				
 				try

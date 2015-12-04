@@ -10,3 +10,6 @@ require "coffee-script/register"
 do @render = ->
 	React.render (React.createElement ProjectNexus), document.body
 	document.body.classList.remove "not-loaded"
+
+setTimeout ->
+	ProjectNexus.select localStorage.selected_project_id
