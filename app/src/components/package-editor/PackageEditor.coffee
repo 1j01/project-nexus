@@ -2,6 +2,64 @@
 {exec} = require "child_process"
 {dirname} = require "path"
 
+class @PackageFieldJSONInput extends React.Component
+	# @TODO: use one of 'em visual JSON editors
+	constructor: ->
+		@state = text: null, error: null
+	render: ->
+		{field, value, update_package} = @props
+		{text, error} = @state
+		text ?= JSON.stringify(value, null, 2)
+		E "textarea.entry",
+			rows: text.split("\n").length
+			value: text
+			class: {error}
+			onChange: (e)=>
+				error = null
+				try new_value = JSON.parse e.target.value catch error
+				@setState {error, text: e.target.value}
+				if new_value?
+					# @TODO: get rid of all these setTimeouts and make update_package show the update immediately
+					setTimeout =>
+						@setState text: null, error: null
+					, 400
+					update_package (pkg)=>
+						pkg[field] = new_value
+
+class @PackageFieldInput extends React.Component
+	constructor: ->
+		@state = text: null
+	render: ->
+		{field, value, update_package} = @props
+		text = @state.text ? value
+		E "input.entry",
+			value: text
+			onChange: (e)=>
+				@setState text: e.target.value
+				# @TODO: get rid of all these setTimeouts and make update_package show the update immediately
+				setTimeout =>
+					@setState text: null
+				, 400
+				update_package (pkg)=>
+					pkg[field] = e.target.value
+
+class @PackageFieldCheckbox extends React.Component
+	constructor: ->
+		@state = checked: null
+	render: ->
+		{field, value, update_package} = @props
+		checked = @state.text ? value
+		E "input",
+			type: "checkbox"
+			checked: checked
+			onChange: (e)=>
+				@setState checked: e.target.checked
+				setTimeout =>
+					@setState checked: null
+				, 400
+				update_package (pkg)=>
+					pkg[field] = e.target.checked
+
 class @PackageEditor extends React.Component
 	ucfirst = (str)-> str.charAt(0).toUpperCase() + str.slice(1)
 	isobj = (obj)-> typeof obj is "object" and not (obj instanceof Array)
@@ -78,13 +136,11 @@ class @PackageEditor extends React.Component
 						E "label",
 							E ".field-name", field_name
 							if isobj value
-								value_json = JSON.stringify(value, null, 2)
-								E "textarea.entry",
-									rows: value_json.split("\n").length
-									value: value_json # @TODO: edit
-									readOnly: yes
+								E PackageFieldJSONInput, {field, value, update_package}
+							else if value in [true, false]
+								E PackageFieldCheckbox, {field, value, update_package}
 							else
-								E "input.entry", {value, readOnly: yes} # @TODO: edit
+								E PackageFieldInput, {field, value, update_package}
 			
 			# @TODO: add, remove and reorder fields
 			# or don't allow reordering fields, and just find a good order

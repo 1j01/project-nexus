@@ -115,7 +115,10 @@ class @PackageName extends React.Component
 	render: ->
 		{name, update_package} = @props
 		E "input.input.package-name",
-			value: name, readOnly: yes # @TODO: edit
+			value: name
+			onChange: (e)=>
+				update_package (pkg)=>
+					pkg.name = e.value
 	
 	resize: ->
 		input = React.findDOMNode(@)
@@ -127,7 +130,7 @@ class @PackageName extends React.Component
 		input.parentElement.removeChild tester
 	
 	componentDidUpdate: -> @resize()
-	componentDidMount: -> @resize()
+	componentDidMount: -> setTimeout => @resize()
 
 class @PackageIdentification extends React.Component
 	render: ->

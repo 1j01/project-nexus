@@ -137,7 +137,8 @@ button.no-primary-action > i,
 	-webkit-user-select: none;
 	cursor: default;
 }
-input,
+input:not([type]),
+input[type="text"],
 textarea,
 [contenteditable],
 [contenteditable] *,
