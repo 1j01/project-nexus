@@ -135,3 +135,20 @@
 .tagged-input-wrapper .tag .tag-text {
 	display: inline-block;
 }
+
+.jsoneditor {
+	display: block;
+	border: 0 !important;
+}
+.jsoneditor div[contenteditable] {
+	display: block;
+}
+.jsoneditor .menu {
+	display: none;
+}
+.jsoneditor .tree {
+	overflow: visible !important;
+}
+.jsoneditor-contextmenu li {
+	padding: 0;
+}

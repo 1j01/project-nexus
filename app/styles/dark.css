@@ -37,8 +37,13 @@ pre {
 
 td,
 th {
-	background: rgba(30, 31, 32, 0.13);
-	border: 1px solid rgba(0, 0, 0, 0.2);
+	/*background: rgba(30, 31, 32, 0.13);*/
+	/*border: 1px solid rgba(0, 0, 0, 0.2);*/
+}
+
+.jsoneditor {
+	/* @TODO: legit styling */
+	-webkit-filter: invert();
 }
 
 .package-editor {

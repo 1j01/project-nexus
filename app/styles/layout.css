@@ -45,6 +45,8 @@ table { display: table; }
 tr { display: table-row; }
 td, th { display: table-cell; }
 tbody, thead { display: table-row-group; }
+colgroup { display: table-column-group; }
+col { display: table-column; }
 
 .runaway-processes table,
 .runaway-processes td > button,

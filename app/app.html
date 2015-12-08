@@ -14,6 +14,7 @@
 		<link rel="stylesheet" href="styles/settings.css">
 		<link rel="stylesheet" href="styles/dark.css" class="dark">
 		<link rel="stylesheet" href="styles/light.css" class="light">
+		<link rel="stylesheet" href="../node_modules/jsoneditor/dist/jsoneditor.css">
 		<link rel="stylesheet" href="../node_modules/elementary.css/lib/elementary.css" class="light">
 		<link rel="stylesheet" href="../node_modules/elementary.css/lib/elementary-dark.css" class="dark">
 		<link rel="stylesheet" href="../node_modules/elementary.css/icons/icons.css">
@@ -22,9 +23,11 @@
 		<script src="lib/term.js"></script>
 		<script src="lib/react.js"></script>
 		<script src="lib/TaggedInput.js"></script>
-		<script src="lib/coffee-script.js"></script>
+		<!-- @TODO: use version of jsoneditor.js without ace -->
+		<script src="../node_modules/jsoneditor/dist/jsoneditor.js"></script>
 		<script src="../node_modules/react-script/lib/react-script.js"></script>
 		<script src="../node_modules/nw-dev/lib/dev.js"></script>
+		<script src="lib/coffee-script.js"></script>
 		<script type="text/coffeescript">
 			# DSL shortcut
 			@E = ReactScript
@@ -45,6 +48,7 @@
 		<script type="text/coffeescript" src="src/components/ProjectDetails.coffee"></script>
 		<script type="text/coffeescript" src="src/components/Process.coffee"></script>
 		<script type="text/coffeescript" src="src/components/Terminal.coffee"></script>
+		<script type="text/coffeescript" src="src/components/package-editor/EditorOfJSON.coffee"></script>
 		<script type="text/coffeescript" src="src/components/package-editor/PackageEditor.coffee"></script>
 		<script type="text/coffeescript" src="src/components/package-editor/PackageIdentification.coffee"></script>
 		<script type="text/coffeescript" src="src/components/package-editor/PackageDependencies.coffee"></script>

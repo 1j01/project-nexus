@@ -3,28 +3,12 @@
 {dirname} = require "path"
 
 class @PackageFieldJSONInput extends React.Component
-	# @TODO: use one of 'em visual JSON editors
-	constructor: ->
-		@state = text: null, error: null
 	render: ->
 		{field, value, update_package} = @props
-		{text, error} = @state
-		text ?= JSON.stringify(value, null, 2)
-		E "textarea.entry",
-			rows: text.split("\n").length
-			value: text
-			class: {error}
-			onChange: (e)=>
-				error = null
-				try new_value = JSON.parse e.target.value catch error
-				@setState {error, text: e.target.value}
-				if new_value?
-					# @TODO: get rid of all these setTimeouts and make update_package show the update immediately
-					setTimeout =>
-						@setState text: null, error: null
-					, 400
-					update_package (pkg)=>
-						pkg[field] = new_value
+		update = (new_value)->
+			update_package (pkg)->
+				pkg[field] = new_value
+		E EditorOfJSON, {value, update, name: field}
 
 class @PackageFieldInput extends React.Component
 	constructor: ->
@@ -111,14 +95,14 @@ class @PackageEditor extends React.Component
 				value = pkg[field]
 				E ".field",
 					key: "field-#{field_name}"
-					if field_name.match /Dependencies/
+					if field_name.match(/Dependencies/) and not field_name.match(/Bundle/)
 						E "",
 							E ".field-name", field_name
 							E PackageDependencies, {dependencies: value, field, exec_npm}
-					else if field_name is "Scripts"
-						E "",
-							E ".field-name", field_name
-							E PackageScripts, {scripts: value, update_package}
+					# else if field_name is "Scripts"
+					# 	E "",
+					# 		E ".field-name", field_name
+					# 		E PackageScripts, {scripts: value, update_package}
 					else if field_name is "Keywords"
 						E "label",
 							E ".field-name", field_name
@@ -132,12 +116,14 @@ class @PackageEditor extends React.Component
 									e.target.parentElement.classList.add "focus"
 								onBlur: (e)=>
 									e.target.parentElement.classList.remove "focus"
+					else if isobj value
+						E "",
+							E ".field-name", field_name
+							E PackageFieldJSONInput, {field, value, update_package}
 					else
 						E "label",
 							E ".field-name", field_name
-							if isobj value
-								E PackageFieldJSONInput, {field, value, update_package}
-							else if value in [true, false]
+							if typeof value is "boolean"
 								E PackageFieldCheckbox, {field, value, update_package}
 							else
 								E PackageFieldInput, {field, value, update_package}
