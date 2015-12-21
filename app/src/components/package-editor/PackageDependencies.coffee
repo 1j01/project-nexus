@@ -38,9 +38,11 @@ install_package = ({name, version, exact, field, exec_npm}, callback)=>
 			alert "Version #{version} of package not found"
 			console.error "Failed to install #{package_to_install} (version not found):\n", stderr
 		else if stderr.match /ERR!/
+			# @FIXME This does not mean it failed to install!
 			alert "Failed to install #{package_to_install}:\n#{stderr}"
 			console.error "Failed to install #{package_to_install}:\n", stderr
 		
+		# @FIXME stderr does not mean it failed to install!
 		callback not (err or stderr)
 
 

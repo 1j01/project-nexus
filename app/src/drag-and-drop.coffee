@@ -4,7 +4,7 @@ fs = require "fs"
 prevent = (e)->
 	e.preventDefault()
 	e.stopPropagation()
-	# @TODO: allow drag and drop in inputs/textareas
+	# @TODO/@FIXME: allow drag and drop in inputs/textareas
 
 window.addEventListener "dragenter", prevent
 window.addEventListener "dragover", prevent

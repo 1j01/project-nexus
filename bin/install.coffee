@@ -51,6 +51,6 @@ else
 		Terminal=false
 		NoDisplay=false
 	"""
-	applications_folder = "/usr/share/applications"
+	applications_folder = "#{process.env.HOME}/.local/share/applications"
 	desktop_file = join applications_folder, "io.github.1j01.project-nexus.desktop"
 	fs.writeFileSync desktop_file, desktop_entry, "utf8"
