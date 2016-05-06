@@ -41,10 +41,32 @@ th {
 	/*border: 1px solid rgba(0, 0, 0, 0.2);*/
 }
 
-.jsoneditor {
-	/* @TODO: legit styling */
-	-webkit-filter: invert();
+.package-editor .jsoneditor .field,
+.package-editor .jsoneditor .value,
+.package-editor .jsoneditor td,
+.package-editor .jsoneditor th,
+.package-editor .jsoneditor textarea {
+	color: rgb(131, 142, 138);
 }
+.package-editor .jsoneditor .highlight {
+	background: rgba(255, 255, 255, 0.1);
+}
+.package-editor .jsoneditor .value[style*="color: green;"] {
+	color: lime !important;
+}
+.package-editor .jsoneditor .value[style*="color: red;"] {
+	color: rgb(75, 193, 255) !important;
+}
+.package-editor .jsoneditor .field[contenteditable=true]:focus,
+.package-editor .jsoneditor .field[contenteditable=true]:hover,
+.package-editor .jsoneditor .value[contenteditable=true]:focus,
+.package-editor .jsoneditor .value[contenteditable=true]:hover,
+.package-editor .jsoneditor .field.highlight,
+.package-editor .jsoneditor .value.highlight {
+	background: rgba(255, 255, 255, 0.1);
+	border-color: rgba(255, 255, 255, 0.2);
+}
+
 
 .package-editor {
 	background: #2D3235;

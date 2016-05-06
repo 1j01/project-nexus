@@ -44,7 +44,6 @@ class @Launcher extends React.Component
 						if has_menu and @state.pressed
 							clearTimeout @state.holding_tid
 							@setState pressed_and_held: yes, menu_open: yes
-							# @TODO: open the menu when you move the mouse below the launcher, not just outside of it
 					
 					title: title
 					E "i", class: [icon, ("mega-octicon" if icon?.match /octicon-/)]
@@ -83,11 +82,11 @@ class @Launcher extends React.Component
 		element = React.findDOMNode @
 		menu = element.querySelector ".launcher-context-menu"
 		if menu
-			scroller = element
-			scroller = scroller.parentElement until scroller.classList.contains "projects"
+			scroller = element.closest ".projects"
 			
 			@close_menu = (e)=>
-				if menu.contains e.target
+				# NOTE: e.target can be the Window for blur events
+				if e.target instanceof Node and menu.contains e.target
 					e.preventDefault()
 				else
 					@setState menu_open: no
@@ -103,6 +102,7 @@ class @Launcher extends React.Component
 				@setState menu_open: no if e.keyCode is 27 # Escape
 			
 			@update_menu_position = =>
+				return unless menu.classList.contains "open"
 				menu.style.display = "block" # so menu_rect.height isn't 0
 				launcher_rect = element.getBoundingClientRect()
 				menu_rect = menu.getBoundingClientRect()
@@ -128,8 +128,7 @@ class @Launcher extends React.Component
 		element = React.findDOMNode @
 		menu = element.querySelector ".launcher-context-menu"
 		if menu
-			scroller = element
-			scroller = scroller.parentElement until scroller.classList.contains "projects"
+			scroller = element.closest ".projects"
 		
 		window.removeEventListener "mousedown", @close_menu
 		window.removeEventListener "blur", @close_menu
@@ -149,3 +148,4 @@ class @Launcher extends React.Component
 			menu = element.querySelector ".launcher-context-menu"
 			if @state.pressed_and_held
 				menu.children[@state.hovered_menu_item_i].focus()
+		@update_menu_position?()

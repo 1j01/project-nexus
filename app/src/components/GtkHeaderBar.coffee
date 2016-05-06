@@ -1,6 +1,5 @@
 
-gui = require "nw.gui"
-win = gui.Window.get()
+win = nw.Window.get()
 
 class @GtkHeaderBar extends React.Component
 	constructor: ->

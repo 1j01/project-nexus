@@ -3,7 +3,6 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Project Nexus</title>
-		<link rel="icon" href="images/icon.png">
 		<link rel="stylesheet" href="lib/octicons/octicons.css">
 		<link rel="stylesheet" href="lib/fontello/css/nex.css">
 		<link rel="stylesheet" href="lib/open-sans/open-sans.css">
@@ -31,9 +30,6 @@
 		<script type="text/coffeescript">
 			# DSL shortcut
 			@E = ReactScript
-			# quick console access
-			@_gui = require "nw.gui"
-			@_win = gui.Window.get()
 		</script>
 		<script type="text/coffeescript" src="src/components/ProjectNexus.coffee"></script>
 		<script type="text/coffeescript" src="src/components/GtkWindow.coffee"></script>
@@ -59,6 +55,9 @@
 		<script type="text/coffeescript" src="src/drag-and-drop.coffee"></script>
 		<script type="text/coffeescript" src="src/context-menus.coffee"></script>
 		<script type="text/coffeescript" src="src/running-processes.coffee"></script>
-		<script src="lib/winstate.js"></script>
+		<script type="text/coffeescript">
+			win = nw.Window.get()
+			win.show()
+		</script>
 	</body>
 </html>
