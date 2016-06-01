@@ -42,6 +42,16 @@ button.button.icobutton:not(:hover) {
 	outline: none;
 }
 
+/* links */
+a {
+	cursor: pointer;
+	text-decoration: none;
+	color: #08C;
+}
+a:hover {
+	text-decoration: underline;
+}
+
 /* runaway processes */
 .runaway-processes {
 	display: block;

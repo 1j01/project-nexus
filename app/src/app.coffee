@@ -13,3 +13,10 @@ do @render = ->
 
 setTimeout ->
 	ProjectNexus.select localStorage.selected_project_id
+
+
+nw.Window.get().on "new-win-policy", (frame, url, policy)->
+	# do not open the window
+	policy.ignore()
+	# open url in external browser
+	nw.Shell.openExternal(url)

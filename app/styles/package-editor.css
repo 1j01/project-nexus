@@ -21,23 +21,23 @@
 	font-size: inherit;
 	font-weight: normal;
 }
+.package-editor h1 input {
+	width: 0;
+}
 .package-editor h1 .input {
 	flex: auto 0 0;
 	box-sizing: border-box;
 }
-.package-version .published {
+.package-version .published,
+.package-version .checking-if-published {
 	font-size: medium;
-	-webkit-animation: flash-and-hide 1s ease;
-	-webkit-animation-fill-mode: both;
-	-webkit-animation-delay: 1s;
 	flex-basis: auto;
 	flex-grow: 0;
 	overflow: hidden;
-	color: rgb(89, 163, 38);
-}
-@-webkit-keyframes flash-and-hide {
-	0% { opacity: 1; flex-basis: 85px; }
-	100% { opacity: 0; flex-basis: 0; }
+	/*color: #dc656a;*/
+	/*color: #6EA2C9;*/
+	/*text-decoration: none;*/
+	margin: 5px;
 }
 .package-version {
 	flex-direction: row;

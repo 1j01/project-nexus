@@ -4,6 +4,10 @@ main {
 	color: #f0f0f0;
 }
 
+a {
+	color: #3d9bda;
+}
+
 header {
 	color: white;
 	background: linear-gradient(to bottom, #3a4044, #2f3437);

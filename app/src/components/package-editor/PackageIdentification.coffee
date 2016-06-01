@@ -4,18 +4,19 @@ semver = require "semver"
 
 class @PackageVersion extends React.Component
 	constructor: ->
-		@state = version: null, published: no
+		@state = version: null
 	
 	render: ->
-		{published} = @state
 		{exec_npm} = @props
 		package_name = @props.name
 		is_private = @props.private
 		version = @state.version ? @props.version
 		
+		CHECKING_NPM = "checking npm..."
+		
 		unless package_name of latest_versions
 			unless is_private
-				latest_versions[package_name] = "loading..."
+				latest_versions[package_name] = CHECKING_NPM
 				
 				exec_npm "show #{package_name} version", (err, stderr, stdout)->
 					if err
@@ -31,8 +32,9 @@ class @PackageVersion extends React.Component
 					window.render()
 		
 		latest_publishsed_version = latest_versions[package_name]
-		been_publishsed = semver.valid latest_publishsed_version
+		has_been_publishsed = semver.valid latest_publishsed_version
 		not_yet_been_publishsed = latest_publishsed_version is null
+		this_version_is_published = has_been_publishsed and latest_publishsed_version is version
 		
 		E ".package-version",
 			style:
@@ -74,9 +76,9 @@ class @PackageVersion extends React.Component
 								@setState version: "#{major}.#{minor}.#{patch}#{after}"
 							E "i.octicon.octicon-plus"
 			
-			# console.log {package_name, is_private, not_yet_been_publishsed, been_publishsed, version, latest_publishsed_version}
+			# console.log {package_name, is_private, not_yet_been_publishsed, has_been_publishsed, version, latest_publishsed_version}
 			unless is_private
-				if not_yet_been_publishsed or (been_publishsed and semver.gt(version, latest_publishsed_version))
+				if semver.valid(version) and (not_yet_been_publishsed or (has_been_publishsed and semver.gt(version, latest_publishsed_version)))
 					E "button.button.publish",
 						key: "publish"
 						onClick: (e)=>
@@ -91,25 +93,20 @@ class @PackageVersion extends React.Component
 										console.error "Failed to publish #{package_name}@#{version}:\n#{stderr}"
 									else
 										latest_versions[package_name] = version
-										@setState published: version
+										# @setState published: version
 										# a hidden setting just for me
 										if Settings?.get? "copy_to_clipboard_on_npm_publish"
 											window._previous_clipboard = _gui.Clipboard.get().get()
 											_gui.Clipboard.get().set "+ #{package_name}@#{version}!"
 						"Publish"
-				else if published
-					E ".published",
-						"Published!"
-	
-	componentDidUpdate: (oldProps, oldState)->
-		{update_package} = @props
-		if @state.version and @state.version isnt oldState.version
-			update_package (pkg)=>
-				pkg.version = @state.version
-			setTimeout =>
-				@setState version: null
-			, 400
-			@setState published: no
+				else if this_version_is_published
+					E "a.published",
+						href: "https://www.npmjs.com/package/#{package_name}"
+						target: "_blank"
+						"published"
+				else if latest_publishsed_version is CHECKING_NPM
+					E "span.checking-if-published",
+						CHECKING_NPM
 
 class @PackageName extends React.Component
 	render: ->
@@ -118,7 +115,7 @@ class @PackageName extends React.Component
 			value: name
 			onChange: (e)=>
 				update_package (pkg)=>
-					pkg.name = e.value
+					pkg.name = e.target.value
 	
 	resize: ->
 		input = React.findDOMNode(@)
