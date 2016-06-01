@@ -28,7 +28,16 @@ class @RunawayProcesses extends React.Component
 				E "tbody",
 					for rproc in runaway_processes then do (rproc)->
 						E "tr.runaway-process", key: rproc.pid,
-							E "td", rproc.project_name ? if rproc.background then E "i", "(Background)"
+							E "td",
+								if rproc.project_name?
+									E "GtkLinkButton.button.project-link",
+										onClick: =>
+											ProjectNexus.select(rproc.project_id)
+										E "GtkLabel", rproc.project_name
+								else if rproc.background
+									E "i", "(Background)"
+								else
+									E "i", "(Unknown)"
 							E "td", rproc.info
 							E "td", rproc.pid
 							E "td", E "button.button.destructive-action",
