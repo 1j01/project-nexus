@@ -5,6 +5,7 @@ semver = require "semver"
 class @PackageVersion extends React.Component
 	constructor: ->
 		@state = version: null
+		# FIXME: edited version state persists between packages
 	
 	render: ->
 		{exec_npm} = @props
@@ -28,13 +29,12 @@ class @PackageVersion extends React.Component
 					else
 						latest_versions[package_name] = stdout.trim()
 					
-					# @setState {}
 					window.render()
 		
-		latest_publishsed_version = latest_versions[package_name]
-		has_been_publishsed = semver.valid latest_publishsed_version
-		not_yet_been_publishsed = latest_publishsed_version is null
-		this_version_is_published = has_been_publishsed and latest_publishsed_version is version
+		latest_published_version = latest_versions[package_name]
+		has_been_published = semver.valid latest_published_version
+		not_yet_been_published = latest_published_version is null
+		this_version_is_published = has_been_published and latest_published_version is version
 		
 		E ".package-version",
 			style:
@@ -43,6 +43,7 @@ class @PackageVersion extends React.Component
 				key: "version-input"
 				value: version
 				onChange: (e)=>
+					# FIXME: doesn't update the actual package
 					@setState version: e.target.value
 			if "#{version}".match /^\d+\.\d+\.\d+\b/
 				[_, major, minor, patch, after] = version.match /^(\d+)\.(\d+)\.(\d+)\b(.*)/
@@ -73,12 +74,12 @@ class @PackageVersion extends React.Component
 									else
 										segment
 								[major, minor, patch] = segments
+								# FIXME: doesn't update the actual package
 								@setState version: "#{major}.#{minor}.#{patch}#{after}"
 							E "i.octicon.octicon-plus"
 			
-			# console.log {package_name, is_private, not_yet_been_publishsed, has_been_publishsed, version, latest_publishsed_version}
 			unless is_private
-				if semver.valid(version) and (not_yet_been_publishsed or (has_been_publishsed and semver.gt(version, latest_publishsed_version)))
+				if semver.valid(version) and (not_yet_been_published or (has_been_published and semver.gt(version, latest_published_version)))
 					E "button.button.publish",
 						key: "publish"
 						onClick: (e)=>
@@ -93,18 +94,18 @@ class @PackageVersion extends React.Component
 										console.error "Failed to publish #{package_name}@#{version}:\n#{stderr}"
 									else
 										latest_versions[package_name] = version
-										# @setState published: version
+										window.render()
 										# a hidden setting just for me
 										if Settings?.get? "copy_to_clipboard_on_npm_publish"
-											window._previous_clipboard = _gui.Clipboard.get().get()
-											_gui.Clipboard.get().set "+ #{package_name}@#{version}!"
+											window._previous_clipboard = nw.Clipboard.get().get()
+											nw.Clipboard.get().set "+ #{package_name}@#{version}"
 						"Publish"
 				else if this_version_is_published
 					E "a.published",
 						href: "https://www.npmjs.com/package/#{package_name}"
 						target: "_blank"
 						"published"
-				else if latest_publishsed_version is CHECKING_NPM
+				else if latest_published_version is CHECKING_NPM
 					E "span.checking-if-published",
 						CHECKING_NPM
 
