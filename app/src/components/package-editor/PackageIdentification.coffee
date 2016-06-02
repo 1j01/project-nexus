@@ -3,15 +3,10 @@ latest_versions = {}
 semver = require "semver"
 
 class @PackageVersion extends React.Component
-	constructor: ->
-		@state = version: null
-		# FIXME: edited version state persists between packages
-	
 	render: ->
-		{exec_npm} = @props
+		{version, exec_npm, update_package} = @props
 		package_name = @props.name
 		is_private = @props.private
-		version = @state.version ? @props.version
 		
 		CHECKING_NPM = "checking npm..."
 		
@@ -43,8 +38,10 @@ class @PackageVersion extends React.Component
 				key: "version-input"
 				value: version
 				onChange: (e)=>
-					# FIXME: doesn't update the actual package
-					@setState version: e.target.value
+						# FIXME: cursor moves to end of input
+						# because rerender doesn't occur immediately
+					update_package (pkg)=>
+						pkg.version = e.target.value
 			if "#{version}".match /^\d+\.\d+\.\d+\b/
 				[_, major, minor, patch, after] = version.match /^(\d+)\.(\d+)\.(\d+)\b(.*)/
 				segment_strings = [major, minor, patch]
@@ -74,8 +71,10 @@ class @PackageVersion extends React.Component
 									else
 										segment
 								[major, minor, patch] = segments
-								# FIXME: doesn't update the actual package
-								@setState version: "#{major}.#{minor}.#{patch}#{after}"
+								
+								update_package (pkg)=>
+									pkg.version = "#{major}.#{minor}.#{patch}#{after}"
+								
 							E "i.octicon.octicon-plus"
 			
 			unless is_private
@@ -115,6 +114,8 @@ class @PackageName extends React.Component
 		E "input.input.package-name",
 			value: name
 			onChange: (e)=>
+				# FIXME: cursor moves to end of input
+				# because rerender doesn't occur immediately
 				update_package (pkg)=>
 					pkg.name = e.target.value
 	
